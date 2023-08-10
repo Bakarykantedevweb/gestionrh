@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class AgentShow extends Component
 {
     public $agents,$departements,$postes;
-    public $prenom,$nom,$username,$email,$telephone,$departement_id,$poste_id;
+    public $prenom,$nom,$username,$email, $sexe,$telephone,$departement_id,$poste_id;
 
     protected function rules()
     {
@@ -23,6 +23,7 @@ class AgentShow extends Component
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
+            'sexe' => 'required|string',
         ];
     }
 
@@ -39,10 +40,15 @@ class AgentShow extends Component
             $agent->prenom = $validatedData['prenom'];
             $agent->nom = $validatedData['nom'];
             $agent->email = $validatedData['email'];
+            $agent->username = $validatedData['username'];
             $agent->telephone = $validatedData['telephone'];
             $agent->departement_id = $validatedData['departement_id'];
             $agent->poste_id = $validatedData['poste_id'];
+            $agent->sexe = $validatedData['sexe'];
             $agent->password = Hash::make('password');
+            $agent->save();
+            $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
+            $agent->matricule = $matricule;
             $agent->save();
             session()->flash('message', 'Employe ajouter avec Success');
             $this->resetInput();
@@ -69,6 +75,7 @@ class AgentShow extends Component
         $this->telephone = '';
         $this->departement_id = '';
         $this->poste_id = '';
+        $this->sexe = '';
     }
     public function render()
     {

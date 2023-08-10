@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rubriques', function (Blueprint $table) {
+        Schema::create('convention_categories', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('convention_id')->constrained('conventions')->onDelete('cascade');
+            $table->string('libelle');
+            $table->string('montant');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rubriques');
+        Schema::dropIfExists('convention_categories');
     }
 };

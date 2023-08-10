@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feuille_calcules', function (Blueprint $table) {
+        Schema::create('conventions', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->string('libelle');
             $table->timestamps();
         });
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feuille_calcules');
+        Schema::dropIfExists('conventions');
     }
 };

@@ -83,7 +83,7 @@
                 </div>
             </div>
         @empty
-            <h4>Pas d'employees</h4>
+            <h4 class="text-center">Pas d'employees</h4>
         @endforelse
         {{-- <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
             <div class="profile-widget">

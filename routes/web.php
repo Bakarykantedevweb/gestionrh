@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\ConventionCagetorieController;
+use App\Http\Controllers\Admin\ConventionController;
 use App\Http\Controllers\Admin\DroitController;
 use App\Http\Controllers\Admin\PosteController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -78,6 +80,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profiles', 'index')->name('profile');
+    });
+
+    Route::controller(ConventionController::class)->group(function () {
+        Route::get('conventions', 'index')->name('convention.index');
+    });
+
+    Route::controller(ConventionCagetorieController::class)->group(function () {
+        Route::get('conventions-categories', 'index')->name('conventionCategorie.index');
     });
 
 });

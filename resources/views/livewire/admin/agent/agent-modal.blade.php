@@ -70,7 +70,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Poste <span class="text-danger">*</span></label>
                                     <select class="form-control" wire:model="poste_id">
@@ -82,6 +82,16 @@
                                     @error('poste')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sexe <span class="text-danger">*</span></label>
+                                    <select wire:model="sexe" class="form-control">
+                                        <option value="">...</option>
+                                        <option value="M">Masculin</option>
+                                        <option value="F">Feminin</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
