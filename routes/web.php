@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\ConventionCagetorieController;
 use App\Http\Controllers\Admin\ConventionController;
 use App\Http\Controllers\Admin\DroitController;
@@ -88,6 +89,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(ConventionCagetorieController::class)->group(function () {
         Route::get('conventions-categories', 'index')->name('conventionCategorie.index');
+    });
+
+    Route::controller(CentreImpotController::class)->group(function () {
+        Route::get('centres-impots', 'index')->name('centreImpot.index');
     });
 
 });
