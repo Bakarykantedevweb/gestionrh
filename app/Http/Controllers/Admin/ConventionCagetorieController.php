@@ -10,7 +10,7 @@ class ConventionCagetorieController extends Controller
 {
     public function index()
     {
-        $autorisation = $this->autorisation(Auth::user()->role, 'convention.index');
+        $autorisation = $this->autorisation(Auth::user()->role, 'conventionCategorie.index');
         if ($autorisation == 'false') {
             return redirect()->route('dashboard');
         }
