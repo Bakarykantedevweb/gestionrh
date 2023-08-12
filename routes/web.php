@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
+use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -108,6 +109,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(RubriqueController::class)->group(function () {
         Route::get('rubriques', 'index')->name('rubrique.index');
+    });
+
+    Route::controller(PeriodeController::class)->group(function () {
+        Route::get('periodes', 'index')->name('periode.index');
     });
 
 });
