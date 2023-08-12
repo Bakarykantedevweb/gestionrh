@@ -11,7 +11,7 @@
             </div>
             <div class="col-auto float-right ml-auto">
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_convention"><i
-                        class="fa fa-plus"></i> Nouveau Convention</a>
+                        class="fa fa-plus"></i> Nouvelle Convention</a>
             </div>
         </div>
     </div>

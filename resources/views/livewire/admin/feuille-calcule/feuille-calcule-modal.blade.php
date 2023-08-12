@@ -1,17 +1,24 @@
 <!-- Add Department Modal -->
-<div wire:ignore.self id="add_convention" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="add_feuille_calcule" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nouvelle Convention</h5>
+                <h5 class="modal-title">Nouvelle Feuille de Calcule</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="saveConvention">
+                <form wire:submit.prevent="saveFeuilledeCalcule">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
+                        <label>Feuille de Calcule Code <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="code" type="text">
+                        @error('code')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Feuille de Calcule libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
@@ -28,19 +35,26 @@
 <!-- /Add Department Modal -->
 
 <!-- Edit Department Modal -->
-<div wire:ignore.self id="edit_convention" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="edit_feuille_calcule" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modifier Convention</h5>
+                <h5 class="modal-title">Modifier Feuille de Calcule</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="updateConvention">
+                <form wire:submit.prevent="updateFeuilledeCalcule">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
+                        <label>Feuille de Calcule Code <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="code" type="text">
+                        @error('code')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Feuille de Calcule libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
@@ -57,17 +71,17 @@
 <!-- /Edit Department Modal -->
 
 <!-- Delete Department Modal -->
-<div wire:ignore.self id="delete_convention" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="delete_feuille_calcule" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Supprimer Convention</h5>
+                <h5 class="modal-title">Supprimer Feuille de Calcule</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="destroyConvention">
+                <form wire:submit.prevent="destroyFeuilledeCalcule">
                     <div class="form-header">
                         <p>Voulez-vous vraiment supprimer?</p>
                     </div>

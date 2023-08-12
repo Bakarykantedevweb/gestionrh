@@ -1,40 +1,40 @@
 <!-- Add Department Modal -->
-<div wire:ignore.self id="add_convention_categorie" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="add_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Convention Categorie</h5>
+                <h5 class="modal-title">Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="saveConventionCategorie">
+                <form wire:submit.prevent="saveRubrique">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
-                        <select wire:model="convention_id" class="form-control">
+                        <label>Nature libelle <span class="text-danger">*</span></label>
+                        <select wire:model="nature_id" class="form-control">
                             <option value="">---</option>
-                            @forelse ($conventions as $items)
+                            @forelse ($natures as $items)
                                 <option value="{{ $items->id }}">{{ $items->libelle }}</option>
                             @empty
-                                <option value="">Pas de Convention</option>
+                                <option value="">Pas de Nature Ruprique</option>
                             @endforelse
-                            @error('convention_id')
+                            @error('nature_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="libelle" type="text">
-                        @error('libelle')
+                        <label>Code <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="code" type="text">
+                        @error('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Montant <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="montant" type="text">
-                        @error('montant')
+                        <label>Libelle <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="libelle" type="text">
+                        @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -49,42 +49,42 @@
 <!-- /Add Department Modal -->
 
 <!-- Edit Department Modal -->
-<div wire:ignore.self id="edit_convention_categorie" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="edit_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modifier Convention Categorie</h5>
+                <h5 class="modal-title">Modifier Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="updateConventionCategorie">
+                <form wire:submit.prevent="updateRubrique">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
-                        <select wire:model="convention_id" class="form-control">
+                        <label>Nature libelle <span class="text-danger">*</span></label>
+                        <select wire:model="nature_id" class="form-control">
                             <option value="">---</option>
-                            @forelse ($conventions as $items)
+                            @forelse ($natures as $items)
                                 <option value="{{ $items->id }}">{{ $items->libelle }}</option>
                             @empty
-                                <option value="">Pas de Convention</option>
+                                <option value="">Pas de Nature Ruprique</option>
                             @endforelse
-                            @error('convention_id')
+                            @error('nature_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="libelle" type="text">
-                        @error('libelle')
+                        <label>Code <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="code" type="text">
+                        @error('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Montant <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="montant" type="text">
-                        @error('montant')
+                        <label>Libelle <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="libelle" type="text">
+                        @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -99,17 +99,17 @@
 <!-- /Edit Department Modal -->
 
 <!-- Delete Department Modal -->
-<div wire:ignore.self id="delete_convention_categorie" class="modal custom-modal fade" role="dialog">
+<div wire:ignore.self id="delete_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Supprimer Convention Categorie</h5>
+                <h5 class="modal-title">Supprimer Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="destroyConventionCategorie">
+                <form wire:submit.prevent="destroyRubrique">
                     <div class="form-header">
                         <p>Voulez-vous vraiment supprimer?</p>
                     </div>

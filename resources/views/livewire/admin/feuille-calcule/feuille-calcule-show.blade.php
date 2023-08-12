@@ -1,17 +1,17 @@
 <div>
-    @include('livewire.admin.convention-categorie.convention-categorie-modal')
+    @include('livewire.admin.feuille-calcule.feuille-calcule-modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Convention Categorie</h3>
+                <h3 class="page-title">Feuille de Calcule</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Tableau de Bord</a></li>
-                    <li class="breadcrumb-item active">Convention Categorie</li>
+                    <li class="breadcrumb-item active">Feuille de Calcule</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_convention_categorie"><i
-                        class="fa fa-plus"></i> Convention Categorie</a>
+                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_feuille_calcule"><i
+                        class="fa fa-plus"></i> Nouvelle Feuille de Calcule</a>
             </div>
         </div>
     </div>
@@ -25,29 +25,27 @@
                     <thead>
                         <tr>
                             <th style="width: 30px;">#</th>
-                            <th>Convention</th>
-                            <th>Libelle</th>
-                            <th>Montant</th>
+                            <th>Feuille de Calcule Code</th>
+                            <th>Feuille de Calcule Nom</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($conventionCategories as $items)
+                        @forelse ($FeuilledeCalcules as $items)
                             <tr>
                                 <td>{{ $items->id }}</td>
-                                <td>{{ $items->convention->libelle }}</td>
+                                <td>{{ $items->code }}</td>
                                 <td>{{ $items->libelle }}</td>
-                                <td>{{ $items->montant }}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="edit_convention_categorie({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#edit_convention_categorie"><i class="fa fa-pencil m-r-5"></i>
+                                            <a wire:click="editFeuilledeCalcule({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#edit_feuille_calcule"><i class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
-                                            <a wire:click="delete_convention_categorie({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#delete_convention_categorie"><i class="fa fa-trash-o m-r-5"></i>
+                                            <a wire:click="deleteFeuilledeCalcule({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#delete_feuille_calcule"><i class="fa fa-trash-o m-r-5"></i>
                                                 Delete</a>
                                         </div>
                                     </div>
@@ -55,7 +53,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Pas de Conventions Categories</td>
+                                <td colspan="4" class="text-center">Pas de Feuille de Calcules</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -65,3 +63,4 @@
     </div>
 
 </div>
+

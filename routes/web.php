@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TypePretController;
 use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\FeuilleCalculeController;
+use App\Http\Controllers\Admin\NatureRubriqueController;
+use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\UserManagementController;
 
@@ -93,6 +96,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(CentreImpotController::class)->group(function () {
         Route::get('centres-impots', 'index')->name('centreImpot.index');
+    });
+
+    Route::controller(FeuilleCalculeController::class)->group(function () {
+        Route::get('feuille-calcules', 'index')->name('feuille-calcule.index');
+    });
+
+    Route::controller(NatureRubriqueController::class)->group(function () {
+        Route::get('natures-rubriques', 'index')->name('nature-rubrique.index');
+    });
+
+    Route::controller(RubriqueController::class)->group(function () {
+        Route::get('rubriques', 'index')->name('rubrique.index');
     });
 
 });

@@ -1,17 +1,17 @@
-<!-- Add Department Modal -->
-<div wire:ignore.self id="add_convention" class="modal custom-modal fade" role="dialog">
+<!-- Add Poste Modal -->
+<div wire:ignore.self id="add_nature_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nouvelle Convention</h5>
+                <h5 class="modal-title">Nature Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="saveConvention">
+                <form wire:submit.prevent="saveNatureRubrique">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
+                        <label>Libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
@@ -25,22 +25,22 @@
         </div>
     </div>
 </div>
-<!-- /Add Department Modal -->
+<!-- /Add Poste Modal -->
 
-<!-- Edit Department Modal -->
-<div wire:ignore.self id="edit_convention" class="modal custom-modal fade" role="dialog">
+<!-- Edit Poste Modal -->
+<div wire:ignore.self id="edit_nature_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modifier Convention</h5>
+                <h5 class="modal-title">Modifier Nature Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="updateConvention">
+                <form wire:submit.prevent="updateNatureRubrique">
                     <div class="form-group">
-                        <label>Convention libelle <span class="text-danger">*</span></label>
+                        <label>Libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
                         @error('libelle')
                             <span class="text-danger">{{ $message }}</span>
@@ -54,20 +54,20 @@
         </div>
     </div>
 </div>
-<!-- /Edit Department Modal -->
+<!-- /Edit Poste Modal -->
 
-<!-- Delete Department Modal -->
-<div wire:ignore.self id="delete_convention" class="modal custom-modal fade" role="dialog">
+<!-- Delete Poste Modal -->
+<div wire:ignore.self id="delete_nature_rubrique" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Supprimer Convention</h5>
+                <h5 class="modal-title">Supprimer Nature Rubrique</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="destroyConvention">
+                <form wire:submit.prevent="destroyNatureRubrique">
                     <div class="form-header">
                         <p>Voulez-vous vraiment supprimer?</p>
                     </div>
@@ -79,4 +79,4 @@
         </div>
     </div>
 </div>
-<!-- /Delete Department Modal -->
+<!-- /Delete Poste Modal -->
