@@ -12,7 +12,7 @@
                 <form wire:submit.prevent="savePeriode">
                     <div class="form-group">
                         <label>Mois<span class="text-danger">*</span></label>
-                        <select wire:model="mois" class="form-control">
+                        {{-- <select wire:model="mois" class="form-control">
                             <option value="">...</option>
                             <option value="janvier">Janvier</option>
                             <option value="fevrier">Février</option>
@@ -26,22 +26,9 @@
                             <option value="octobre">Octobre</option>
                             <option value="novembre">Novembre</option>
                             <option value="decembre">Décembre</option>
-                        </select>
+                        </select> --}}
+                        <input type="month" class="form-control" wire:model="mois">
                         @error('mois')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Année<span class="text-danger">*</span></label>
-                        <select class="form-control" wire:model="annee">
-                            <option value="">...</option>
-                            <?php
-                            for ($i = date('Y'); $i < 2099; $i++) {
-                                echo '<option value="' . $i . '">' . $i . '</option>';
-                            }
-                            ?>
-                        </select>
-                        @error('annee')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -69,36 +56,8 @@
                 <form wire:submit.prevent="updatePeriode">
                     <div class="form-group">
                         <label>Mois<span class="text-danger">*</span></label>
-                        <select wire:model="mois" class="form-control">
-                            <option value="">...</option>
-                            <option value="janvier">Janvier</option>
-                            <option value="fevrier">Février</option>
-                            <option value="mars">Mars</option>
-                            <option value="avril">Avril</option>
-                            <option value="mai">Mai</option>
-                            <option value="juin">Juin</option>
-                            <option value="juillet">Juillet</option>
-                            <option value="aout">Août</option>
-                            <option value="septembre">Septembre</option>
-                            <option value="octobre">Octobre</option>
-                            <option value="novembre">Novembre</option>
-                            <option value="decembre">Décembre</option>
-                        </select>
+                        <input type="month" class="form-control" wire:model="mois">
                         @error('mois')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Année<span class="text-danger">*</span></label>
-                        <select class="form-control" wire:model="annee">
-                            <option value="">...</option>
-                            <?php
-                            for ($i = date('Y'); $i < 2099; $i++) {
-                                echo '<option value="' . $i . '">' . $i . '</option>';
-                            }
-                            ?>
-                        </select>
-                        @error('annee')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

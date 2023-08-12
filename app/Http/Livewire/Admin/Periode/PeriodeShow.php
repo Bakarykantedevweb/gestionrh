@@ -7,13 +7,12 @@ use Livewire\Component;
 
 class PeriodeShow extends Component
 {
-    public $Periodes,$mois,$annee,$periode_id;
+    public $Periodes,$mois,$periode_id;
 
     protected function rules()
     {
         return [
             'mois' => 'required|string',
-            'annee' => 'required|integer',
         ];
     }
 
@@ -29,7 +28,6 @@ class PeriodeShow extends Component
             $Periode = new Periode();
 
             $Periode->mois = $validatedData['mois'];
-            $Periode->annee = $validatedData['annee'];
             $Periode->save();
             session()->flash('message', 'Periode ajouter avec Success');
             $this->resetInput();
@@ -48,7 +46,6 @@ class PeriodeShow extends Component
         if ($Periode) {
             $this->periode_id = $periode_id;
             $this->mois = $Periode->mois;
-            $this->annee = $Periode->annee;
         }
     }
 
@@ -58,7 +55,6 @@ class PeriodeShow extends Component
         try {
             $Periode = Periode::find($this->periode_id);
             $Periode->mois = $validatedData['mois'];
-            $Periode->annee = $validatedData['annee'];
             $Periode->save();
             session()->flash('message', 'Periode Modifié avec Success');
             $this->resetInput();
@@ -100,7 +96,6 @@ class PeriodeShow extends Component
     public function resetInput()
     {
         $this->mois = '';
-        $this->annee = '';
     }
 
     public function render()

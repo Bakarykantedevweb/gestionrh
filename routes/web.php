@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\BulletinController;
+use App\Http\Controllers\Admin\BulletinRubriqueController;
 use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\ConventionCagetorieController;
 use App\Http\Controllers\Admin\ConventionController;
@@ -113,6 +115,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(PeriodeController::class)->group(function () {
         Route::get('periodes', 'index')->name('periode.index');
+    });
+
+    Route::controller(BulletinController::class)->group(function () {
+        Route::get('bulletins', 'index')->name('bulletin.index');
+    });
+
+    Route::controller(BulletinRubriqueController::class)->group(function () {
+        Route::get('bulletins-rubriques', 'index')->name('bulletin-rubrique.index');
     });
 
 });
