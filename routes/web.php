@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Auth\LoginAgentController;
+use App\Http\Controllers\Auth\AgentAuthController;
+use App\Http\Controllers\Agent\DashboardAgentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +36,20 @@ use App\Http\Controllers\Admin\UserManagementController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
+// Route Authentifcation Agents
+Route::middleware(['guest'])->group(function () {
+    // Routes accessibles uniquement pour les utilisateurs invités (non authentifiés)
+    Route::get('/', [LoginAgentController::class, 'index']);
+    Route::post('/', [LoginAgentController::class, 'login'])->name('agent-login');
 });
 
+Route::middleware(['auth:webagent'])->group(function () {
+    // Routes sécurisées pour les agents
+    Route::controller(DashboardAgentController::class)->group(function () {
+        Route::get('agent-dashboard', 'index')->name('agent-dashboard');
+        Route::get('agent-logout', 'logout')->name('agent-logout');
+    });
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -126,3 +139,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     });
 
 });
+

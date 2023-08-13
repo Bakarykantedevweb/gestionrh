@@ -6,10 +6,13 @@ use App\Models\Poste;
 use App\Models\Departement;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Agent extends Model
+class Agent extends Authenticatable
 {
     use HasFactory;
+
+    protected $guarded = [];
 
     public function departement()
     {

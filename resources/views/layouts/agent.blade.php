@@ -62,11 +62,11 @@
         </div>
         <!-- /Loader -->
         <!-- Header -->
-        @include('layouts.inc.admin.header')
+        @include('layouts.inc.agent.header')
         <!-- /Header -->
 
         <!-- Sidebar -->
-        @include('layouts.inc.admin.sidebar')
+        @include('layouts.inc.agent.sidebar')
         <!-- /Sidebar -->
 
         <!-- Page Wrapper -->
