@@ -76,9 +76,18 @@
                                     class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" href="#" data-toggle="modal"
                                 data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                            @if ($items->blocked == 1)
+                                <a class="dropdown-item" wire:click="activer({{ $items->id }})" href="#" data-toggle="modal"
+                                data-target="#delete_employee"><i class="fa fa-unlock m-r-5"></i> Activer</a>
+                            @endif
                         </div>
                     </div>
-                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile.html">{{ $items->prenom.' '.$items->nom }}</a></h4>
+                    <h4 class="user-name m-t-10 mb-0 text-ellipsis">
+                        <a href="">{{ $items->prenom.' '.$items->nom }}</a>
+                    </h4>
+                    @if ($items->blocked == 1)
+                        <div class="small text-danger">Le compte est Desactivé <i class="fa fa-lock"></i></div>
+                    @endif
                     <div class="small text-muted">{{ $items->poste->nom }}</div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Agent;
 use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,14 +22,32 @@ class LoginAgentController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'departement_id' => 'required|integer'
         ]);
 
         $credentials = $request->only('email', 'password', 'departement_id');
-        if (Auth::guard('webagent')->attempt($credentials)) {
+
+        // Récupérez l'agent en fonction de l'adresse e-mail
+        $agent = Agent::where('email', $request->email)->first();
+        //dd($agent->email);
+        if ($agent->blocked == 1) {
+            return back()->with(['error' => 'Votre compte est desactivé veuillez contacter La GRH.']);
+        }
+        if ($agent && Auth::guard('webagent')->attempt($credentials)) {
+            $agent->resetLoginAttempts();
             return redirect()->route('agent-dashboard');
         } else {
-            return back()->with(['error' => 'Authentication failed']);
+            if ($agent) {
+                if ($agent->login_attempts == 2) {
+                    return back()->with(['error' => 'Une Erreur encore votre compte sera desctivé.']);
+                }
+                $agent->incrementLoginAttempts();
+                // Vérifie si l'agent doit être bloqué après un certain nombre de tentatives
+                if ($agent->login_attempts >= 3) {
+                    $agent->blockAccount();
+                    return back()->with(['error' => 'Votre compte a été bloqué en raison de trop de tentatives de connexion échouées.']);
+                }
+            }
+            return back()->with(['error' => 'L\'authentification a échoué']);
         }
     }
 }

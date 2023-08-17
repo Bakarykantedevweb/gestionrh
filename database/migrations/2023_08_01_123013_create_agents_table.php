@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('sexe')->nullable();
             $table->foreignId('departement_id')->constrained('departements')->onDelete('cascade');
             $table->foreignId('poste_id')->constrained('postes')->onDelete('cascade');
+            $table->string('login_attempts');
+            $table->string('last_login_attempt');
+            $table->integer('blocked');
             $table->timestamps();
         });
         DB::table('agents')->insert([

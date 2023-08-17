@@ -77,6 +77,17 @@ class AgentShow extends Component
         $this->poste_id = '';
         $this->sexe = '';
     }
+
+    public function activer(int $agent_id)
+    {
+        $agent = Agent::findOrFail($agent_id); // Retrouver l'agent par ID
+
+        $agent->unblockAccount();
+        $agent->resetLoginAttempts();
+
+        return redirect()->route('agent.index')
+        ->with('message', 'Le compte de l\'agent a été activé.');
+    }
     public function render()
     {
         $this->agents = Agent::get();
