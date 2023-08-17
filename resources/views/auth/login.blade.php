@@ -46,7 +46,7 @@
                             <button class="btn btn-primary account-btn" type="submit">Se Connecter</button>
                         </div>
                         <div class="account-footer">
-                            <p>Developpé par Bakary Kante <a href="{{ url('/agent-login') }}">Tout droit reservé</a></p>
+                            <p>Developpé par Bakary Kante <a href="{{ url('/') }}">Tout droit reservé</a></p>
                         </div>
                     </form>
                     <!-- /Account Form -->

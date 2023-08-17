@@ -20,9 +20,25 @@
                     <form method="POST" action="{{ route('agent-login') }}">
                         @csrf
                         <div class="form-group">
+                            <label>Departement</label>
+                            <select name="departement_id" class="form-control @error('departement_id') is-invalid @enderror">
+                                <option value="">---</option>
+                                @forelse ($departements as $items)
+                                    <option value="{{ $items->id }}">{{ $items->nom.'('.$items->code.')' }}</option>
+                                @empty
+                                    <option value="">Pas de Departement</option>
+                                @endforelse
+                            </select>
+                            @error('departement_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label>Email Address</label>
                             <input class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" autocomplete="email" autofocus type="email">
+                                value="{{ old('email') }}" autocomplete="email" autofocus type="departement_id">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

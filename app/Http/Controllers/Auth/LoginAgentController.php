@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,8 @@ class LoginAgentController extends Controller
 {
     public function index()
     {
-        return view('auth-agent.login');
+        $departements = Departement::get();
+        return view('auth-agent.login',compact('departements'));
     }
 
     public function login(Request $request)
@@ -19,9 +21,10 @@ class LoginAgentController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'departement_id' => 'required|integer'
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password', 'departement_id');
         if (Auth::guard('webagent')->attempt($credentials)) {
             return redirect()->route('agent-dashboard');
         } else {

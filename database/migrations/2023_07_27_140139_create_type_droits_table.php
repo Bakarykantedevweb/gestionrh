@@ -23,6 +23,7 @@ return new class extends Migration
             ['nom' => 'Développement'],
             ['nom' => 'Communication'],
             ['nom' => 'Parametre'],
+            ['nom' => 'Salaire'],
         ]);
     }
 
