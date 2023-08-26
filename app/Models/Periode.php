@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Bulletin;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Periode extends Model
 {
     use HasFactory;
+
+    public function bulletins()
+    {
+        return $this->hasMany(Bulletin::class);
+    }
 }

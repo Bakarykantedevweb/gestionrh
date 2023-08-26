@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Admin\FeuilleCalcule;
 
 use Livewire\Component;
+use App\Models\Rubrique;
 use App\Models\FeuilleCalcule;
+use Illuminate\Support\Facades\DB;
 
 class FeuilleCalculeShow extends Component
 {
     public $FeuilledeCalcules, $code, $libelle, $feuille_id;
-
+    public $rubriques, $selectRubrique = [];
     protected function rules()
     {
         return [
@@ -30,6 +32,9 @@ class FeuilleCalculeShow extends Component
             $dep->code = $validatedData['code'];
             $dep->libelle = $validatedData['libelle'];
             $dep->save();
+            if($dep){
+                $dep->rubriques()->attach($this->selectRubrique);
+            }
             session()->flash('message', 'Feuille de Calcule ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
@@ -102,6 +107,7 @@ class FeuilleCalculeShow extends Component
     }
     public function render()
     {
+        $this->rubriques = Rubrique::get();
         $this->FeuilledeCalcules = FeuilleCalcule::get();
         return view('livewire.admin.feuille-calcule.feuille-calcule-show');
     }

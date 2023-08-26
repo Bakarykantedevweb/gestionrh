@@ -9,8 +9,8 @@ use App\Models\Bulletin;
 
 class BulletinShow extends Component
 {
-    public $agents, $periodes, $bulletins,$agent_id,$periode_id,$id_bulletin;
-
+    public $agents, $periodes, $bulletins = [],$agent_id,$periode_id,$id_bulletin;
+    public $periode;
     protected function rules()
     {
         return [
@@ -23,6 +23,7 @@ class BulletinShow extends Component
     {
         $this->validateOnly($champs);
     }
+
 
     public function saveBulletin()
     {
@@ -102,11 +103,21 @@ class BulletinShow extends Component
         $this->agent_id = '';
         $this->periode_id = '';
     }
+
+    public function month()
+    {
+        $this->bulletins = [];
+        $periode = Periode::where('mois', $this->periode)->first();
+        if($periode){
+            if (count($periode->bulletins)) {
+                $this->bulletins = $periode->bulletins;
+            }
+        }
+    }
     public function render()
     {
         $this->agents = Agent::get();
         $this->periodes = Periode::get();
-        $this->bulletins = Bulletin::get();
         return view('livewire.admin.bulletin.bulletin-show');
     }
 }

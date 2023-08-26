@@ -18,6 +18,15 @@
     <!-- /Page Header -->
     @include('layouts.partials.message')
     @include('layouts.partials.error')
+        <!-- Search Filter -->
+    <div class="row filter-row">
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus">
+                <input type="month" wire:model="periode" wire:change="month" class="form-control floating">
+            </div>
+        </div>
+    </div>
+    <!-- Search Filter -->
     <div class="row">
         <div class="col-md-12">
             <div>

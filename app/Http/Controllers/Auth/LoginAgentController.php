@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginAgentController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
         $departements = Departement::get();
+
         return view('auth-agent.login',compact('departements'));
     }
 
@@ -32,14 +33,12 @@ class LoginAgentController extends Controller
         if ($agent->blocked == 1) {
             return back()->with(['error' => 'Votre compte est desactivé veuillez contacter La GRH.']);
         }
+
         if ($agent && Auth::guard('webagent')->attempt($credentials)) {
             $agent->resetLoginAttempts();
             return redirect()->route('agent-dashboard');
         } else {
             if ($agent) {
-                if ($agent->login_attempts == 2) {
-                    return back()->with(['error' => 'Une Erreur encore votre compte sera desctivé.']);
-                }
                 $agent->incrementLoginAttempts();
                 // Vérifie si l'agent doit être bloqué après un certain nombre de tentatives
                 if ($agent->login_attempts >= 3) {

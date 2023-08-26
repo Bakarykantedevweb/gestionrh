@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Admin\Convention;
 
-use App\Models\Convention;
 use Livewire\Component;
+use App\Models\Categorie;
+use App\Models\Convention;
 
 class ConventionShow extends Component
 {
-    public $conventions,$libelle,$id_convention;
+    public $conventions, $categories,$libelle,$id_convention;
+    public $selectCategorie = [];
     protected function rules()
     {
         return [
@@ -27,6 +29,9 @@ class ConventionShow extends Component
             $dep = new Convention();
             $dep->libelle = $validatedData['libelle'];
             $dep->save();
+            if ($dep) {
+                $dep->categories()->attach($this->selectCategorie);
+            }
             session()->flash('message', 'Convention ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
@@ -93,10 +98,12 @@ class ConventionShow extends Component
     public function resetInput()
     {
         $this->libelle = '';
+        $this->selectCategorie = [];
     }
     public function render()
     {
         $this->conventions = Convention::get();
+        $this->categories = Categorie::get();
         return view('livewire.admin.convention.convention-show');
     }
 }

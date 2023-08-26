@@ -87,6 +87,7 @@
                     </h4>
                     @if ($items->blocked == 1)
                         <div class="small text-danger">Le compte est Desactivé <i class="fa fa-lock"></i></div>
+                        <div class="small text-danger">Nombres de Tentatives({{ $items->login_attempts }})</div>
                     @endif
                     <div class="small text-muted">{{ $items->poste->nom }}</div>
                 </div>

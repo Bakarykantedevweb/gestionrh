@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ConventionCagetorieController extends Controller
+class CategorieController extends Controller
 {
     public function index()
     {
-        $autorisation = $this->autorisation(Auth::user()->role, 'conventionCategorie.index');
+        $autorisation = $this->autorisation(Auth::user()->role, 'categorie.index');
         if ($autorisation == 'false') {
             return redirect()->route('dashboard');
         }
 
-        return view('admin.convention-categorie.index');
+        return view('admin.categorie.index');
     }
 }

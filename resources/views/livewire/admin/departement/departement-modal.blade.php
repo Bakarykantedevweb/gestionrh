@@ -83,7 +83,7 @@
             <div class="modal-body">
                 <form wire:submit.prevent="destroyDepartement">
                     <div class="form-header">
-                        <p>Voulez-vous vraiment supprimer?</p>
+                        <p>Si vous supprimez ce departement tous les agents liés a ce dernier seront supprmiés?</p>
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Supprimer</button>

@@ -45,34 +45,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- <div class="form-group leave-duallist">
-                            <label>Affecter des Droits</label>
-                            <div class="row">
-                                <div class="col-lg-5 col-sm-5">
-                                    <select name="droit_list" id="customleave_select" class="form-control"
-                                        size="{{ count($droits) }}" multiple="multiple">
-                                        @foreach ($droits as $droit)
-                                            <option value="{{ $droit->id }}">{{ $droit->nom }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="multiselect-controls col-lg-2 col-sm-2">
-                                    <button type="button" id="customleave_select_rightAll"
-                                        class="btn btn-block btn-white"><i class="fa fa-forward"></i></button>
-                                    <button type="button" id="customleave_select_rightSelected"
-                                        class="btn btn-block btn-white"><i class="fa fa-chevron-right"></i></button>
-                                    <button type="button" id="customleave_select_leftSelected"
-                                        class="btn btn-block btn-white"><i class="fa fa-chevron-left"></i></button>
-                                    <button type="button" id="customleave_select_leftAll"
-                                        class="btn btn-block btn-white"><i class="fa fa-backward"></i></button>
-                                </div>
-                                <div class="col-lg-5 col-sm-5">
-                                    <select name="role_droits[]" id="customleave_select_to" class="form-control"
-                                        size="10" multiple="multiple">
-                                    </select>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="submit-section">
                             <button type="submit" class="btn btn-primary submit-btn">Enregistrer</button>
                         </div>

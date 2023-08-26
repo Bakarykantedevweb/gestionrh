@@ -42,7 +42,7 @@
                                             <a wire:click="edit_convention({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#edit_convention"><i class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
-                                            <a wire:click="deleteonvention({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
+                                            <a wire:click="delete_convention({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#delete_convention"><i class="fa fa-trash-o m-r-5"></i>
                                                 Delete</a>
                                         </div>
