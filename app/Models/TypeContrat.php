@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TypeContrat extends Model
 {
     use HasFactory;
-    protected $table = "type_contrat";
+    protected $table = "type_contrats";
 }

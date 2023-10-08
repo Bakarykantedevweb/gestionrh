@@ -14,12 +14,15 @@ class ContratController extends Controller
         if ($autorisation == 'false') {
             return redirect()->route('dashboard');
         }
-
         return view('admin.contrat.index');
     }
 
     public function create()
     {
+        $autorisation = $this->autorisation(Auth::user()->role, 'contrat.index');
+        if ($autorisation == 'false') {
+            return redirect()->route('dashboard');
+        }
         return view('admin.contrat.create');
     }
 }

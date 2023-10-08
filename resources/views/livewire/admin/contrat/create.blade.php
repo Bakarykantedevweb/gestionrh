@@ -9,7 +9,7 @@
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="{{ url('admin/contrats/create') }}" class="btn add-btn"><i class="fa fa-list"></i>
+                <a href="{{ url('admin/contrats') }}" class="btn add-btn"><i class="fa fa-list"></i>
                     Retour
                 </a>
             </div>
@@ -37,7 +37,7 @@
                                         @endforelse
                                     </select>
                                     @error('agent_id')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -54,14 +54,13 @@
                                         @endforelse
                                     </select>
                                     @error('type_contrat_id')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Diplome <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-form-label">Diplome <span class="text-danger">*</span></label>
                                     <select wire:model="diplome_id" class="form-control">
                                         <option value="">...</option>
                                         @foreach ($diplomes as $diplome)
@@ -69,7 +68,7 @@
                                         @endforeach
                                     </select>
                                     @error('diplome_id')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -78,7 +77,7 @@
                                     <label class="col-form-label">Date<span class="text-danger">*</span></label>
                                     <input type="date" wire:model="date_entre" class="form-control">
                                     @error('date_entre')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -94,7 +93,7 @@
                                         @endforeach
                                     </select>
                                     @error('selectedOption')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -136,7 +135,8 @@
                                 @if ($selectedOption == 'Marie')
                                     <div class="form-group">
                                         <label for="">Nombres de femmes</label>
-                                        <input type="number" max="4" wire:model="nombre_femme" class="form-control">
+                                        <input type="number" max="4" wire:model="nombre_femme"
+                                            class="form-control">
                                     </div>
                                 @endif
                             </div>
@@ -154,8 +154,8 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Centre Impots <span
                                             class="text-danger">*</span></label>
-                                    <select wire:model="" class="form-control">
-                                        <option value="centre_impot_id">Choisissez</option>
+                                    <select wire:model="centre_impot_id" class="form-control">
+                                        <option value="">Choisissez</option>
                                         @forelse ($centreImpots as $centreImpot)
                                             <option value="{{ $centreImpot->id }}">{{ $centreImpot->libelle }}
                                             </option>
@@ -164,7 +164,7 @@
                                         @endforelse
                                     </select>
                                     @error('centre_impot_id')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                         @endforelse
                                     </select>
                                     @error('selectedConvention')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                                         @endforeach
                                     </select>
                                     @error('selectedCategory')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -215,17 +215,23 @@
                                         @endforelse
                                     </select>
                                     @error('feuille_calcule_id')
-                                        <span>{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="">Prefix compte</label>
                                 <input type="text" class="form-control" wire:model="prefix">
+                                @error('prefix')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-md-9">
                                 <label for="">Numero de compte</label>
                                 <input type="text" class="form-control" wire:model="compte">
+                                @error('compte')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <label for="">Salaire de Base</label>
