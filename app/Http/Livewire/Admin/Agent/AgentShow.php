@@ -37,6 +37,7 @@ class AgentShow extends Component
         $validatedData = $this->validate();
         try {
             $agent = new Agent();
+            $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
             $agent->nom = $validatedData['nom'];
             $agent->email = $validatedData['email'];

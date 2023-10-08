@@ -13,14 +13,12 @@
                     <li class="border-top @if (Route::currentRouteName() == $droit->route) bg-primary @endif ">
                         <a href="{{ route($droit->route) }}"
                             class="@if (Route::currentRouteName() == $droit->route) text-light @endif">
-                            @if ($droit->type_droit->id == 4)
-                                <i class="la la-user"></i>
-                            @elseif($droit->type_droit->id == 2)
-                                <i class="la la-graduation-cap"></i>
-                            @elseif($droit->type_droit->id == 3)
+                            @if ($droit->type_droit->id == 2)
                                 <i class="la la-money"></i>
-                            @else
+                            @elseif($droit->type_droit->id == 3)
                                 <i class="la la-cog"></i>
+                            @else
+                                <i class="la la-users"></i>
                             @endif
                             <span>{{ $droit->nom }}</span>
                         </a>

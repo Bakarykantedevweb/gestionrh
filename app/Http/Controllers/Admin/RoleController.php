@@ -47,7 +47,6 @@ class RoleController extends Controller
     }
 
 
-    //Afficher les droits affecter au role
     public function getDroit(Request $request)
     {
         $id = $request->post('id');
@@ -55,45 +54,22 @@ class RoleController extends Controller
         $droits = Droit::all();
         foreach ($droits as $droit) {
             $exist = '';
-            foreach($role->droits as $roleDroit)
-            {
+            foreach ($role->droits as $roleDroit) {
                 if ($droit->id == $roleDroit->id) {
                     $exist = 'checked';
                 }
             }
 
             $html = "
-            <tr>
-                <td>$droit->nom</td>
-                <td class='text-center'>
-                    <input type='checkbox' name='droits[]'  $exist value='$droit->id'>
-                </td>
-            </tr>
+            <div class='col-md-4'>
+                <input id='id.$droit->id' $exist name='droits[]' value='$droit->id '
+                    type='checkbox' class='ml-1'>
+                    <label for='id.$droit->id '> $droit->nom</label>
+            </div>
             ";
             echo $html;
         }
     }
-
-    //Afficher les droits non affecter au role
-    // public function exceptDroit(Request $request)
-    // {
-    //     $id = $request->post('id');
-    //     $role = Role::find($id);
-    //     $role_droit = $role->droits;
-    //     $ids = [];
-    //     foreach ($role_droit as $rd) {
-    //         $ids[] = $rd->id;
-    //     }
-    //     $droits = Droit::all();
-    //     foreach ($droits as $droit) {
-    //         if (in_array($droit->id, $ids)) {
-    //             continue;
-    //         } else {
-    //             $html = "<option value='$droit->id'>$droit->nom</option>";
-    //             echo $html;
-    //         }
-    //     }
-    // }
 
     public function update(Request $request, Role $role)
     {

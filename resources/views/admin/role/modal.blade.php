@@ -25,7 +25,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="table-responsive m-t-15">
+                        <div class="row">
+                            @foreach ($droits as $droit)
+                                <div class="col-md-4">
+                                    <input id="id{{ $droit->id }}" name="role_droits[]" value="{{ $droit->id }}"
+                                        type="checkbox" class='ml-1'>
+                                    <label for="id{{ $droit->id }}">{{ $droit->nom }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        {{-- <div class="table-responsive m-t-15">
                             <table class="table table-striped custom-table">
                                 <thead>
                                     <tr>
@@ -44,7 +53,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
                         <div class="submit-section">
                             <button type="submit" class="btn btn-primary submit-btn">Enregistrer</button>
                         </div>
@@ -82,45 +91,8 @@
                                 </select>
                             </div>
                         </div>
-                        {{-- <div class="form-group leave-duallist">
-                            <label>Affecter des droits</label>
-                            <div class="row">
-                                <div class="col-lg-5 col-sm-5">
-                                    <select id="edit_customleave_select" class="form-control" size="5"
-                                        multiple="multiple">
+                        <div class="row" id="droits_listes">
 
-                                    </select>
-                                </div>
-                                <div class="multiselect-controls col-lg-2 col-sm-2">
-                                    <button type="button" id="edit_customleave_select_rightAll"
-                                        class="btn btn-block btn-white"><i class="fa fa-forward"></i></button>
-                                    <button type="button" id="edit_customleave_select_rightSelected"
-                                        class="btn btn-block btn-white"><i class="fa fa-chevron-right"></i></button>
-                                    <button type="button" id="edit_customleave_select_leftSelected"
-                                        class="btn btn-block btn-white"><i class="fa fa-chevron-left"></i></button>
-                                    <button type="button" id="edit_customleave_select_leftAll"
-                                        class="btn btn-block btn-white"><i class="fa fa-backward"></i></button>
-                                </div>
-                                <div class="col-lg-5 col-sm-5">
-                                    <select id="edit_customleave_select_to" class="form-control" size="8"
-                                        multiple="multiple" name="droits[]">
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <div class="table-responsive m-t-15">
-                            <table class="table table-striped custom-table">
-                                <thead>
-                                    <tr>
-                                        <th>Permission</th>
-                                        <th class="text-center">Read</th>
-                                    </tr>
-                                </thead>
-                                <tbody id='droits_listes'>
-
-                                </tbody>
-                            </table>
                         </div>
                         <div class="submit-section">
                             <button type="submit" class="btn btn-primary submit-btn">Modifier</button>

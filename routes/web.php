@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TypePretController;
 use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\DiplomeController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
 use App\Http\Controllers\Admin\PeriodeController;
@@ -141,7 +142,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(ContratController::class)->group(function () {
         Route::get('contrats', 'index')->name('contrat.index');
+        Route::get('contrats/create', 'create');
     });
 
+    Route::controller(DiplomeController::class)->group(function () {
+        Route::get('diplomes', 'index')->name('diplome.index');
+    });
 });
 

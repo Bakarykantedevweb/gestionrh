@@ -18,12 +18,9 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('type_droits')->insert([
-            ['nom' => 'Administration'],
-            ['nom' => 'Relations'],
-            ['nom' => 'Développement'],
-            ['nom' => 'Communication'],
-            ['nom' => 'Parametre'],
-            ['nom' => 'Salaire'],
+            ['nom' => 'Administrations'],
+            ['nom' => 'Salaires'],
+            ['nom' => 'Parametres'],
         ]);
     }
 

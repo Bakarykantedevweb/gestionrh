@@ -12,6 +12,8 @@ class Agent extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'agents';
+
     protected $guarded = [];
 
     public function departement()

@@ -18,7 +18,7 @@
 
                 <!-- Header Title -->
                 <div class="page-title-box">
-                    <span class="text-white">Gestion Bim RH</span>
+                    <span class="text-white">Resources Humaines</span>
                 </div>
                 <!-- /Header Title -->
 

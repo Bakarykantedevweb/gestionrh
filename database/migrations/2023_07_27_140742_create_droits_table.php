@@ -25,19 +25,19 @@ return new class extends Migration
                 'nom' => 'Role',
                 'acces' => 1,
                 'route' => 'role.index',
-                'type_droit_id' => 5,
+                'type_droit_id' => 3,
             ],
             [
                 'nom' => 'Autorisation',
                 'acces' => 1,
                 'route' => 'droit.index',
-                'type_droit_id' => 5,
+                'type_droit_id' => 3,
             ],
             [
                 'nom' => 'Utilisateur',
                 'acces' => 1,
                 'route' => 'user.index',
-                'type_droit_id' => 5,
+                'type_droit_id' => 3,
             ],
         ]);
     }

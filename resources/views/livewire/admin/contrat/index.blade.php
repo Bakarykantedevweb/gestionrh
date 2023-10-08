@@ -10,13 +10,13 @@
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_contrat"><i
-                        class="fa fa-plus"></i> Nouveau Contrats</a>
+                <a href="{{ url('admin/contrats/create') }}" class="btn add-btn"><i
+                        class="fa fa-plus"></i> Nouveau Contrat</a>
             </div>
         </div>
     </div>
     <!-- /Page Header -->
     @include('layouts.partials.message')
     @include('layouts.partials.error')
-    
+
 </div>

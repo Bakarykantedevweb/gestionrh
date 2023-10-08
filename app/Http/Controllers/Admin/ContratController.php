@@ -17,4 +17,9 @@ class ContratController extends Controller
 
         return view('admin.contrat.index');
     }
+
+    public function create()
+    {
+        return view('admin.contrat.create');
+    }
 }

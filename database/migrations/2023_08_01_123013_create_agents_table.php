@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule');
+            $table->string('matricule')->nullable();
             $table->string('nom');
             $table->string('prenom');
             $table->string('username');
@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('sexe')->nullable();
             $table->foreignId('departement_id')->constrained('departements')->onDelete('cascade');
             $table->foreignId('poste_id')->constrained('postes')->onDelete('cascade');
-            $table->string('login_attempts');
-            $table->string('last_login_attempt');
-            $table->integer('blocked');
+            $table->string('login_attempts')->nullable();
+            $table->string('last_login_attempt')->nullable();
+            $table->integer('blocked')->default('0');
             $table->timestamps();
         });
         DB::table('agents')->insert([
