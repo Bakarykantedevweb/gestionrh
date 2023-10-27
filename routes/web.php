@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgenceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
@@ -54,7 +55,7 @@ Route::middleware(['auth:webagent'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('admin')->middleware(['auth'])->group(function(){
 
@@ -136,9 +137,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('bulletins', 'index')->name('bulletin.index');
     });
 
-    Route::controller(BulletinRubriqueController::class)->group(function () {
-        Route::get('bulletins-rubriques', 'index')->name('bulletin-rubrique.index');
-    });
+    // Route::controller(BulletinRubriqueController::class)->group(function () {
+    //     Route::get('bulletins-rubriques', 'index')->name('bulletin-rubrique.index');
+    // });
 
     Route::controller(ContratController::class)->group(function () {
         Route::get('contrats', 'index')->name('contrat.index');

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Poste extends Model
 {
     use HasFactory;
+
+    public function departements()
+    {
+        return $this->belongsToMany(Departement::class);
+    }
 }

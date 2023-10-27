@@ -23,10 +23,6 @@ return new class extends Migration
                 'nom' => 'Informaticien',
                 'type' => 1,
             ],
-            [
-                'nom' => 'Directeur',
-                'type' => 1,
-            ],
         ]);
     }
 

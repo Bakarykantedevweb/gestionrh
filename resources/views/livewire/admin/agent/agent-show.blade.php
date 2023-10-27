@@ -4,18 +4,17 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Employee</h3>
+                <h3 class="page-title">Agents</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Employee</li>
+                    <li class="breadcrumb-item active">Agent</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i
-                        class="fa fa-plus"></i> Add Employee</a>
+                        class="fa fa-plus"></i> Ajouter un Agent</a>
                 <div class="view-icons">
                     <a href="" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-                    <a href="" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
         </div>
@@ -33,7 +32,7 @@
         </div> --}}
         <div class="col-sm-6 col-md-6">
             <div class="form-group form-focus">
-                <input type="search" class="form-control floating">
+                <input type="search" wire:model.debounce.300ms="search" class="form-control floating">
                 <label class="focus-label">Search...</label>
             </div>
         </div>
@@ -60,7 +59,7 @@
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_employee"><i
+                            <a class="dropdown-item" href="#" wire:click="editAgent('{{ encrypt($items->id) }}')" data-toggle="modal" data-target="#add_employee"><i
                                     class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" href="#" data-toggle="modal"
                                 data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>

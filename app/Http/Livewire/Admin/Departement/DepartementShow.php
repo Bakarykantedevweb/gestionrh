@@ -3,11 +3,13 @@
 namespace App\Http\Livewire\Admin\Departement;
 
 use App\Models\Departement;
+use App\Models\Poste;
 use Livewire\Component;
 
 class DepartementShow extends Component
 {
     public $departements , $code, $nom , $dep_id;
+    public $postes,$selectPoste = [];
 
     protected function rules()
     {
@@ -30,7 +32,10 @@ class DepartementShow extends Component
             $dep->code = $validatedData['code'];
             $dep->nom = $validatedData['nom'];
             $dep->save();
-            session()->flash('message', 'Departement ajouter avec Success');
+            if($dep){
+                $dep->postes()->attach($this->selectPoste);
+            }
+            toastr()->success('Departement ajouter avec Success!');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -104,6 +109,7 @@ class DepartementShow extends Component
     public function render()
     {
         $this->departements = Departement::get();
+        $this->postes = Poste::get();
         return view('livewire.admin.departement.departement-show');
     }
 }

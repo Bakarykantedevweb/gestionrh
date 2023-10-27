@@ -2,24 +2,33 @@
 
 namespace App\Http\Livewire\Admin\Agent;
 
+use App\Mail\WelcomeAgent;
+use Carbon\Carbon;
 use App\Models\Agent;
+use App\Models\Poste;
 use Livewire\Component;
 use App\Models\Departement;
-use App\Models\Poste;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AgentShow extends Component
 {
-    public $agents,$departements,$postes;
-    public $prenom,$nom,$username,$email, $sexe,$telephone,$departement_id,$poste_id;
-
+    public $agents,$departements,$postes = [];
+    public $prenom,$nom,$age,$email, $sexe,$telephone,$departement_id,$poste_id;
+    public $search = '';
+    public $jour,$mois,$annee, $nombre;
+    public $agent_id;
     protected function rules()
     {
         return [
             'prenom' => 'required|string',
             'nom' => 'required|string',
-            'username' => 'required|string',
-            'email' => 'required|email',
+            'jour' => 'required',
+            'mois' => 'required',
+            'annee' => 'required',
+            'age' => 'required|integer',
+            'email' => 'required|email|unique:agents',
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
@@ -32,28 +41,80 @@ class AgentShow extends Component
         $this->validateOnly($champs);
     }
 
+    public function updatedAnnee()
+    {
+        if (!empty($this->annee)) {
+            $currentYear = date('Y');
+            $this->age = $currentYear - $this->annee;
+        }
+    }
+
+
+
+    public function updatedDepartementId($value)
+    {
+        Log::info("La fonction updatedDepartementId est appelée avec la valeur : " . $value);
+        $departement = Departement::find($value);
+        $this->postes = $departement ? $departement->postes : [];
+    }
+
+    public function editAgent($id)
+    {
+        $agent = Agent::find(decrypt($id));
+        if($agent){
+            $this->agent_id = $agent->id;
+            $this->prenom = $agent->prenom;
+            $this->nom = $agent->nom;
+            $this->email = $agent->email;
+            $this->jour = $agent->jour;
+            $this->mois = $agent->mois;
+            $this->annee = $agent->annee;
+            $this->age = $agent->age;
+            $this->telephone = $agent->telephone;
+            $this->departement_id = $agent->departement_id;
+            $this->poste_id = $agent->poste_id;
+            $this->sexe = $agent->sexe;
+        }
+    }
+
+
     public function saveEmploye()
     {
         $validatedData = $this->validate();
         try {
-            $agent = new Agent();
-            $agent->matricule = '00000';
-            $agent->prenom = $validatedData['prenom'];
-            $agent->nom = $validatedData['nom'];
-            $agent->email = $validatedData['email'];
-            $agent->username = $validatedData['username'];
-            $agent->telephone = $validatedData['telephone'];
-            $agent->departement_id = $validatedData['departement_id'];
-            $agent->poste_id = $validatedData['poste_id'];
-            $agent->sexe = $validatedData['sexe'];
-            $agent->password = Hash::make('password');
-            $agent->save();
-            $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
-            $agent->matricule = $matricule;
-            $agent->save();
-            session()->flash('message', 'Employe ajouter avec Success');
-            $this->resetInput();
-            $this->dispatchBrowserEvent('close-modal');
+            if($this->agent_id){
+                $agent = Agent::find($this->agent_id);
+                dd($this->agent_id);
+            }else{
+                $agent = new Agent();
+                $data = [
+                    'nom' => $validatedData['nom'],
+                    'prenom' => $validatedData['prenom'],
+                    'email' => $validatedData['email']
+                ];
+                Mail::to($validatedData['email'])
+                ->queue(new WelcomeAgent($data));
+            }
+                $agent->matricule = '00000';
+                $agent->prenom = $validatedData['prenom'];
+                $agent->nom = $validatedData['nom'];
+                $agent->email = $validatedData['email'];
+                $agent->jour = $validatedData['jour'];
+                $agent->mois = $validatedData['mois'];
+                $agent->annee = $validatedData['annee'];
+                $agent->age = $this->age;
+                $agent->telephone = $validatedData['telephone'];
+                $agent->departement_id = $validatedData['departement_id'];
+                $agent->poste_id = $validatedData['poste_id'];
+                $agent->sexe = $validatedData['sexe'];
+                $agent->password = Hash::make('password');
+                $agent->save();
+                $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
+                $agent->matricule = $matricule;
+                $agent->save();
+                toastr()->success('Operation effectue avec Success');
+                $this->resetInput();
+                $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
             //throw $th;
             session()->flash('error', $th);
@@ -71,7 +132,10 @@ class AgentShow extends Component
     {
         $this->prenom = '';
         $this->nom = '';
-        $this->username = '';
+        $this->jour = '';
+        $this->mois = '';
+        $this->annee = '';
+        $this->age = '';
         $this->email = '';
         $this->telephone = '';
         $this->departement_id = '';
@@ -93,7 +157,6 @@ class AgentShow extends Component
     {
         $this->agents = Agent::get();
         $this->departements = Departement::get();
-        $this->postes = Poste::get();
         return view('livewire.admin.agent.agent-show');
     }
 }

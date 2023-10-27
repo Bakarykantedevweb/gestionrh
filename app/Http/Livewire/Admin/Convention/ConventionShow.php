@@ -32,7 +32,7 @@ class ConventionShow extends Component
             if ($dep) {
                 $dep->categories()->attach($this->selectCategorie);
             }
-            session()->flash('message', 'Convention ajouter avec Success');
+            toastr()->success('Convention ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -49,26 +49,46 @@ class ConventionShow extends Component
         if ($dep) {
             $this->id_convention = $id_convention;
             $this->libelle = $dep->libelle;
+
+            // Récupérez les catégories associées à la convention
+            $selectedCategories = $dep->categories->pluck('id')->toArray();
+            $this->selectCategorie = $selectedCategories;
         }
     }
+
 
     public function updateConvention()
     {
         $validatedData = $this->validate();
+
         try {
+            // Recherchez la convention que vous souhaitez mettre à jour par son ID
             $dep = Convention::find($this->id_convention);
-            $dep->libelle = $validatedData['libelle'];
-            $dep->save();
-            session()->flash('message', 'Convention Modifié avec Success');
+
+            if ($dep) {
+                // Mettez à jour les attributs de la convention
+                $dep->libelle = $validatedData['libelle'];
+                $dep->save();
+
+                // Supprimez les catégories existantes associées à la convention
+                $dep->categories()->detach();
+
+                // Ajoutez les nouvelles catégories sélectionnées
+                $dep->categories()->attach($this->selectCategorie);
+
+                toastr()->success('Convention mise à jour avec succès');
+            }
+
+            // Réinitialisez les données du formulaire et fermez la modal
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
-            //throw $th;
             session()->flash('error', $th);
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         }
     }
+
 
     public function delete_convention(int $id_convention)
     {

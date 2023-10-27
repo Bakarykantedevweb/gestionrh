@@ -66,6 +66,26 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="table-responsive m-t-15">
+                        <table class="table table-striped custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Categories</th>
+                                    <th class="text-center">Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categories as $categorie)
+                                    <tr>
+                                        <td>{{ $categorie->libelle. ' ('.$categorie->montant.')' }}</td>
+                                        <td class="text-center">
+                                            <input wire:model="selectCategorie" value="{{ $categorie->id }}" type="checkbox">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Mettre a jour</button>
                     </div>

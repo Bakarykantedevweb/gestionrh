@@ -19,22 +19,28 @@ return new class extends Migration
         });
         DB::table('diplomes')->insert([
             [
-                'nom' => 'DEF',
-            ],
-            [
                 'nom' => 'BAC',
             ],
             [
-                'nom' => 'BAC+2',
+                'nom' => 'DUT',
             ],
             [
-                'nom' => 'BAC+3',
+                'nom' => 'LICENCE',
             ],
             [
-                'nom' => 'BAC+4',
+                'nom' => 'MAITRISE',
             ],
             [
-                'nom' => 'BAC+5',
+                'nom' => 'MASTER',
+            ],
+            [
+                'nom' => 'DEA',
+            ],
+            [
+                'nom' => 'MPA',
+            ],
+            [
+                'nom' => 'DESS',
             ],
         ]);
     }

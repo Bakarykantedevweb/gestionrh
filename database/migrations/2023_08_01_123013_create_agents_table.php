@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('matricule')->nullable();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('username');
-            $table->string('email');
+            $table->string('email')->unique();
+            $table->integer('jour');
+            $table->string('mois');
+            $table->integer('annee');
+            $table->integer('age');
             $table->string('telephone');
             $table->string('password');
             $table->string('photo')->nullable();
@@ -33,15 +36,18 @@ return new class extends Migration
         });
         DB::table('agents')->insert([
             [
-                'matricule' => '0100',
+                'matricule' => 'MA001',
                 'nom' => 'Coulibaly',
                 'prenom' => 'Safiatou',
-                'username' => 'Safiatou',
+                'jour' => 1,
+                'mois' => 'Fevrier',
+                'annee' => 2000,
+                'age' => 23,
                 'email' => 'safiatou@gmail.com',
                 'telephone' => '+223 76 20 50 19',
                 'password' => Hash::make('password'),
                 'departement_id' => 1,
-                'poste_id' => 1,
+                'poste_id' => 6,
             ],
         ]);
     }

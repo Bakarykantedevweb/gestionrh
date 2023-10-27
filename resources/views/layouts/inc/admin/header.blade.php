@@ -2,8 +2,8 @@
 
                 <!-- Logo -->
                 <div class="header-left">
-                    <a href="index.html" class="logo">
-                        <img src="{{ asset('admin/assets/img/logo.png') }}" width="40" height="40" alt="">
+                    <a href="{{ route('dashboard') }}" class="logo">
+                        <img src="{{ asset('uploads/admin/profile/'.Auth::user()->photo) }}" class="img img-fluid rounded-circle" width="40" height="40" alt="">
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -29,7 +29,7 @@
                     @livewire('admin.entete.entete')
                     <li class="nav-item dropdown has-arrow main-drop">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <span class="user-img"><img src="{{ asset('admin/assets/img/profiles/avatar-21.jpg') }}" alt="">
+                            <span class="user-img"><img src="{{ asset('uploads/admin/profile/'.Auth::user()->photo) }}" alt="">
                                 <span class="status online"></span></span>
                             <span>{{ Auth::user()->name }}</span>
                         </a>

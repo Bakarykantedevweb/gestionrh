@@ -43,6 +43,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js">
     <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json">
+    <style>
+        a{
+            text-decoration: none;
+            color:black;
+        }
+    </style>
     @livewireStyles
 </head>
 

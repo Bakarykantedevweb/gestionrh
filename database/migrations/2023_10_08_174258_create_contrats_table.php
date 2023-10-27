@@ -23,6 +23,7 @@ return new class extends Migration
             $table->id();
             $table->string('numero');
             $table->date('date_creation');
+            $table->integer('anciennete');
             $table->string('situation_matrimoniale');
             $table->date('date_mariage')->nullable();
             $table->date('date_divorce')->nullable();
@@ -32,6 +33,8 @@ return new class extends Migration
             $table->string('prefix');
             $table->string('compte');
             $table->string('salaire');
+            $table->string('profil');
+            $table->string('classification');
             $table->foreignIdFor(Agent::class)->constrained();
             $table->foreignIdFor(TypeContrat::class)->constrained();
             $table->foreignIdFor(Diplome::class)->constrained();

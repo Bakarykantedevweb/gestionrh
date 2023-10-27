@@ -22,22 +22,118 @@ return new class extends Migration
         });
         DB::table('droits')->insert([
             [
-                'nom' => 'Role',
+                'nom' => 'Roles',
                 'acces' => 1,
                 'route' => 'role.index',
                 'type_droit_id' => 3,
             ],
             [
-                'nom' => 'Autorisation',
+                'nom' => 'Permissions',
                 'acces' => 1,
                 'route' => 'droit.index',
                 'type_droit_id' => 3,
             ],
             [
-                'nom' => 'Utilisateur',
+                'nom' => 'Utilisateurs',
                 'acces' => 1,
                 'route' => 'user.index',
                 'type_droit_id' => 3,
+            ],
+            [
+                'nom' => 'Departements',
+                'acces' => 1,
+                'route' => 'departement.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Postes',
+                'acces' => 1,
+                'route' => 'poste.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Agents',
+                'acces' => 1,
+                'route' => 'agent.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Type Contrat',
+                'acces' => 1,
+                'route' => 'Typecontrat.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Type Conge',
+                'acces' => 1,
+                'route' => 'Typeconge.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Type Pret',
+                'acces' => 1,
+                'route' => 'Typepret.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Diplome',
+                'acces' => 1,
+                'route' => 'diplome.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Contrat',
+                'acces' => 1,
+                'route' => 'contrat.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Categorie',
+                'acces' => 1,
+                'route' => 'categorie.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Convention',
+                'acces' => 1,
+                'route' => 'convention.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Centre Impot',
+                'acces' => 1,
+                'route' => 'centreImpot.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Feuille de Calcule',
+                'acces' => 1,
+                'route' => 'feuille-calcule.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Nature Rubrique',
+                'acces' => 1,
+                'route' => 'nature-rubrique.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Rubrique',
+                'acces' => 1,
+                'route' => 'rubrique.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Periode',
+                'acces' => 1,
+                'route' => 'periode.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Bulletin',
+                'acces' => 1,
+                'route' => 'bulletin.index',
+                'type_droit_id' => 2,
             ],
         ]);
     }

@@ -89,7 +89,7 @@ class Create extends Component
         $contrat->compte = $validatedData['compte'];
         $contrat->salaire = $this->montantCategorie;
         $contrat->nombre_jour_travail = 30;
-        $contrat->nombre_jour_conge = 2.5;
+        $contrat->nombre_jour_conge = 0;
         $contrat->agent_id = $validatedData['agent_id'];
         $contrat->type_contrat_id = $validatedData['type_contrat_id'];
         $contrat->diplome_id = $validatedData['diplome_id'];

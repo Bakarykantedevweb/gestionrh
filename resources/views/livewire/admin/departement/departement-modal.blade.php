@@ -1,6 +1,6 @@
 <!-- Add Department Modal -->
 <div wire:ignore.self id="add_departement" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Nouveau Departement</h5>
@@ -23,6 +23,26 @@
                         @error('nom')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                    </div>
+                    <div class="table-responsive m-t-15">
+                        <table class="table table-striped custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Postes</th>
+                                    <th class="text-center">Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($postes as $poste)
+                                    <tr>
+                                        <td>{{ $poste->nom }}</td>
+                                        <td class="text-center">
+                                            <input wire:model="selectPoste" value="{{ $poste->id }}" type="checkbox">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Enregistrer</button>

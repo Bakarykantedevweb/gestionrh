@@ -53,6 +53,10 @@ class FeuilleCalculeShow extends Component
             $this->feuille_id = $feuille_id;
             $this->code = $dep->code;
             $this->libelle = $dep->libelle;
+
+            // Récupérez les catégories associées à la convention
+            $selectedCategories = $dep->rubriques->pluck('id')->toArray();
+            $this->selectRubrique = $selectedCategories;
         }
     }
 
@@ -64,7 +68,9 @@ class FeuilleCalculeShow extends Component
             $dep->code = $validatedData['code'];
             $dep->libelle = $validatedData['libelle'];
             $dep->save();
-            session()->flash('message', 'Feuille de Calcule Modifié avec Success');
+            $dep->rubriques()->detach();
+            $dep->rubriques()->attach($this->selectRubrique);
+            toastr()->success('Feuille de Calcule Modifié avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
