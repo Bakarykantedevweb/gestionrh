@@ -5,26 +5,26 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AgentController;
-use App\Http\Controllers\Admin\BulletinController;
-use App\Http\Controllers\Admin\BulletinRubriqueController;
-use App\Http\Controllers\Admin\CategorieController;
-use App\Http\Controllers\Admin\CentreImpotController;
-use App\Http\Controllers\Admin\ContratController;
-use App\Http\Controllers\Admin\ConventionController;
 use App\Http\Controllers\Admin\DroitController;
 use App\Http\Controllers\Admin\PosteController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\TypePretController;
-use App\Http\Controllers\Admin\TypeCongeController;
-use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\ContratController;
 use App\Http\Controllers\Admin\DiplomeController;
+use App\Http\Controllers\Admin\PeriodeController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\BulletinController;
+use App\Http\Controllers\Admin\RubriqueController;
+use App\Http\Controllers\Admin\TypePretController;
+use App\Http\Controllers\Admin\CategorieController;
+use App\Http\Controllers\Admin\TypeCongeController;
+use App\Http\Controllers\Auth\LoginAgentController;
+use App\Http\Controllers\Admin\ConventionController;
+use App\Http\Controllers\Admin\CentreImpotController;
+use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\TypeContratController;
+use App\Http\Controllers\Admin\ClassificationController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
-use App\Http\Controllers\Admin\PeriodeController;
-use App\Http\Controllers\Admin\RubriqueController;
-use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Auth\LoginAgentController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 
 /*
@@ -137,17 +137,24 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('bulletins', 'index')->name('bulletin.index');
     });
 
-    // Route::controller(BulletinRubriqueController::class)->group(function () {
-    //     Route::get('bulletins-rubriques', 'index')->name('bulletin-rubrique.index');
-    // });
 
     Route::controller(ContratController::class)->group(function () {
         Route::get('contrats', 'index')->name('contrat.index');
         Route::get('contrats/create', 'create');
     });
 
+    // Classification Route
+
+    Route::controller(ClassificationController::class)->group(function () {
+        Route::get('classifications','index')->name('classification.index');
+    });
+
     Route::controller(DiplomeController::class)->group(function () {
         Route::get('diplomes', 'index')->name('diplome.index');
+    });
+
+    Route::controller(AgenceController::class)->group(function () {
+        Route::get('agences', 'index')->name('agence.index');
     });
 });
 

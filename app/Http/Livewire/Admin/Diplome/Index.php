@@ -4,15 +4,18 @@ namespace App\Http\Livewire\Admin\Diplome;
 
 use App\Models\Diplome;
 use Livewire\Component;
+use App\Models\Classification;
 
 class Index extends Component
 {
     public $diplomes,$diplome_id;
-    public $nom;
+    public $nom, $classification_id;
+    public $classifications, $selectClassification = [];
     protected function rules()
     {
         return [
             'nom' => 'required|string|',
+            'classification_id' =>'required|integer|',
         ];
     }
 
@@ -31,8 +34,9 @@ class Index extends Component
                 $diplome = Diplome::find($this->diplome_id);
             }
             $diplome->nom = $validatedData['nom'];
+            $diplome->classification_id = $validatedData['classification_id'];
             $diplome->save();
-            toastr()->success('Operation effectué avec succès');
+            session()->flash('message', 'Operation effectuée avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -49,6 +53,7 @@ class Index extends Component
         if($diplome){
             $this->diplome_id = $diplome->id;
             $this->nom = $diplome->nom;
+            $this->classification_id = $diplome->classification_id;
         }
     }
 
@@ -60,10 +65,12 @@ class Index extends Component
     public function resetInput()
     {
         $this->nom = '';
+        $this->classification_id = '';
     }
     public function render()
     {
         $this->diplomes = Diplome::get();
+        $this->classifications = Classification::get();
         return view('livewire.admin.diplome.index');
     }
 }

@@ -40,6 +40,12 @@ return new class extends Migration
                 'type_droit_id' => 3,
             ],
             [
+                'nom' => 'Agences',
+                'acces' => 1,
+                'route' => 'agence.index',
+                'type_droit_id' => 1,
+            ],
+            [
                 'nom' => 'Departements',
                 'acces' => 1,
                 'route' => 'departement.index',
@@ -49,6 +55,18 @@ return new class extends Migration
                 'nom' => 'Postes',
                 'acces' => 1,
                 'route' => 'poste.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Classification',
+                'acces' => 1,
+                'route' => 'classification.index',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Diplome',
+                'acces' => 1,
+                'route' => 'diplome.index',
                 'type_droit_id' => 1,
             ],
             [
@@ -73,12 +91,6 @@ return new class extends Migration
                 'nom' => 'Type Pret',
                 'acces' => 1,
                 'route' => 'Typepret.index',
-                'type_droit_id' => 1,
-            ],
-            [
-                'nom' => 'Diplome',
-                'acces' => 1,
-                'route' => 'diplome.index',
                 'type_droit_id' => 1,
             ],
             [

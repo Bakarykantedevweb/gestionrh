@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DiplomeController extends Controller
+class ClassificationController extends Controller
 {
     public function index()
     {
-        $autorisation = $this->autorisation(Auth::user()->role, 'diplome.index');
+        $autorisation = $this->autorisation(Auth::user()->role, 'classification.index');
         if ($autorisation == 'false') {
             return redirect()->route('dashboard');
         }
-        return view('admin.diplome.index');
+        return view('admin.classification.index');
     }
 }

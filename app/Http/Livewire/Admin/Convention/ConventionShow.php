@@ -32,7 +32,7 @@ class ConventionShow extends Component
             if ($dep) {
                 $dep->categories()->attach($this->selectCategorie);
             }
-            toastr()->success('Convention ajouter avec Success');
+            session()->flash('message', 'Convention ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -75,8 +75,7 @@ class ConventionShow extends Component
 
                 // Ajoutez les nouvelles catégories sélectionnées
                 $dep->categories()->attach($this->selectCategorie);
-
-                toastr()->success('Convention mise à jour avec succès');
+                session()->flash('message', 'Convention mise à jour avec succès');
             }
 
             // Réinitialisez les données du formulaire et fermez la modal

@@ -60,20 +60,6 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Diplome <span class="text-danger">*</span></label>
-                                    <select wire:model="diplome_id" class="form-control">
-                                        <option value="">...</option>
-                                        @foreach ($diplomes as $diplome)
-                                            <option value="{{ $diplome->id }}">{{ $diplome->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('diplome_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label class="col-form-label">Date<span class="text-danger">*</span></label>
                                     <input type="date" wire:model="date_entre" class="form-control">
                                     @error('date_entre')
@@ -81,8 +67,6 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Situation Matrimoniale</label>
@@ -97,6 +81,9 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+
                             <div class="col-md-6">
                                 @if ($selectedOption == 'Marie')
                                     <div class="form-group">

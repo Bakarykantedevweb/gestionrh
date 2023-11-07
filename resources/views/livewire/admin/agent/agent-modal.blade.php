@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $agent_id ? 'Modification Agent':'Creation d\'un agent' }}</h5>
+                    <h5 class="modal-title">{{ $agent_id ? 'Modification Agent' : 'Creation d\'un agent' }}</h5>
                     <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -79,6 +79,39 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label class="col-form-label">Diplome <span class="text-danger">*</span></label>
+                                    <select class="form-control" wire:model="diplome_id">
+                                        <option></option>
+                                        @foreach ($diplomes as $diplome)
+                                            <option value="{{ $diplome->id }}">{{ $diplome->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('diplome_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Classifications <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" readonly wire:model="classification_id" type="text">
+                                    @error('classification_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Profile <span class="text-danger">*</span></label>
+                                    <input class="form-control" wire:model="profile" type="text">
+                                    @error('profile')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label class="col-form-label">Age <span class="text-danger">*</span></label>
                                     <input class="form-control" readonly wire:model="age" type="number">
                                     @error('age')
@@ -97,11 +130,13 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Departement <span class="text-danger">*</span></label>
+                                    <label class="col-form-label">Departement <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-control" wire:model="departement_id">
                                         <option value="">---</option>
                                         @foreach ($departements as $dep)
-                                            <option value="{{ $dep->id }}">{{ $dep->nom . '(' . $dep->code . ')' }}
+                                            <option value="{{ $dep->id }}">
+                                                {{ $dep->nom . '(' . $dep->code . ')' }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -124,7 +159,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Sexe <span class="text-danger">*</span></label>
                                     <select wire:model="sexe" class="form-control">
@@ -132,11 +167,19 @@
                                         <option value="M">Masculin</option>
                                         <option value="F">Feminin</option>
                                     </select>
+                                    @error('sexe')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="">Photo</label>
+                                <input type="file" wire:model="photo" class="form-control">
                             </div>
                         </div>
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">{{ $agent_id ? 'Modifier':'Enregistrer' }}</button>
+                            <button
+                                class="btn btn-primary submit-btn">{{ $agent_id ? 'Modifier' : 'Enregistrer' }}</button>
                         </div>
                     </form>
                 </div>
@@ -144,3 +187,30 @@
         </div>
     </div>
     <!-- /Add Employee Modal -->
+    <!-- Delete Employee Modal -->
+    <div class="modal custom-modal fade" id="delete_employee" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Supprission Agent</h3>
+                        <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                    </div>
+                    <form wire:submit.prevent="destroyAgent">
+                        <div class="modal-btn delete-action">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary continue-btn">Supprimer</button>
+                                </div>
+                                <div class="col-6">
+                                    <a href="javascript:void(0);" data-dismiss="modal"
+                                        class="btn btn-primary cancel-btn">Annuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Employee Modal -->

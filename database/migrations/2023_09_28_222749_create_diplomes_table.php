@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Classification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,34 +16,9 @@ return new class extends Migration
         Schema::create('diplomes', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->foreignIdFor(Classification::class)->constrained();
             $table->timestamps();
         });
-        DB::table('diplomes')->insert([
-            [
-                'nom' => 'BAC',
-            ],
-            [
-                'nom' => 'DUT',
-            ],
-            [
-                'nom' => 'LICENCE',
-            ],
-            [
-                'nom' => 'MAITRISE',
-            ],
-            [
-                'nom' => 'MASTER',
-            ],
-            [
-                'nom' => 'DEA',
-            ],
-            [
-                'nom' => 'MPA',
-            ],
-            [
-                'nom' => 'DESS',
-            ],
-        ]);
     }
 
     /**

@@ -1,17 +1,17 @@
 <div>
-    @include('livewire.admin.user.user-modal')
+    @include('livewire.admin.agence.modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Gestion des Administrateurs</h3>
+                <h3 class="page-title">Agence</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Tableau de Bord</a></li>
-                    <li class="breadcrumb-item active">Gestion des Administrateurs</li>
+                    <li class="breadcrumb-item active">Agence</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_user"><i
-                        class="fa fa-plus"></i> Nouveau</a>
+                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_agence"><i
+                        class="fa fa-plus"></i>Agence</a>
             </div>
         </div>
     </div>
@@ -25,30 +25,18 @@
                     <thead>
                         <tr>
                             <th style="width: 30px;">#</th>
-                            <th>Nom</th>
-                            <th>E-mail</th>
-                            <th>Type Utilisateur</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th>Nom Agence</th>
+                            <th>Etat Agence</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($users as $items)
+                        @forelse ($agences as $items)
                             <tr>
                                 <td>{{ $items->id }}</td>
+                                <td>{{ $items->nom }}</td>
                                 <td>
-                                    <h2 class="table-avatar">
-                                        <a href="{{url('admin/profiles')}}" class="avatar"><img
-                                                src="{{ asset('uploads/admin/profile/'.$items->photo) }}" alt=""></a>
-                                        <a href="{{url('admin/profiles')}}">{{ $items->name }}</a>
-                                    </h2>
-                                </td>
-                                <td>{{ $items->email }}</td>
-                                <td>{{ $items->role_type_user->role_type }}</td>
-                                <td>{{ $items->role->nom }}</td>
-                                <td>
-                                    @if ($items->role->type == 1)
+                                    @if ($items->status == '0')
                                         <span class="badge bg-inverse-success">Active</span>
                                     @else
                                         <span class="badge bg-inverse-danger">Inactive</span>
@@ -59,12 +47,12 @@
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="editUser({{ $items->id }})" class="dropdown-item"
-                                                href="#" data-toggle="modal" data-target="#edit_user"><i
+                                            <a wire:click="editAgence({{ $items->id }})" class="dropdown-item"
+                                                href="#" data-toggle="modal" data-target="#add_agence"><i
                                                     class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
-                                            <a wire:click="deleteUser({{ $items->id }})" class="dropdown-item"
-                                                href="#" data-toggle="modal" data-target="#delete_user"><i
+                                            <a wire:click="deleteAgence({{ $items->id }})" class="dropdown-item"
+                                                href="#" data-toggle="modal" data-target="#delete_agence"><i
                                                     class="fa fa-trash-o m-r-5"></i>
                                                 Delete</a>
                                         </div>
@@ -73,7 +61,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Pas de Departements</td>
+                                <td colspan="4" class="text-center">Pas d'Agences</td>
                             </tr>
                         @endforelse
                     </tbody>

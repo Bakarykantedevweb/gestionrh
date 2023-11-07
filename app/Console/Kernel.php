@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('contrats:increment-conge')
-            ->monthly();
+            ->monthly()->at('00:00');
     }
 
     /**

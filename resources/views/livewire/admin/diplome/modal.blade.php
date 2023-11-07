@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nouveau Diplome</h5>
+                <h5 class="modal-title">{{ $diplome_id ? 'Modifier Diplome':'Nouveau Diplome' }}</h5>
                 <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,6 +14,18 @@
                         <label>Nom <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="nom" type="text">
                         @error('nom')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Classification</label>
+                        <select wire:model="classification_id" class="form-control">
+                            <option></option>
+                            @foreach ($classifications as $classification)
+                                <option value="{{ $classification->id }}">{{ $classification->nom }}</option>
+                            @endforeach
+                        </select>
+                        @error('classification_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

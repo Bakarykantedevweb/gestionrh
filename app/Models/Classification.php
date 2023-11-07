@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Classification;
+use App\Models\Diplome;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Diplome extends Model
+class Classification extends Model
 {
     use HasFactory;
 
-    public function classification()
+    public function diplomes()
     {
-        return $this->belongsTo(Classification::class);
+        return $this->belongsToMany(Diplome::class);
     }
 }

@@ -49,7 +49,7 @@
                     <div class="profile-img">
                         <a href="" class="avatar">
                             @if ($items->photo)
-
+                                <img src="{{ asset('uploads/admin/agent/'.$items->photo) }}" alt="">
                             @else
                                 <img src="{{ asset('admin/assets/img/téléchargement.png') }}" alt="">
                             @endif
@@ -61,7 +61,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#" wire:click="editAgent('{{ encrypt($items->id) }}')" data-toggle="modal" data-target="#add_employee"><i
                                     class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal"
+                            <a class="dropdown-item" wire:click="deleteAgent('{{ encrypt($items->id) }}')" href="#" data-toggle="modal"
                                 data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                             @if ($items->blocked == 1)
                                 <a class="dropdown-item" wire:click="activer({{ $items->id }})" href="#" data-toggle="modal"

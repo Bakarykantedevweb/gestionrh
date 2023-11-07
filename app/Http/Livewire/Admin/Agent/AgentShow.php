@@ -8,17 +8,21 @@ use App\Models\Agent;
 use App\Models\Poste;
 use Livewire\Component;
 use App\Models\Departement;
+use App\Models\Diplome;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Livewire\WithFileUploads;
 
 class AgentShow extends Component
 {
-    public $agents,$departements,$postes = [];
+    use WithFileUploads;
+    public $agents,$departements,$postes = [], $diplomes;
     public $prenom,$nom,$age,$email, $sexe,$telephone,$departement_id,$poste_id;
     public $search = '';
     public $jour,$mois,$annee, $nombre;
     public $agent_id;
+    public $classification_id,$diplome_id,$profile,$photo;
     protected function rules()
     {
         return [
@@ -28,11 +32,15 @@ class AgentShow extends Component
             'mois' => 'required',
             'annee' => 'required',
             'age' => 'required|integer',
-            'email' => 'required|email|unique:agents',
+            'email' => 'required|email|',
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
+            'diplome_id' => 'required|integer',
+            'classification_id' => 'required',
             'sexe' => 'required|string',
+            'profile' => 'required|string',
+            'photo' => 'image|max:1024',
         ];
     }
 
@@ -49,33 +57,18 @@ class AgentShow extends Component
         }
     }
 
-
+    public function updatedDiplomeId($value)
+    {
+        $diplome = Diplome::find($value);
+        $this->classification_id = $diplome ? $diplome->classification->nom : null;
+    }
 
     public function updatedDepartementId($value)
     {
-        Log::info("La fonction updatedDepartementId est appelée avec la valeur : " . $value);
         $departement = Departement::find($value);
         $this->postes = $departement ? $departement->postes : [];
     }
 
-    public function editAgent($id)
-    {
-        $agent = Agent::find(decrypt($id));
-        if($agent){
-            $this->agent_id = $agent->id;
-            $this->prenom = $agent->prenom;
-            $this->nom = $agent->nom;
-            $this->email = $agent->email;
-            $this->jour = $agent->jour;
-            $this->mois = $agent->mois;
-            $this->annee = $agent->annee;
-            $this->age = $agent->age;
-            $this->telephone = $agent->telephone;
-            $this->departement_id = $agent->departement_id;
-            $this->poste_id = $agent->poste_id;
-            $this->sexe = $agent->sexe;
-        }
-    }
 
 
     public function saveEmploye()
@@ -84,7 +77,6 @@ class AgentShow extends Component
         try {
             if($this->agent_id){
                 $agent = Agent::find($this->agent_id);
-                dd($this->agent_id);
             }else{
                 $agent = new Agent();
                 $data = [
@@ -106,13 +98,19 @@ class AgentShow extends Component
                 $agent->telephone = $validatedData['telephone'];
                 $agent->departement_id = $validatedData['departement_id'];
                 $agent->poste_id = $validatedData['poste_id'];
+                $agent->diplome_id = $validatedData['diplome_id'];
+                $agent->classification = $validatedData['classification_id'];
+                $agent->profil = $validatedData['profile'];
                 $agent->sexe = $validatedData['sexe'];
+                $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
+                $this->photo->storeAs('admin/agent/', $imageName);
+                $agent->photo = $imageName;
                 $agent->password = Hash::make('password');
                 $agent->save();
                 $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
                 $agent->matricule = $matricule;
                 $agent->save();
-                toastr()->success('Operation effectue avec Success');
+                session()->flash('message', 'Operation effectue avec Success');
                 $this->resetInput();
                 $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -121,6 +119,41 @@ class AgentShow extends Component
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         }
+    }
+
+    public function editAgent($id)
+    {
+        $agent = Agent::find(decrypt($id));
+        if ($agent) {
+            $this->agent_id = $agent->id;
+            $this->prenom = $agent->prenom;
+            $this->nom = $agent->nom;
+            $this->email = $agent->email;
+            $this->jour = $agent->jour;
+            $this->mois = $agent->mois;
+            $this->annee = $agent->annee;
+            $this->age = $agent->age;
+            $this->telephone = $agent->telephone;
+            $this->departement_id = $agent->departement_id;
+            $this->poste_id = $agent->poste_id;
+            $this->sexe = $agent->sexe;
+            $this->diplome_id = $agent->diplome_id;
+            $this->classification_id = $agent->classification;
+            $this->profile = $agent->profil;
+        }
+    }
+
+    public function deleteAgent($id)
+    {
+        $this->agent_id = decrypt($id);
+    }
+
+    public function destroyAgent()
+    {
+        Agent::where('id', $this->agent_id)->delete();
+        toastr()->success('Operation effectue avec Success');
+        $this->resetInput();
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function closeModal()
@@ -141,6 +174,9 @@ class AgentShow extends Component
         $this->departement_id = '';
         $this->poste_id = '';
         $this->sexe = '';
+        $this->diplome_id = '';
+        $this->classification_id = '';
+        $this->profile = '';
     }
 
     public function activer(int $agent_id)
@@ -153,10 +189,12 @@ class AgentShow extends Component
         return redirect()->route('agent.index')
         ->with('message', 'Le compte de l\'agent a été activé.');
     }
+
     public function render()
     {
         $this->agents = Agent::get();
         $this->departements = Departement::get();
+        $this->diplomes = Diplome::get();
         return view('livewire.admin.agent.agent-show');
     }
 }

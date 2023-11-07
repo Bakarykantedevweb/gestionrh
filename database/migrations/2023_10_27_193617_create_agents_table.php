@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Diplome;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -27,6 +28,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->string('sexe')->nullable();
+            $table->foreignIdFor(Diplome::class)->constrained();
+            $table->string('profil');
+            $table->string('classification');
             $table->foreignId('departement_id')->constrained('departements')->onDelete('cascade');
             $table->foreignId('poste_id')->constrained('postes')->onDelete('cascade');
             $table->string('login_attempts')->nullable();
@@ -34,22 +38,6 @@ return new class extends Migration
             $table->integer('blocked')->default('0');
             $table->timestamps();
         });
-        DB::table('agents')->insert([
-            [
-                'matricule' => 'MA001',
-                'nom' => 'Coulibaly',
-                'prenom' => 'Safiatou',
-                'jour' => 1,
-                'mois' => 'Fevrier',
-                'annee' => 2000,
-                'age' => 23,
-                'email' => 'safiatou@gmail.com',
-                'telephone' => '+223 76 20 50 19',
-                'password' => Hash::make('password'),
-                'departement_id' => 1,
-                'poste_id' => 6,
-            ],
-        ]);
     }
 
     /**

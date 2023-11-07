@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-<livewire:admin.agent.agent-show>
+<livewire:admin.agence.index>
 @endsection
 @section('script')
 <script>
     window.addEventListener('close-modal', event => {
-        $('#add_employee').modal('hide');
-        $('#delete_employee').modal('hide');
+        $('#add_agence').modal('hide');
+        $('#delete_agence').modal('hide');
     });
 </script>
 @endsection
