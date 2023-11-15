@@ -27,11 +27,11 @@ class RubriqueShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $dep = new Rubrique();
-            $dep->nature_id = $validatedData['nature_id'];
-            $dep->libelle = $validatedData['libelle'];
-            $dep->code = $validatedData['code'];
-            $dep->save();
+            $rubrique = new Rubrique();
+            $rubrique->nature_rubrique_id = $validatedData['nature_id'];
+            $rubrique->libelle = $validatedData['libelle'];
+            $rubrique->code = $validatedData['code'];
+            $rubrique->save();
             session()->flash('message', 'Rubrique ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
@@ -45,12 +45,12 @@ class RubriqueShow extends Component
 
     public function edit_rubrique(int $nature_id)
     {
-        $dep = Rubrique::find($nature_id);
-        if ($dep) {
+        $rubrique = Rubrique::find($nature_id);
+        if ($rubrique) {
             $this->nature_id = $nature_id;
-            $this->nature_id = $dep->nature_id;
-            $this->libelle = $dep->libelle;
-            $this->code = $dep->code;
+            $this->nature_id = $rubrique->nature_rubrique_id;
+            $this->libelle = $rubrique->libelle;
+            $this->code = $rubrique->code;
         }
     }
 
@@ -58,11 +58,11 @@ class RubriqueShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $dep = Rubrique::find($this->nature_id);
-            $dep->nature_id = $validatedData['nature_id'];
-            $dep->libelle = $validatedData['libelle'];
-            $dep->code = $validatedData['code'];
-            $dep->save();
+            $rubrique = Rubrique::find($this->nature_id);
+            $rubrique->nature_rubrique_id = $validatedData['nature_id'];
+            $rubrique->libelle = $validatedData['libelle'];
+            $rubrique->code = $validatedData['code'];
+            $rubrique->save();
             session()->flash('message', 'Rubrique Modifié avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');

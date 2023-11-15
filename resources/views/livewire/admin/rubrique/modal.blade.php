@@ -19,10 +19,10 @@
                             @empty
                                 <option value="">Pas de Nature Ruprique</option>
                             @endforelse
-                            @error('nature_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </select>
+                        @error('nature_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Code <span class="text-danger">*</span></label>

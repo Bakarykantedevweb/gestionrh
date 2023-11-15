@@ -8,10 +8,11 @@ use App\Models\Classification;
 class Index extends Component
 {
     public $classifications;
-    public $nom, $classification_id;
+    public $nom,$montant, $classification_id;
 
     protected $rules = [
         'nom' => 'required|string',
+        'montant' => 'required|string',
     ];
 
     public function updated($fields)
@@ -28,6 +29,7 @@ class Index extends Component
             $classification = Classification::find($this->classification_id);
         }
         $classification->nom = $validatedData['nom'];
+        $classification->montant = $validatedData['montant'];
         $classification->save();
         session()->flash('message', 'Operation effectuée avec Success');
         $this->resetInput();
@@ -40,6 +42,7 @@ class Index extends Component
         if ($classification) {
             $this->classification_id = $classification->id;
             $this->nom = $classification->nom;
+            $this->montant = $classification->montant;
         }
     }
 
@@ -51,6 +54,7 @@ class Index extends Component
     public function resetInput()
     {
         $this->nom = '';
+        $this->montant = '';
     }
 
     public function render()

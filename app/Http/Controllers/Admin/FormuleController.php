@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class CategorieController extends Controller
+class FormuleController extends Controller
 {
     public function index()
     {
-        $autorisation = $this->autorisation(Auth::user()->role, 'categorie.index');
+        $autorisation = $this->autorisation(Auth::user()->role, 'formule.index');
         if ($autorisation == 'false') {
+            //Toastr::info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
-
-        return view('admin.categorie.index');
+        return view('admin.formule.index');
     }
 }

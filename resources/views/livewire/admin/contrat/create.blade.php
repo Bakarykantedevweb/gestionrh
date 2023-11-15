@@ -60,12 +60,25 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Date<span class="text-danger">*</span></label>
+                                    <label class="col-form-label">Date Creation<span class="text-danger">*</span></label>
                                     <input type="date" wire:model="date_entre" class="form-control">
                                     @error('date_entre')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Diplome</label>
+                                <select wire:model="diplome_id" wire:change="updateMontant" class="form-control">
+                                    <option value=""></option>
+                                    @foreach ($diplomes as $diplome)
+                                        <option value="{{ $diplome->id }}">{{ $diplome->nom }}-{{ $diplome->classification->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Salaire de Base</label>
+                                <input type="text" class="form-control" wire:model="montantCategorie" readonly>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -83,7 +96,6 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="col-md-6">
                                 @if ($selectedOption == 'Marie')
                                     <div class="form-group">
@@ -129,14 +141,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            {{-- <div class="col-md-6">
-                                <label for="">Nombre de jour de Travail</label>
-                                <input type="number" min="1" class="form-control" wire:model="nombre_jour_travail" placeholder="30">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="">Nombre de jour conge</label>
-                                <input type="number" min="1" class="form-control" wire:model="nombre_jour_conge" placeholder="2.5">
-                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Centre Impots <span
@@ -151,38 +155,6 @@
                                         @endforelse
                                     </select>
                                     @error('centre_impot_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Conventions <span
-                                            class="text-danger">*</span></label>
-                                    <select wire:model="selectedConvention" class="form-control">
-                                        <option value="">Choisissez</option>
-                                        @forelse ($conventions as $convention)
-                                            <option value="{{ $convention->id }}">{{ $convention->libelle }}</option>
-                                        @empty
-                                            <option value="" selected>pas de Conventions</option>
-                                        @endforelse
-                                    </select>
-                                    @error('selectedConvention')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="category">Catégorie associée :</label>
-                                    <select wire:model="selectedCategory" class="form-control" id="category">
-                                        <option>Choisissez</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->libelle }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('selectedCategory')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -205,24 +177,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="">Prefix compte</label>
-                                <input type="text" class="form-control" wire:model="prefix">
-                                @error('prefix')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-9">
-                                <label for="">Numero de compte</label>
-                                <input type="text" class="form-control" wire:model="compte">
-                                @error('compte')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-12">
-                                <label for="">Salaire de Base</label>
-                                <input type="text" class="form-control" wire:model="montantCategorie" readonly>
                             </div>
                         </div>
                         <div class="form-group mt-3">

@@ -20,7 +20,7 @@ return new class extends Migration
         DB::table('type_droits')->insert([
             ['nom' => 'Administrations'],
             ['nom' => 'Salaires'],
-            ['nom' => 'Parametres'],
+            ['nom' => 'Utilisateurs'],
         ]);
     }
 

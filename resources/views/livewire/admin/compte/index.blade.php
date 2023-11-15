@@ -1,17 +1,17 @@
 <div>
-    @include('livewire.admin.convention.convention-modal')
+    @include('livewire.admin.compte.modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Convention</h3>
+                <h3 class="page-title">Comptes</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Tableau de Bord</a></li>
-                    <li class="breadcrumb-item active">Convention</li>
+                    <li class="breadcrumb-item active">Comptes</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_convention"><i
-                        class="fa fa-plus"></i> Nouvelle Convention</a>
+                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_compte"><i
+                        class="fa fa-plus"></i>Comptes</a>
             </div>
         </div>
     </div>
@@ -25,25 +25,32 @@
                     <thead>
                         <tr>
                             <th style="width: 30px;">#</th>
-                            <th>Convention Nom</th>
+                            <th>Agent</th>
+                            <th>prefixe</th>
+                            <th>Numero</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($conventions as $items)
+                        @php
+                            $key = 1
+                        @endphp
+                        @forelse ($comptes as $items)
                             <tr>
-                                <td>{{ $items->id }}</td>
-                                <td>{{ $items->libelle }}</td>
+                                <td>{{ $key++ }}</td>
+                                <td>{{ $items->agent->prenom.' '.$items->agent->nom }}</td>
+                                <td>{{ $items->prefixe }}</td>
+                                <td>{{ $items->numero }}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="edit_convention({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#edit_convention"><i class="fa fa-pencil m-r-5"></i>
+                                            <a wire:click="editCompte('{{ encrypt($items->id) }}')" class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#add_compte"><i class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
-                                            <a wire:click="delete_convention({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#delete_convention"><i class="fa fa-trash-o m-r-5"></i>
+                                            <a wire:click="deleteCompte({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#delete_compte"><i class="fa fa-trash-o m-r-5"></i>
                                                 Delete</a>
                                         </div>
                                     </div>
@@ -51,7 +58,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Pas de Conventions</td>
+                                <td colspan="4" class="text-center">Pas de Comptes</td>
                             </tr>
                         @endforelse
                     </tbody>

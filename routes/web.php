@@ -22,7 +22,9 @@ use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\ClassificationController;
+use App\Http\Controllers\Admin\CompteController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
+use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agent\DashboardAgentController;
@@ -105,14 +107,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::post('updateprofiles', 'updateprofile')->name('updateprofile');
     });
 
-    Route::controller(ConventionController::class)->group(function () {
-        Route::get('conventions', 'index')->name('convention.index');
-    });
-
-    Route::controller(CategorieController::class)->group(function () {
-        Route::get('categories', 'index')->name('categorie.index');
-    });
-
     Route::controller(CentreImpotController::class)->group(function () {
         Route::get('centres-impots', 'index')->name('centreImpot.index');
     });
@@ -144,7 +138,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     });
 
     // Classification Route
-
     Route::controller(ClassificationController::class)->group(function () {
         Route::get('classifications','index')->name('classification.index');
     });
@@ -155,6 +148,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(AgenceController::class)->group(function () {
         Route::get('agences', 'index')->name('agence.index');
+    });
+
+    Route::controller(FormuleController::class)->group(function () {
+        Route::get('formules', 'index')->name('formule.index');
+    });
+
+    Route::controller(CompteController::class)->group(function () {
+        Route::get('comptes','index')->name('compte.index');
     });
 });
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Bulletin;
+use App\Models\Rubrique;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bulletin_rubrique', function (Blueprint $table) {
-            $table->unsignedBigInteger('bulletin_id');
-            $table->unsignedBigInteger('rubrique_id');
-            $table->string('valeur');
+            $table->id();
+            $table->foreignIdFor(Bulletin::class)->constrained();
+            $table->foreignIdFor(Rubrique::class)->constrained();
+            $table->string('montant');
             $table->timestamps();
-
-            $table->foreign('bulletin_id')->references('id')->on('bulletins')->onDelete('cascade');
-            $table->foreign('rubrique_id')->references('id')->on('rubriques')->onDelete('cascade');
         });
     }
 

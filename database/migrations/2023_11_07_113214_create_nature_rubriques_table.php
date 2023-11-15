@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Categorie;
-use App\Models\Convention;
+use App\Models\Formule;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,11 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorie_convention', function (Blueprint $table) {
+        Schema::create('nature_rubriques', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Categorie::class)->constrained();
-            $table->foreignIdFor(Convention::class)->constrained();
-            // Autres colonnes éventuelles
+            $table->foreignIdFor(Formule::class)->constrained();
+            $table->string('libelle');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorie_convention');
+        Schema::dropIfExists('nature_rubriques');
     }
 };

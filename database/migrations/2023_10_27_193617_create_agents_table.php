@@ -28,9 +28,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->string('sexe')->nullable();
-            $table->foreignIdFor(Diplome::class)->constrained();
-            $table->string('profil');
-            $table->string('classification');
             $table->foreignId('departement_id')->constrained('departements')->onDelete('cascade');
             $table->foreignId('poste_id')->constrained('postes')->onDelete('cascade');
             $table->string('login_attempts')->nullable();

@@ -13,6 +13,7 @@
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.12",
         "nesbot/carbon": "^2.68",
+        "symfony/expression-language": "^6.3",
         "yoeunes/toastr": "^2.3"
     },
     "require-dev": {

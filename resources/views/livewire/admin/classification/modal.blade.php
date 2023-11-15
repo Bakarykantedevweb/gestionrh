@@ -17,6 +17,13 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Montant <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="montant" type="text">
+                        @error('montant')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">{{ $classification_id ? 'Mettre a jour':'Enregistrer' }}</button>
                     </div>

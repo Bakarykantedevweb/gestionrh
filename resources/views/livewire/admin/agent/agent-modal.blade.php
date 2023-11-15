@@ -79,39 +79,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Diplome <span class="text-danger">*</span></label>
-                                    <select class="form-control" wire:model="diplome_id">
-                                        <option></option>
-                                        @foreach ($diplomes as $diplome)
-                                            <option value="{{ $diplome->id }}">{{ $diplome->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('diplome_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Classifications <span
-                                            class="text-danger">*</span></label>
-                                    <input class="form-control" readonly wire:model="classification_id" type="text">
-                                    @error('classification_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Profile <span class="text-danger">*</span></label>
-                                    <input class="form-control" wire:model="profile" type="text">
-                                    @error('profile')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     <label class="col-form-label">Age <span class="text-danger">*</span></label>
                                     <input class="form-control" readonly wire:model="age" type="number">
                                     @error('age')
@@ -172,7 +139,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for="">Photo</label>
                                 <input type="file" wire:model="photo" class="form-control">
                             </div>

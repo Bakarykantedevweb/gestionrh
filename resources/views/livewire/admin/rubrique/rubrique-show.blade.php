@@ -35,7 +35,7 @@
                         @forelse ($rubriques as $items)
                             <tr>
                                 <td>{{ $items->id }}</td>
-                                <td>{{ $items->nature->libelle }}</td>
+                                <td>{{ $items->nature_rubrique->libelle }}</td>
                                 <td>{{ $items->code }}</td>
                                 <td>{{ $items->libelle }}</td>
                                 <td class="text-right">

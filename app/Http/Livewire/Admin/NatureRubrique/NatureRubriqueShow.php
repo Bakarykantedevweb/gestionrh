@@ -2,17 +2,19 @@
 
 namespace App\Http\Livewire\Admin\NatureRubrique;
 
-use App\Models\NatureRubrique;
+use App\Models\Formule;
 use Livewire\Component;
+use App\Models\NatureRubrique;
 
 class NatureRubriqueShow extends Component
 {
-    public $natureRubriques, $libelle, $nature_id;
-
+    public $natureRubriques, $formule_id, $libelle, $nature_id;
+    public $formules;
     protected function rules()
     {
         return [
             'libelle' => 'required|string',
+            'formule_id' => 'required|integer',
         ];
     }
 
@@ -25,11 +27,11 @@ class NatureRubriqueShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $poste = new NatureRubrique();
-
-            $poste->libelle = $validatedData['libelle'];
-            $poste->save();
-            session()->flash('message', 'Poste ajouter avec Success');
+            $natureRubrique = new NatureRubrique();
+            $natureRubrique->formule_id = $validatedData['formule_id'];
+            $natureRubrique->libelle = $validatedData['libelle'];
+            $natureRubrique->save();
+            session()->flash('message', 'natureRubrique ajouter avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -42,10 +44,11 @@ class NatureRubriqueShow extends Component
 
     public function editnatureRubrique(int $nature_id)
     {
-        $poste = NatureRubrique::find($nature_id);
-        if ($poste) {
+        $natureRubrique = NatureRubrique::find($nature_id);
+        if ($natureRubrique) {
             $this->nature_id = $nature_id;
-            $this->libelle = $poste->libelle;
+            $this->formule_id = $natureRubrique->formule_id;
+            $this->libelle = $natureRubrique->libelle;
         }
     }
 
@@ -53,10 +56,11 @@ class NatureRubriqueShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $poste = NatureRubrique::find($this->nature_id);
-            $poste->libelle = $validatedData['libelle'];
-            $poste->save();
-            session()->flash('message', 'Poste Modifié avec Success');
+            $natureRubrique = NatureRubrique::find($this->nature_id);
+            $natureRubrique->formule_id = $validatedData['formule_id'];
+            $natureRubrique->libelle = $validatedData['libelle'];
+            $natureRubrique->save();
+            session()->flash('message', 'natureRubrique Modifié avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -76,7 +80,7 @@ class NatureRubriqueShow extends Component
     {
         try {
             NatureRubrique::where('id', $this->nature_id)->delete();
-            session()->flash('message', 'Poste Supprimé avec Success');
+            session()->flash('message', 'natureRubrique Supprimé avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -95,10 +99,12 @@ class NatureRubriqueShow extends Component
     public function resetInput()
     {
         $this->libelle = '';
+        $this->formule_id = '';
     }
     public function render()
     {
         $this->natureRubriques = NatureRubrique::get();
+        $this->formules = Formule::get();
         return view('livewire.admin.nature-rubrique.nature-rubrique-show');
     }
 }

@@ -12,7 +12,7 @@ class Rubrique extends Model
 {
     use HasFactory;
 
-    public function nature()
+    public function nature_rubrique()
     {
         return $this->belongsTo(NatureRubrique::class);
     }

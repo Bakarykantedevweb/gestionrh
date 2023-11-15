@@ -70,6 +70,12 @@ return new class extends Migration
                 'type_droit_id' => 1,
             ],
             [
+                'nom' => 'Compte',
+                'acces' => 1,
+                'route' => 'compte.index',
+                'type_droit_id' => 1,
+            ],
+            [
                 'nom' => 'Agents',
                 'acces' => 1,
                 'route' => 'agent.index',
@@ -100,18 +106,6 @@ return new class extends Migration
                 'type_droit_id' => 1,
             ],
             [
-                'nom' => 'Categorie',
-                'acces' => 1,
-                'route' => 'categorie.index',
-                'type_droit_id' => 2,
-            ],
-            [
-                'nom' => 'Convention',
-                'acces' => 1,
-                'route' => 'convention.index',
-                'type_droit_id' => 2,
-            ],
-            [
                 'nom' => 'Centre Impot',
                 'acces' => 1,
                 'route' => 'centreImpot.index',
@@ -121,6 +115,12 @@ return new class extends Migration
                 'nom' => 'Feuille de Calcule',
                 'acces' => 1,
                 'route' => 'feuille-calcule.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Formule',
+                'acces' => 1,
+                'route' => 'formule.index',
                 'type_droit_id' => 2,
             ],
             [

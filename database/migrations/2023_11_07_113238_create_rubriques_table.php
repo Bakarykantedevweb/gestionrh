@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\NatureRubrique;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,8 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nature_rubriques', function (Blueprint $table) {
+        Schema::create('rubriques', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(NatureRubrique::class)->constrained();
+            $table->string('code')->unique();
             $table->string('libelle');
             $table->timestamps();
         });
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nature_rubriques');
+        Schema::dropIfExists('rubriques');
     }
 };

@@ -36,10 +36,7 @@ class AgentShow extends Component
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
-            'diplome_id' => 'required|integer',
-            'classification_id' => 'required',
             'sexe' => 'required|string',
-            'profile' => 'required|string',
             'photo' => 'image|max:1024',
         ];
     }
@@ -98,9 +95,6 @@ class AgentShow extends Component
                 $agent->telephone = $validatedData['telephone'];
                 $agent->departement_id = $validatedData['departement_id'];
                 $agent->poste_id = $validatedData['poste_id'];
-                $agent->diplome_id = $validatedData['diplome_id'];
-                $agent->classification = $validatedData['classification_id'];
-                $agent->profil = $validatedData['profile'];
                 $agent->sexe = $validatedData['sexe'];
                 $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
                 $this->photo->storeAs('admin/agent/', $imageName);
@@ -137,9 +131,6 @@ class AgentShow extends Component
             $this->departement_id = $agent->departement_id;
             $this->poste_id = $agent->poste_id;
             $this->sexe = $agent->sexe;
-            $this->diplome_id = $agent->diplome_id;
-            $this->classification_id = $agent->classification;
-            $this->profile = $agent->profil;
         }
     }
 
@@ -174,9 +165,6 @@ class AgentShow extends Component
         $this->departement_id = '';
         $this->poste_id = '';
         $this->sexe = '';
-        $this->diplome_id = '';
-        $this->classification_id = '';
-        $this->profile = '';
     }
 
     public function activer(int $agent_id)

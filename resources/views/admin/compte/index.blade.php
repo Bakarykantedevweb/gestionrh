@@ -1,13 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-<livewire:admin.categorie.index>
+<livewire:admin.compte.index>
 @endsection
 @section('script')
 <script>
     window.addEventListener('close-modal', event => {
-        $('#add_categorie').modal('hide');
-        $('#edit_categorie').modal('hide');
-        $('#delete_categorie').modal('hide');
+        $('#add_compte').modal('hide');
+        $('#delete_compte').modal('hide');
     });
 </script>
 @endsection
