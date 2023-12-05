@@ -12,7 +12,7 @@ class CompteController extends Controller
     {
         $autorisation = $this->autorisation(Auth::user()->role, 'compte.index');
         if ($autorisation == 'false') {
-            //Toastr::info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
+            toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
         return view('admin.compte.index');

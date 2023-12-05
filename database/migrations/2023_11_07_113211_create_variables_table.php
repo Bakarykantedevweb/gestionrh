@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('formules', function (Blueprint $table) {
-            $table->json('variables')->nullable();
+        Schema::create('variables', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->integer('valeur')->default('1');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('formules', function (Blueprint $table) {
-            $table->dropColumn('variables');
-        });
+        Schema::dropIfExists('variables');
     }
 };

@@ -32,7 +32,6 @@ return new class extends Migration
             $table->integer('nombre_femme')->nullable();
             $table->string('salaire');
             $table->foreignIdFor(Diplome::class)->constrained();
-            $table->string('profil');
             $table->foreignIdFor(Agent::class)->constrained();
             $table->foreignIdFor(TypeContrat::class)->constrained();
             $table->foreignIdFor(CentreImpot::class)->constrained();

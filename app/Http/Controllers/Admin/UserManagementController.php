@@ -11,7 +11,7 @@ class UserManagementController extends Controller
     public function index()
     {
         if (Auth::user()->role_type_user->id != 2 AND Auth::user()->role->id != 1) {
-            //Toastr::info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
+            toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
         if (Auth::user()->role_type_user_id == 2and Auth::user()->role->id == 1) {

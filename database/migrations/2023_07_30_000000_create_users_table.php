@@ -33,7 +33,8 @@ return new class extends Migration
                 'email' => 'informaticien@gmail.com',
                 'password' => Hash::make('password'),
                 'role_id' => 1,
-                'role_type_user_id' => 2
+                'role_type_user_id' => 2,
+                'photo' => '1700865517.jpg'
             ],
         ]);
     }

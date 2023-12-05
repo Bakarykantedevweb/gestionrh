@@ -10,6 +10,10 @@
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#calcule_formule"><i
+                        class="fa fa-plus"></i>Calculer la formule</a>
+            </div>
+            <div class="col-auto float-right ml-auto">
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_formule"><i
                         class="fa fa-plus"></i>Formules</a>
             </div>
@@ -26,31 +30,31 @@
                         <tr>
                             <th style="width: 30px;">#</th>
                             <th>Nom</th>
-                            <th>Variable</th>
                             <th>Formule</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $key = 1
+                            $key = 1;
                         @endphp
                         @forelse ($formules as $items)
                             <tr>
                                 <td>{{ $key++ }}</td>
                                 <td>{{ $items->nom }}</td>
-                                <td>{{ $items->variables }}</td>
                                 <td>{{ $items->formule }}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="editFormule('{{ encrypt($items->id) }}')" class="dropdown-item" href="#" data-toggle="modal"
+                                            <a wire:click="editFormule('{{ encrypt($items->id) }}')"
+                                                class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#add_formule"><i class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
-                                            <a wire:click="deleteFormule({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#delete_formule"><i class="fa fa-trash-o m-r-5"></i>
+                                            <a wire:click="deleteFormule({{ $items->id }})" class="dropdown-item"
+                                                href="#" data-toggle="modal" data-target="#delete_formule"><i
+                                                    class="fa fa-trash-o m-r-5"></i>
                                                 Delete</a>
                                         </div>
                                     </div>

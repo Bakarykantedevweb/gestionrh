@@ -17,14 +17,14 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="variables">Variables (séparées par des virgules)</label>
-                        <input type="text" wire:model="variables" class="form-control">
-                        @error('variables')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="row">
+                        @foreach ($variables as $variable)
+                            <div class="col-md-4" wire:click="addVariableToFormule({{ $variable->id }})"
+                                wire:change="updateFormule" style="cursor: pointer;">
+                                <label>{{ $variable->nom }}</label>
+                            </div>
+                        @endforeach
                     </div>
-
                     <div class="form-group">
                         <label>Formule <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="formule" type="text">
@@ -33,8 +33,8 @@
                         @enderror
                     </div>
                     <div class="submit-section">
-                        <button
-                            class="btn btn-primary submit-btn">{{ $formule_id ? 'Mettre a jour' : 'Enregistrer' }}</button>
+                        <button class="btn btn-primary"
+                            type="submit">{{ $formule_id ? 'Mettre a jour' : 'Enregistrer' }}</button>
                     </div>
                 </form>
             </div>
@@ -55,20 +55,41 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="evaluateFormula">
+                <form wire:submit.prevent="">
                     <div class="form-group">
-                        <label>Temperature <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="temperature" type="text">
-                        @error('nom')
+                        <label>Choisissez une formule <span class="text-danger">*</span></label>
+                        <select wire:model="selectedFormuleId" class="form-control">
+                            <option value="">Sélectionnez une formule</option>
+                            @foreach ($formules as $formule)
+                                <option value="{{ $formule->id }}">{{ $formule->nom }}</option>
+                            @endforeach
+                        </select>
+                        @error('selectedFormuleId')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="submit-section">
-                        <button
-                            class="btn btn-primary submit-btn">{{ $formule_id ? 'Mettre a jour' : 'Enregistrer' }}</button>
-                    </div>
+
+                    <!-- Afficher dynamiquement les champs d'entrée pour les valeurs des variables -->
+                    @if ($selectedFormuleId)
+                        @if ($variables)
+                            <div class="row">
+                                @foreach ($variables as $variable)
+                                    <div class="col-md-12">
+                                        <label>Valeur pour {{ $variable->nom }} :</label>
+                                        <input class="form-control" wire:model="variableValues.{{ $variable->id }}"
+                                            type="number" placeholder="Valeur pour {{ $variable->nom }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="submit-section">
+                                <button wire:click.prevent="saveFormule" class="btn btn-primary">Enregistrer la
+                                    formule</button>
+                            </div>
+                        @endif
+                    @endif
                 </form>
             </div>
+
         </div>
     </div>
 </div>

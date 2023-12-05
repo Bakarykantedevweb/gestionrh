@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\VariableController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 
 /*
@@ -148,6 +149,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(AgenceController::class)->group(function () {
         Route::get('agences', 'index')->name('agence.index');
+    });
+
+    Route::controller(VariableController::class)->group(function () {
+        Route::get('variables', 'index')->name('variable.index');
     });
 
     Route::controller(FormuleController::class)->group(function () {
