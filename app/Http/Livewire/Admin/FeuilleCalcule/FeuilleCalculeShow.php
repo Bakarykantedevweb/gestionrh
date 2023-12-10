@@ -110,10 +110,11 @@ class FeuilleCalculeShow extends Component
     {
         $this->code = '';
         $this->libelle = '';
+        $this->selectRubrique = '';
     }
     public function render()
     {
-        $this->rubriques = Rubrique::get();
+        $this->rubriques = Rubrique::orderBy('libelle','asc')->get();
         $this->FeuilledeCalcules = FeuilleCalcule::get();
         return view('livewire.admin.feuille-calcule.feuille-calcule-show');
     }

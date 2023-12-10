@@ -32,37 +32,29 @@
                     </thead>
                     <tbody>
                         @php
-                            $key = 1;
+                        $key = 1;
                         @endphp
                         @forelse ($contrats as $items)
-                            <tr>
-                                <td>{{ $key++ }}</td>
-                                <td>{{ $items->numero }}</td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($items->date_creation)->locale('fr_FR')->isoFormat('dddd D MMMM YYYY') }}
-                                </td>
-                                <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="editDepartement({{ $items->id }})" class="dropdown-item"
-                                                href="#" data-toggle="modal" data-target="#edit_departement"><i
-                                                    class="fa fa-pencil m-r-5"></i>
-                                                Edit</a>
-                                            <a wire:click="deleteDepartement({{ $items->id }})" class="dropdown-item"
-                                                href="#" data-toggle="modal" data-target="#delete_departement"><i
-                                                    class="fa fa-trash-o m-r-5"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ $key++ }}</td>
+                            <td>{{ $items->numero }}</td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($items->date_creation)->locale('fr_FR')->isoFormat('dddd D MMMM
+                                YYYY') }}
+                            </td>
+                            <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
+                            <td class="text-right">
+                                <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
+                                        class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-primary" href="#"><i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="4" class="text-center">Pas de Departements</td>
-                            </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">Pas de Departements</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>

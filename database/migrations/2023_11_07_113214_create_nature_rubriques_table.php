@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('nature_rubriques', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Formule::class)->constrained();
             $table->string('libelle');
             $table->timestamps();
         });

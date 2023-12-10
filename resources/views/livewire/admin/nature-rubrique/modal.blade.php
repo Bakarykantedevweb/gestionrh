@@ -11,18 +11,6 @@
             <div class="modal-body">
                 <form wire:submit.prevent="saveNatureRubrique">
                     <div class="form-group">
-                        <label>Formule <span class="text-danger">*</span></label>
-                        <select wire:model="formule_id" class="form-control">
-                            <option value=""></option>
-                            @foreach ($formules as $formule)
-                                <option value="{{ $formule->id }}">{{ $formule->nom }}</option>
-                            @endforeach
-                        </select>
-                        @error('formule_id')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label>Libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
                         @error('libelle')
@@ -30,7 +18,7 @@
                         @enderror
                     </div>
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Mettre a jour</button>
+                        <button class="btn btn-primary submit-btn">Ajouter</button>
                     </div>
                 </form>
             </div>
@@ -51,18 +39,6 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="updateNatureRubrique">
-                    <div class="form-group">
-                        <label>Formule <span class="text-danger">*</span></label>
-                        <select wire:model="formule_id" class="form-control">
-                            <option value=""></option>
-                            @foreach ($formules as $formule)
-                                <option value="{{ $formule->id }}">{{ $formule->nom }}</option>
-                            @endforeach
-                        </select>
-                        @error('formule_id')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
                     <div class="form-group">
                         <label>Libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">

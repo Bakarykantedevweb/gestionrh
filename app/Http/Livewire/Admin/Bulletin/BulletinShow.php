@@ -9,48 +9,32 @@ use Livewire\Component;
 use App\Models\Bulletin;
 use App\Models\Rubrique;
 use App\Models\FeuilleCalcule;
+use App\Models\BulletinRubrique;
 
 class BulletinShow extends Component
 {
-    public $agents,$contrat_id, $periode_id,$id_bulletin;
-    public $contrats;
-    public $periodes;
+    public $agents;
+    public $contrats = [];
+    public $feuilleCalcules;
+    public $feuilleCalculeId;
     public $rubriques;
+    public $periodes;
+    public $periode_id;
+    public $montant = [];
     public $selectedMonth;
     public $showTable = false;
     public $selectedMonthName;
-    public $listeBulletin = true;
-    public $BulletinPreparation = false;
-    public $feuilleCalcules;
 
-    private function disableContents()
+    public function __construct()
     {
-        $this->listeBulletin = false;
-        $this->BulletinPreparation = false;
-    }
-
-    public function activeContent(string $content)
-    {
-        $content = decrypt($content);
-        $this->disableContents();
-        $this->$content = true;
-    }
-
-    public function closeModal()
-    {
-        $this->resetInput();
-    }
-
-    public function resetInput()
-    {
-        $this->contrat_id = '';
-        $this->periode_id = '';
+        $this->feuilleCalcules = FeuilleCalcule::get();
+        $this->periodes = Periode::get();
     }
 
     public function selectMonth($month)
     {
         $this->selectedMonth = $month;
-        $this->selectedMonthName = ucfirst($month); // Mettez le nom du mois en majuscules
+        $this->selectedMonthName = ucfirst($month);
         $this->showTable = true;
     }
 
@@ -59,12 +43,48 @@ class BulletinShow extends Component
         $this->showTable = false;
     }
 
+    public function getRubriques()
+    {
+        $feuilleCalcule = FeuilleCalcule::find($this->feuilleCalculeId);
+        // dd($feuilleCalcule);
+        // Vérifier si la feuille de calcul existe
+        if ($feuilleCalcule) {
+            // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
+            $this->rubriques = $feuilleCalcule->rubriques ?? [];
+            $this->contrats = [];
+            $this->montant = [];
+            // Récupérer la liste des agents liés à la feuille sélectionnée via la table contrats
+            if(count($feuilleCalcule->contrats))
+            {
+                $this->contrats = $feuilleCalcule->contrats;
+            }
+
+        } else {
+            $this->rubriques = [];
+            $this->agents = [];
+        }
+    }
+
+    public function SaveBulletin()
+    {
+        $mois = strtolower($this->selectedMonthName);
+        $periode = Periode::where('mois',$mois)->first();
+        
+        // foreach ($this->montants as $rubriqueId => $montants) {
+        //     foreach ($montants as $agentId => $montant) {
+        //         $bulletinRubrique = new BulletinRubrique([
+        //             'rubrique_id' => $rubriqueId,
+        //             'agent_id' => $agentId,
+        //             'montant' => $montant,
+        //         ]);
+        //         $bulletinRubrique->save();
+        //     }
+        // }
+        // $this->reset('montants');
+    }
+
     public function render()
     {
-        $this->contrats = Contrat::get();
-        $this->periodes = Periode::get();
-        $this->rubriques = Rubrique::get();
-        $this->feuilleCalcules = FeuilleCalcule::get();
         return view('livewire.admin.bulletin.bulletin-show');
     }
 }

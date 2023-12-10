@@ -17,12 +17,12 @@ use Livewire\WithFileUploads;
 class AgentShow extends Component
 {
     use WithFileUploads;
-    public $agents,$departements,$postes = [], $diplomes;
-    public $prenom,$nom,$age,$email, $sexe,$telephone,$departement_id,$poste_id;
+    public $agents, $departements, $postes = [], $diplomes;
+    public $prenom, $nom, $age, $email, $sexe, $telephone, $departement_id, $poste_id;
     public $search = '';
-    public $jour,$mois,$annee, $nombre;
+    public $jour, $mois, $annee, $nombre;
     public $agent_id;
-    public $classification_id,$diplome_id,$profile,$photo;
+    public $classification_id, $diplome_id, $profile, $photo;
     protected function rules()
     {
         return [
@@ -72,41 +72,37 @@ class AgentShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            if($this->agent_id){
-                $agent = Agent::find($this->agent_id);
-            }else{
-                $agent = new Agent();
-                $data = [
-                    'nom' => $validatedData['nom'],
-                    'prenom' => $validatedData['prenom'],
-                    'email' => $validatedData['email']
-                ];
-                Mail::to($validatedData['email'])
+            $data = [
+                'nom' => $validatedData['nom'],
+                'prenom' => $validatedData['prenom'],
+                'email' => $validatedData['email']
+            ];
+            Mail::to($validatedData['email'])
                 ->queue(new WelcomeAgent($data));
-            }
-                $agent->matricule = '00000';
-                $agent->prenom = $validatedData['prenom'];
-                $agent->nom = $validatedData['nom'];
-                $agent->email = $validatedData['email'];
-                $agent->jour = $validatedData['jour'];
-                $agent->mois = $validatedData['mois'];
-                $agent->annee = $validatedData['annee'];
-                $agent->age = $this->age;
-                $agent->telephone = $validatedData['telephone'];
-                $agent->departement_id = $validatedData['departement_id'];
-                $agent->poste_id = $validatedData['poste_id'];
-                $agent->sexe = $validatedData['sexe'];
-                $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
-                $this->photo->storeAs('admin/agent/', $imageName);
-                $agent->photo = $imageName;
-                $agent->password = Hash::make('password');
-                $agent->save();
-                $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
-                $agent->matricule = $matricule;
-                $agent->save();
-                session()->flash('message', 'Operation effectue avec Success');
-                $this->resetInput();
-                $this->dispatchBrowserEvent('close-modal');
+            $agent = new Agent();
+            $agent->matricule = '00000';
+            $agent->prenom = $validatedData['prenom'];
+            $agent->nom = $validatedData['nom'];
+            $agent->email = $validatedData['email'];
+            $agent->jour = $validatedData['jour'];
+            $agent->mois = $validatedData['mois'];
+            $agent->annee = $validatedData['annee'];
+            $agent->age = $this->age;
+            $agent->telephone = $validatedData['telephone'];
+            $agent->departement_id = $validatedData['departement_id'];
+            $agent->poste_id = $validatedData['poste_id'];
+            $agent->sexe = $validatedData['sexe'];
+            $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
+            $this->photo->storeAs('admin/agent/', $imageName);
+            $agent->photo = $imageName;
+            $agent->password = Hash::make('password');
+            $agent->save();
+            $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
+            $agent->matricule = $matricule;
+            $agent->save();
+            session()->flash('message', 'Operation effectue avec Success');
+            $this->resetInput();
+            $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
             //throw $th;
             session()->flash('error', $th);
@@ -131,6 +127,39 @@ class AgentShow extends Component
             $this->departement_id = $agent->departement_id;
             $this->poste_id = $agent->poste_id;
             $this->sexe = $agent->sexe;
+        }
+    }
+
+    public function UpdateEmploye()
+    {
+        $validatedData = $this->validate();
+        try {
+
+            $agent = Agent::find($this->agent_id);
+            $agent->prenom = $validatedData['prenom'];
+            $agent->nom = $validatedData['nom'];
+            $agent->email = $validatedData['email'];
+            $agent->jour = $validatedData['jour'];
+            $agent->mois = $validatedData['mois'];
+            $agent->annee = $validatedData['annee'];
+            $agent->age = $this->age;
+            $agent->telephone = $validatedData['telephone'];
+            $agent->departement_id = $validatedData['departement_id'];
+            $agent->poste_id = $validatedData['poste_id'];
+            $agent->sexe = $validatedData['sexe'];
+            $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
+            $this->photo->storeAs('admin/agent/', $imageName);
+            $agent->photo = $imageName;
+            $agent->password = Hash::make('password');
+            $agent->save();
+            session()->flash('message', 'Operation effectue avec Success');
+            $this->resetInput();
+            $this->dispatchBrowserEvent('close-modal');
+        } catch (\Throwable $th) {
+            //throw $th;
+            session()->flash('error', $th);
+            $this->resetInput();
+            $this->dispatchBrowserEvent('close-modal');
         }
     }
 
@@ -175,7 +204,7 @@ class AgentShow extends Component
         $agent->resetLoginAttempts();
 
         return redirect()->route('agent.index')
-        ->with('message', 'Le compte de l\'agent a été activé.');
+            ->with('message', 'Le compte de l\'agent a été activé.');
     }
 
     public function render()

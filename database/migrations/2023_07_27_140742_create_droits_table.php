@@ -118,18 +118,6 @@ return new class extends Migration
                 'type_droit_id' => 2,
             ],
             [
-                'nom' => 'Variable',
-                'acces' => 1,
-                'route' => 'variable.index',
-                'type_droit_id' => 2,
-            ],
-            [
-                'nom' => 'Formule',
-                'acces' => 1,
-                'route' => 'formule.index',
-                'type_droit_id' => 2,
-            ],
-            [
                 'nom' => 'Nature Rubrique',
                 'acces' => 1,
                 'route' => 'nature-rubrique.index',

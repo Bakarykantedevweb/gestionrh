@@ -1,114 +1,95 @@
 <div>
     @include('livewire.admin.Bulletin.modal')
     <div class="page-header">
-        <div class="row align-items-center">
+        <div class="row align-contrats-center">
             <div class="col">
                 <h3 class="page-title">Bulletin</h3>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Tableau de Bord</a></li>
-                    <li class="breadcrumb-item active">Bulletin</li>
+                    <li class="breadcrumb-contrat"><a href="{{ route('dashboard') }}">Tableau de Bord </a></li>
+                    <li class="breadcrumb-contrat active">Bulletin</li>
                 </ul>
             </div>
-            @if ($listeBulletin)
-                <div class="col-auto float-right ml-auto">
-                    <button type="button" wire:click="activeContent('{{ encrypt('BulletinPreparation') }}')"
-                        class="btn add-btn"><i class="fa fa-plus"></i> Preparation du Bulletin</button>
-                </div>
-            @endif
-            @if ($BulletinPreparation)
-                <div class="col-auto float-right ml-auto">
-                    <button type="button" wire:click="activeContent('{{ encrypt('listeBulletin') }}')"
-                        class="btn add-btn"><i class="fa fa-plus"></i> Bulletins</button>
-                </div>
-            @endif
         </div>
     </div>
     <!-- /Page Header -->
     @include('layouts.partials.message')
     @include('layouts.partials.error')
-    @if ($listeBulletin)
+    <form wire:submit.prevent="SaveBulletin">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card punch-status">
+            <div class="col-md-2">
+                <div class="card flex-fill dash-statistics">
                     <div class="card-body">
-                        <h5 class="card-title">Choississez un mois</h5>
-                        <ul>
-                            @foreach ($periodes as $periode)
-                                <a wire:click="selectMonth('{{ $periode->mois }}')" href="#">
-                                    <li>
-                                        {{ ucfirst($periode->mois) }}
-                                        {{-- <button type="button"  class="mb-2 ml-2 btn btn-primary">Ouvrir</button> --}}
-                                    </li>
-                                </a>
-                            @endforeach
-                        </ul>
+                        <h5 class="card-title">Choisissez</h5>
+                        @foreach ($periodes as $periode)
+                        <div class="stats-list mb-2">
+                            <a href="#" wire:click="selectMonth('{{ $periode->mois }}')">
+                                {{ ucfirst($periode->mois) }}
+                            </a>
+                        </div>
+                        @endforeach
+                        <button wire:click="annuler" type="button" class="btn btn-primary">Annuler</button>
                     </div>
-                    <button type="button" wire:click="annuler"
-                        class="btn btn-primary btn-sm mb-3 ml-4 mr-4">Annuler</button>
                 </div>
             </div>
             @if ($showTable)
-                <div class="col-md-9">
-                    <h4>Preparation pour le mois de {{ $selectedMonthName }}</h4>
-                    <div>
-                        <table class="table table-striped custom-table mb-0 datatable">
+                <div class="col-md-10">
+                    <h3>Preparation de la Paie {{ $selectedMonthName }}</h3>
+                    <!-- Search Filter -->
+                    <div class="row filter-row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="focus-label">Choississez une feuille de calcule</label>
+                                <select wire:model="feuilleCalculeId" wire:change="getRubriques" class="form-control">
+                                    <option value="0">---</option>
+                                    @forelse ($feuilleCalcules as $feuille)
+                                        <option value="{{ $feuille->id }}">{{ $feuille->libelle }}</option>
+                                    @empty
+                                        <option value="0" disabled>Aucune feuille de calcul trouvée</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Search Filter -->
+                    <div class="table-responsive m-t-15">
+                        <table class="table table-striped custom-table">
                             <thead>
+                                @if ($rubriques)
                                 <tr>
-                                    <th style="width: 30px;">#</th>
-                                    <th>Matricule</th>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Action</th>
+                                    <th>Agents</th>
+                                    @foreach ($rubriques as $rubrique)
+                                        <th class="text-center">{{ $rubrique->libelle }}</th>
+                                    @endforeach
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $key = 1;
-                                @endphp
-                                @forelse ($contrats as $items)
-                                    <tr>
-                                        <td>{{ $key++ }}</td>
-                                        <td>{{ $items->numero }}</td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($items->date_creation)->locale('fr_FR')->isoFormat('dddd D MMMM YYYY') }}
+                                @forelse ($contrats as $contrat)
+                                <tr>
+                                    <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}</td>
+                                    @foreach ($rubriques as $rubrique)
+                                        <td class="text-center">
+                                            <input type="number" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
+                                                class="form-control">
                                         </td>
-                                        <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
-                                        <td>
-                                            <button type="button" data-toggle="modal" data-target="#add_bulletin"
-                                                class="btn btn-primary btn-sm">Calculer</button>
-                                        </td>
-                                    </tr>
+                                    @endforeach
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="4" class="text-center">Pas de Departements</td>
-                                    </tr>
+                                    <td class="text-center">Pas D'contrats pour cette feuille</td>
                                 @endforelse
+                                @else
+                                <tr>
+                                    <td colspan="2" class="text-center">Aucune rubrique trouvée</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
+                    @if ($rubriques)
+                        <button class="btn btn-primary btn-outline-light" type="submit">Calculer</button>
+                    @endif
                 </div>
             @endif
         </div>
-    @endif
-    @if ($BulletinPreparation)
-        <h1>Preparation de la Paie</h1>
-        <!-- Search Filter -->
-        <div class="row filter-row">
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus select-focus">
-                    <select class="form-control select floating">
-                        <option value="">---</option>
-                        @foreach ($feuilleCalcules as $items)
-                            <option value="{{ $items->id }}">{{ $items->libelle }}</option>
-                        @endforeach
-                    </select>
-                    <label class="focus-label">Choississez une feuille de calcule</label>
-                </div>
-            </div>
-            {{-- <div class="col-sm-6 col-md-3">
-                <a href="#" class="btn btn-success btn-block"> Search </a>
-            </div> --}}
-        </div>
-        <!-- Search Filter -->
-    @endif
+    </form>
+
 </div>

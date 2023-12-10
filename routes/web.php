@@ -136,6 +136,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::controller(ContratController::class)->group(function () {
         Route::get('contrats', 'index')->name('contrat.index');
         Route::get('contrats/create', 'create');
+        Route::get('contrats/create/{numero}/edit', 'edit')->name('contrat.edit');
     });
 
     // Classification Route

@@ -53,6 +53,10 @@ class DepartementShow extends Component
             $this->dep_id = $dep_id;
             $this->code = $dep->code;
             $this->nom = $dep->nom;
+
+            // Récupérez les catégories associées à la convention
+            $selectedCategories = $dep->postes->pluck('id')->toArray();
+            $this->selectPoste = $selectedCategories;
         }
     }
 
@@ -63,6 +67,8 @@ class DepartementShow extends Component
             $dep = Departement::find($this->dep_id);
             $dep->code = $validatedData['code'];
             $dep->nom = $validatedData['nom'];
+            $dep->postes()->detach();
+            $dep->postes()->attach($this->selectPoste);
             $dep->save();
             session()->flash('message', 'Departement Modifié avec Success');
             $this->resetInput();
@@ -104,6 +110,7 @@ class DepartementShow extends Component
     {
         $this->code = '';
         $this->nom = '';
+        $this->selectPoste = '';
     }
 
     public function render()

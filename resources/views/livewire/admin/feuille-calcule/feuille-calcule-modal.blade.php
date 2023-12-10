@@ -1,6 +1,6 @@
 <!-- Add Department Modal -->
 <div wire:ignore.self id="add_feuille_calcule" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Nouvelle Feuille de Calcule</h5>
@@ -70,7 +70,7 @@
 
 <!-- Edit Department Modal -->
 <div wire:ignore.self id="edit_feuille_calcule" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Modifier Feuille de Calcule</h5>

@@ -19,7 +19,16 @@ return new class extends Migration
         });
         DB::table('postes')->insert([
             [
-                'nom' => 'Responsable DSI-TG',
+                'nom' => 'Responsable DSI',
+            ],
+            [
+                'nom' => 'Responsable DO',
+            ],
+            [
+                'nom' => 'Responsable DCH',
+            ],
+            [
+                'nom' => 'Responsable DFC',
             ],
             [
                 'nom' => 'Responsable Sécurité',
@@ -28,10 +37,19 @@ return new class extends Migration
                 'nom' => 'Responsable Entité Systèmes et Réseaux',
             ],
             [
-                'nom' => 'Responsable Entité Exploitation des Bases de Données',
+                'nom' => 'Responsable Entité  Bases de Données',
             ],
             [
                 'nom' => 'Responsable Entité Dévelop Appl Externe',
+            ],
+            [
+                'nom' => 'Administration RH et relations sociales',
+            ],
+            [
+                'nom' => 'Responsable Entité Développement RH',
+            ],
+            [
+                'nom' => 'Responsable Entité Communication interne',
             ],
             [
                 'nom' => 'Agent',

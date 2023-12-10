@@ -6,6 +6,7 @@
 <script>
     window.addEventListener('close-modal', event => {
         $('#add_employee').modal('hide');
+        $('#edit_employee').modal('hide');
         $('#delete_employee').modal('hide');
     });
 </script>

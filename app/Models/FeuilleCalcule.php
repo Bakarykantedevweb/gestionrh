@@ -14,4 +14,9 @@ class FeuilleCalcule extends Model
     {
         return $this->belongsToMany(Rubrique::class);
     }
+
+    public function contrats()
+    {
+        return $this->hasMany(Contrat::class);
+    }
 }

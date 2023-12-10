@@ -26,7 +26,6 @@
                         <tr>
                             <th style="width: 30px;">#</th>
                             <th>Nature Rubrique</th>
-                            <th>Formule</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -35,7 +34,6 @@
                             <tr>
                                 <td>{{ $items->id }}</td>
                                 <td>{{ $items->libelle }}</td>
-                                <td>{{ $items->formule->nom }}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
