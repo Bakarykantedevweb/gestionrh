@@ -29,6 +29,7 @@ class BulletinShow extends Component
     {
         $this->feuilleCalcules = FeuilleCalcule::get();
         $this->periodes = Periode::get();
+        $this->montant = [];
     }
 
     public function selectMonth($month)
@@ -67,21 +68,56 @@ class BulletinShow extends Component
 
     public function SaveBulletin()
     {
-        $mois = strtolower($this->selectedMonthName);
-        $periode = Periode::where('mois',$mois)->first();
-        
-        // foreach ($this->montants as $rubriqueId => $montants) {
-        //     foreach ($montants as $agentId => $montant) {
-        //         $bulletinRubrique = new BulletinRubrique([
-        //             'rubrique_id' => $rubriqueId,
-        //             'agent_id' => $agentId,
-        //             'montant' => $montant,
-        //         ]);
-        //         $bulletinRubrique->save();
-        //     }
-        // }
-        // $this->reset('montants');
+        // Vérifiez si les données nécessaires sont disponibles
+        if ($this->feuilleCalculeId && $this->selectedMonthName) {
+            // Obtenez la période
+            $mois = strtolower($this->selectedMonthName);
+            $periode = Periode::where('mois', $mois)->first();
+
+            // Parcourez les contrats pour enregistrer dans la table bulletin
+            foreach ($this->contrats as $contrat) {
+                // Insérez ou mettez à jour dans la table bulletin
+                $bulletin = Bulletin::updateOrCreate(
+                    [
+                        'periode_id' => $periode->id,
+                        'contrat_id' => $contrat->id,
+                    ],
+                );
+
+                // Créez un tableau pour les montants de l'agent
+                $montantsAgent = [];
+
+                // Parcourez les rubriques pour récupérer les montants pour l'agent actuel
+                foreach ($this->rubriques as $rubrique) {
+                    $contratId = $contrat->id;
+                    $rubriqueId = $rubrique->id;
+
+                    // Vérifiez si la clé existe avant d'accéder à $this->montant
+                    if (isset($this->montant[$contratId][$rubriqueId])) {
+                        // Ajoutez le montant à $montantsAgent
+                        $montantsAgent[$rubriqueId] = $this->montant[$contratId][$rubriqueId];
+
+                        // Utilisez la méthode create pour insérer dans la table bulletin_rubrique
+                        BulletinRubrique::create([
+                            'bulletin_id' => $bulletin->id,
+                            'rubrique_id' => $rubriqueId,
+                            'montant' => $montantsAgent[$rubriqueId],
+                        ]);
+                    }
+                }
+            }
+
+            // Ajoutez d'autres actions nécessaires après l'enregistrement
+        }
+
+        // Ajoutez d'autres actions nécessaires après le traitement
+
+        // Rafraîchissez la page ou redirigez si nécessaire
+        toastr()->success('Preparation effectue avec success');
+        $this->reset();
+        return redirect('admin/bulletins');
     }
+
 
     public function render()
     {

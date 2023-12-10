@@ -68,7 +68,7 @@
                                     <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}</td>
                                     @foreach ($rubriques as $rubrique)
                                         <td class="text-center">
-                                            <input type="number" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
+                                            <input type="number" min="1" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
                                                 class="form-control">
                                         </td>
                                     @endforeach
@@ -85,7 +85,7 @@
                         </table>
                     </div>
                     @if ($rubriques)
-                        <button class="btn btn-primary btn-outline-light" type="submit">Calculer</button>
+                        <button class="btn btn-primary btn-outline-light" type="submit">Terminer</button>
                     @endif
                 </div>
             @endif

@@ -10,4 +10,6 @@ class BulletinRubrique extends Model
     use HasFactory;
 
     protected $table = 'bulletin_rubrique';
+
+    protected $guarded = [];
 }

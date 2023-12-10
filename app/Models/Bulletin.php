@@ -12,6 +12,10 @@ class Bulletin extends Model
 {
     use HasFactory;
 
+    protected $table = 'bulletins';
+
+    protected $guarded = [];
+
     public function agent()
     {
         return $this->belongsTo(Agent::class);
