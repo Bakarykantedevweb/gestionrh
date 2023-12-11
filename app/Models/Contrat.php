@@ -10,6 +10,8 @@ class Contrat extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function agent()
     {
         return $this->belongsTo(Agent::class);

@@ -32,6 +32,18 @@ class BulletinShow extends Component
         $this->montant = [];
     }
 
+
+    public function getFeuilles($mois)
+    {
+        // Récupérez la liste des feuilles en excluant celles avec le statut "traité" pour le mois actuel
+        $feuilles = FeuilleCalcule::where('mois', $mois)
+            ->where('status', '!=', 'traité')
+            ->get();
+
+        return $feuilles;
+    }
+
+
     public function selectMonth($month)
     {
         $this->selectedMonth = $month;
@@ -83,6 +95,11 @@ class BulletinShow extends Component
                         'contrat_id' => $contrat->id,
                     ],
                 );
+
+                // Incrémentez le champ nombre_jour_conge de 2.5 pour les agents associés à la feuille
+                $contrat->update([
+                    'nombre_jour_conge' => $contrat->nombre_jour_conge + 2.5,
+                ]);
 
                 // Créez un tableau pour les montants de l'agent
                 $montantsAgent = [];
