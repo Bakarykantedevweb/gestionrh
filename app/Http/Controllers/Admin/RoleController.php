@@ -37,8 +37,8 @@ class RoleController extends Controller
             $role->droits()->toggle($request->role_droits);
 
             DB::commit();
-            //Toastr::success('Role créer avec succes:-)', 'Felicitation');
-            return redirect('admin/roles')->with('message','Role Cree avec Succuess');
+            toastr()->success('Role créer avec succes:-)', 'Felicitation');
+            return redirect('admin/roles');
         } catch (\Exception $e) {
             DB::rollback();
             //Toastr::error('Creation du role échec veuillez réessayer :-(', 'Erreur');
@@ -88,7 +88,8 @@ class RoleController extends Controller
             $role->droits()->attach($request->droits);
 
             DB::commit();
-            return redirect('admin/roles')->with('message', 'Role modifier avec succes :-)');
+            toastr()->success('Role modifier avec succes:-)', 'Felicitation');
+            return redirect('admin/roles');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect('admin/roles')->with('error', $e->getMessage());

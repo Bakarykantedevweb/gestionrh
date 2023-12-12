@@ -65,10 +65,10 @@
                             <tbody>
                                 @forelse ($contrats as $contrat)
                                 <tr>
-                                    <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}</td>
+                                    <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom.'('.$contrat->agent->poste->nom.')' }}</td>
                                     @foreach ($rubriques as $rubrique)
                                         <td class="text-center">
-                                            <input type="number" min="1" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
+                                            <input type="number" min="0" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
                                                 class="form-control">
                                         </td>
                                     @endforeach

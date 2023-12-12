@@ -20,32 +20,6 @@ return new class extends Migration
             $table->foreignIdFor(Poste::class)->constrained();
             $table->timestamps();
         });
-        DB::table('departement_poste')->insert([
-            [
-                "departement_id" => 1,
-                "poste_id" => 1,
-            ],
-            [
-                "departement_id" => 1,
-                "poste_id" => 2,
-            ],
-            [
-                "departement_id" => 1,
-                "poste_id" => 3,
-            ],
-            [
-                "departement_id" => 1,
-                "poste_id" => 4,
-            ],
-            [
-                "departement_id" => 1,
-                "poste_id" => 5,
-            ],
-            [
-                "departement_id" => 1,
-                "poste_id" => 6,
-            ],
-        ]);
     }
 
     /**

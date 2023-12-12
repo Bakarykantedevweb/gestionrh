@@ -25,7 +25,6 @@
                     <thead>
                         <tr>
                             <th style="width: 30px;">#</th>
-                            <th>Nature</th>
                             <th>Code</th>
                             <th>Libelle</th>
                             <th class="text-right">Action</th>
@@ -35,7 +34,6 @@
                         @forelse ($rubriques as $items)
                             <tr>
                                 <td>{{ $items->id }}</td>
-                                <td>{{ $items->nature_rubrique->libelle }}</td>
                                 <td>{{ $items->code }}</td>
                                 <td>{{ $items->libelle }}</td>
                                 <td class="text-right">

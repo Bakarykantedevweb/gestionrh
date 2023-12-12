@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Agent;
+use App\Models\Contrat;
 use App\Models\Periode;
 use App\Models\Rubrique;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +16,9 @@ class Bulletin extends Model
 
     protected $guarded = [];
 
-    public function agent()
+    public function contrat()
     {
-        return $this->belongsTo(Agent::class);
+        return $this->belongsTo(Contrat::class);
     }
 
     public function periode()

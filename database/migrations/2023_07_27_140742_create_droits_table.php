@@ -70,12 +70,6 @@ return new class extends Migration
                 'type_droit_id' => 1,
             ],
             [
-                'nom' => 'Compte',
-                'acces' => 1,
-                'route' => 'compte.index',
-                'type_droit_id' => 1,
-            ],
-            [
                 'nom' => 'Agents',
                 'acces' => 1,
                 'route' => 'agent.index',
@@ -118,12 +112,6 @@ return new class extends Migration
                 'type_droit_id' => 2,
             ],
             [
-                'nom' => 'Nature Rubrique',
-                'acces' => 1,
-                'route' => 'nature-rubrique.index',
-                'type_droit_id' => 2,
-            ],
-            [
                 'nom' => 'Rubrique',
                 'acces' => 1,
                 'route' => 'rubrique.index',
@@ -139,6 +127,12 @@ return new class extends Migration
                 'nom' => 'Bulletin',
                 'acces' => 1,
                 'route' => 'bulletin.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Generation',
+                'acces' => 1,
+                'route' => 'generation.index',
                 'type_droit_id' => 2,
             ],
         ]);

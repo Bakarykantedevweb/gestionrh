@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Rubrique;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BulletinRubrique extends Model
 {
@@ -12,4 +13,9 @@ class BulletinRubrique extends Model
     protected $table = 'bulletin_rubrique';
 
     protected $guarded = [];
+
+    public function rubrique()
+    {
+        return $this->belongsTo(Rubrique::class);
+    }
 }

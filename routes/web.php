@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ClassificationController;
 use App\Http\Controllers\Admin\CompteController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\FormuleController;
+use App\Http\Controllers\admin\GenerationController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\VariableController;
@@ -116,9 +117,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('feuille-calcules', 'index')->name('feuille-calcule.index');
     });
 
-    Route::controller(NatureRubriqueController::class)->group(function () {
-        Route::get('natures-rubriques', 'index')->name('nature-rubrique.index');
-    });
+    // Route::controller(NatureRubriqueController::class)->group(function () {
+    //     Route::get('natures-rubriques', 'index')->name('nature-rubrique.index');
+    // });
 
     Route::controller(RubriqueController::class)->group(function () {
         Route::get('rubriques', 'index')->name('rubrique.index');
@@ -160,8 +161,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('formules', 'index')->name('formule.index');
     });
 
-    Route::controller(CompteController::class)->group(function () {
-        Route::get('comptes','index')->name('compte.index');
+    Route::controller(GenerationController::class)->group(function () {
+        Route::get('generations', 'index')->name('generation.index');
     });
 });
 

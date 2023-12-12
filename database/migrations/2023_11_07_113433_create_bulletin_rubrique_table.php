@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Bulletin::class)->constrained();
             $table->foreignIdFor(Rubrique::class)->constrained();
-            $table->string('montant');
+            $table->integer('montant');
             $table->timestamps();
         });
     }

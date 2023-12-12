@@ -11,20 +11,6 @@
             <div class="modal-body">
                 <form wire:submit.prevent="saveRubrique">
                     <div class="form-group">
-                        <label>Nature libelle <span class="text-danger">*</span></label>
-                        <select wire:model="nature_id" class="form-control">
-                            <option value="">---</option>
-                            @forelse ($natures as $items)
-                                <option value="{{ $items->id }}">{{ $items->libelle }}</option>
-                            @empty
-                                <option value="">Pas de Nature Ruprique</option>
-                            @endforelse
-                        </select>
-                        @error('nature_id')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label>Code <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="code" type="text">
                         @error('code')
@@ -60,20 +46,6 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="updateRubrique">
-                    <div class="form-group">
-                        <label>Nature libelle <span class="text-danger">*</span></label>
-                        <select wire:model="nature_id" class="form-control">
-                            <option value="">---</option>
-                            @forelse ($natures as $items)
-                                <option value="{{ $items->id }}">{{ $items->libelle }}</option>
-                            @empty
-                                <option value="">Pas de Nature Ruprique</option>
-                            @endforelse
-                            @error('nature_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label>Code <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="code" type="text">

@@ -9,14 +9,31 @@ use Illuminate\Support\Facades\DB;
 
 class RoleShow extends Component
 {
-    public $roles,$droits ,$nom, $type, $role_droits = [];
+    public $roles,$droits ,$nom, $type , $selectedItems = [];
+    public $selectAll;
+
+    public function updatedSelectAll()
+    {
+        if ($this->selectAll) {
+            // Cochez toutes les cases à cocher
+            $this->selectedItems = array_fill_keys($this->obtenirIdsMesDonnees(), true);
+        } else {
+            // Décochez toutes les cases à cocher
+            $this->selectedItems = [];
+        }
+    }
+
+    private function obtenirIdsMesDonnees()
+    {
+        return collect($this->droits)->pluck('id')->all();
+    }
+
 
     protected function rules()
     {
         return [
             'nom' => 'required|string',
             'type' => 'required|integer',
-            'role_droits' => 'required',
         ];
     }
 
@@ -33,15 +50,9 @@ class RoleShow extends Component
             $role->nom = $validatedData['nom'];
             $role->type = $validatedData['type'];
             $role->save();
-            $role->droits()->toggle($validatedData['role_droits']);
-            // if($role){
-            //     for ($i = 0; $i < count($validatedData['role_droits']); $i++) {
-            //         DB::table('droit_role')->insert([
-            //             'droit_id' => $validatedData['role_droits[$i]'],
-            //             'role_id' => $role->id,
-            //         ]);
-            //     }
-            // }
+            if($role){
+                $role->droits()->attach($this->selectedItems);
+            }
             session()->flash('message', 'Role Cree avec Succuess');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');

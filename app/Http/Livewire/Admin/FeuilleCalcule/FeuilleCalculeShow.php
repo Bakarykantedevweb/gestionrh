@@ -35,7 +35,8 @@ class FeuilleCalculeShow extends Component
             if($dep){
                 $dep->rubriques()->attach($this->selectRubrique);
             }
-            session()->flash('message', 'Feuille de Calcule ajouter avec Success');
+            toastr()->success('message', 'Feuille de Calcule ajouter avec Success');
+            return redirect('admin/feuille-calcules');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
@@ -71,6 +72,7 @@ class FeuilleCalculeShow extends Component
             $dep->rubriques()->detach();
             $dep->rubriques()->attach($this->selectRubrique);
             toastr()->success('Feuille de Calcule Modifié avec Success');
+            return redirect('admin/feuille-calcules');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {

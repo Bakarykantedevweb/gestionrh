@@ -8,13 +8,12 @@ use App\Models\NatureRubrique;
 
 class RubriqueShow extends Component
 {
-    public $natures, $rubriques,$nature_id,$code,$libelle;
+    public $rubriques,$code,$libelle,$rubrique_id;
     protected function rules()
     {
         return [
             'code' => 'required|string',
             'libelle' => 'required|string',
-            'nature_id' => 'required|integer',
         ];
     }
 
@@ -28,7 +27,6 @@ class RubriqueShow extends Component
         $validatedData = $this->validate();
         try {
             $rubrique = new Rubrique();
-            $rubrique->nature_rubrique_id = $validatedData['nature_id'];
             $rubrique->libelle = $validatedData['libelle'];
             $rubrique->code = $validatedData['code'];
             $rubrique->save();
@@ -43,12 +41,11 @@ class RubriqueShow extends Component
         }
     }
 
-    public function edit_rubrique(int $nature_id)
+    public function edit_rubrique(int $rubrique_id)
     {
-        $rubrique = Rubrique::find($nature_id);
+        $rubrique = Rubrique::find($rubrique_id);
         if ($rubrique) {
-            $this->nature_id = $nature_id;
-            $this->nature_id = $rubrique->nature_rubrique_id;
+            $this->rubrique_id = $rubrique->id;
             $this->libelle = $rubrique->libelle;
             $this->code = $rubrique->code;
         }
@@ -58,8 +55,7 @@ class RubriqueShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $rubrique = Rubrique::find($this->nature_id);
-            $rubrique->nature_rubrique_id = $validatedData['nature_id'];
+            $rubrique = Rubrique::find($this->rubrique_id);
             $rubrique->libelle = $validatedData['libelle'];
             $rubrique->code = $validatedData['code'];
             $rubrique->save();
@@ -74,15 +70,15 @@ class RubriqueShow extends Component
         }
     }
 
-    public function delete_rubrique(int $nature_id)
+    public function delete_rubrique(int $rubrique_id)
     {
-        $this->nature_id = $nature_id;
+        $this->rubrique_id = $rubrique_id;
     }
 
     public function destroyRubrique()
     {
         try {
-            Rubrique::where('id', $this->nature_id)->delete();
+            Rubrique::where('id', $this->rubrique_id)->delete();
             session()->flash('message', 'Rubrique Supprimé avec Success');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
@@ -103,12 +99,10 @@ class RubriqueShow extends Component
     {
         $this->libelle = '';
         $this->code = '';
-        $this->nature_id = '';
     }
 
     public function render()
     {
-        $this->natures = NatureRubrique::get();
         $this->rubriques = Rubrique::orderBy('libelle', 'asc')->get();;
         return view('livewire.admin.rubrique.rubrique-show');
     }
