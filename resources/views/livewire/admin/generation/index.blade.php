@@ -108,7 +108,7 @@
             @endphp
             <h3>INPS: @php echo number_format($inps) @endphp</h3>
             <h3>ITS: @php echo number_format($its) @endphp</h3>
-            <h3>ITS: @php echo number_format($salaireNet) @endphp</h3>
+            <h3>Salaire Net: @php echo number_format($salaireNet) @endphp</h3>
             @endif
         </div>
     </div>
