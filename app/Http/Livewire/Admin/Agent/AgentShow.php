@@ -32,7 +32,7 @@ class AgentShow extends Component
             'mois' => 'required',
             'annee' => 'required',
             'age' => 'required|integer',
-            'email' => 'required|email|',
+            'email' => 'required|email',
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
@@ -72,13 +72,14 @@ class AgentShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $data = [
-                'nom' => $validatedData['nom'],
-                'prenom' => $validatedData['prenom'],
-                'email' => $validatedData['email']
-            ];
-            Mail::to($validatedData['email'])
-                ->queue(new WelcomeAgent($data));
+            // $data = [
+            //     'nom' => $validatedData['nom'],
+            //     'prenom' => $validatedData['prenom'],
+            //     'email' => $validatedData['email']
+            // ];
+            // Mail::to($validatedData['email'])
+            //     ->queue(new WelcomeAgent($data));
+            if(Agent::where())
             $agent = new Agent();
             $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
@@ -100,12 +101,14 @@ class AgentShow extends Component
             $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
             $agent->matricule = $matricule;
             $agent->save();
-            session()->flash('message', 'Operation effectue avec Success');
+            toastr()->success('message', 'Operation effectue avec Success');
+            return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
             //throw $th;
-            session()->flash('error', $th);
+            toastr()->error('error', $th);
+            return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         }
@@ -127,6 +130,7 @@ class AgentShow extends Component
             $this->departement_id = $agent->departement_id;
             $this->poste_id = $agent->poste_id;
             $this->sexe = $agent->sexe;
+            $this->photo = $agent->photo;
         }
     }
 
@@ -152,12 +156,14 @@ class AgentShow extends Component
             $agent->photo = $imageName;
             $agent->password = Hash::make('password');
             $agent->save();
-            session()->flash('message', 'Operation effectue avec Success');
+            toastr()->success('message', 'Operation effectue avec Success');
+            return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         } catch (\Throwable $th) {
             //throw $th;
-            session()->flash('error', $th);
+            toastr()->error('error', $th);
+            return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
         }
@@ -172,6 +178,7 @@ class AgentShow extends Component
     {
         Agent::where('id', $this->agent_id)->delete();
         toastr()->success('Operation effectue avec Success');
+        return redirect('admin/agents');
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
     }
@@ -194,6 +201,7 @@ class AgentShow extends Component
         $this->departement_id = '';
         $this->poste_id = '';
         $this->sexe = '';
+        $this->photo = '';
     }
 
     public function activer(int $agent_id)

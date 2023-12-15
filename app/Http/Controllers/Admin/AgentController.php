@@ -18,4 +18,15 @@ class AgentController extends Controller
 
         return view('admin.agent.index');
     }
+
+    public function create()
+    {
+        $autorisation = $this->autorisation(Auth::user()->role, 'agent.index');
+        if ($autorisation == 'false') {
+            toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
+            return redirect()->route('dashboard');
+        }
+
+        return view('admin.agent.create');
+    }
 }

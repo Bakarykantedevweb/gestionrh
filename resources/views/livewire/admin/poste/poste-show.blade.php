@@ -13,6 +13,10 @@
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_poste"><i
                         class="fa fa-plus"></i> Nouveau Poste</a>
             </div>
+            <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#import_poste"><i class="fa fa-plus"></i>
+                    Importer les Postes</a>
+            </div>
         </div>
     </div>
     <!-- /Page Header -->

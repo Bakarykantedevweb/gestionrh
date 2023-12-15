@@ -13,6 +13,10 @@
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_agence"><i
                         class="fa fa-plus"></i>Agence</a>
             </div>
+            <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#import_agence"><i class="fa fa-plus"></i>
+                    Importer les Agences</a>
+            </div>
         </div>
     </div>
     <!-- /Page Header -->

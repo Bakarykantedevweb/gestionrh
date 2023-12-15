@@ -10,6 +10,7 @@ use App\Models\CentreImpot;
 use App\Models\TypeContrat;
 use App\Models\Classification;
 use App\Models\FeuilleCalcule;
+use App\Models\ContratRubrique;
 
 class Create extends Component
 {
@@ -28,6 +29,8 @@ class Create extends Component
             $nombre_enfant, $nombre_femme, $centre_impot_id, $feuille_calcule_id,
             $prefix,$compte;
     public $classifications;
+    public $rubriques = [];
+    public $montant = [];
 
     protected $rules = [
         'agent_id' => 'required|integer',
@@ -38,6 +41,20 @@ class Create extends Component
         'date_entre' => 'required|date',
         'selectedOption' => 'required|string',
     ];
+
+
+    public function getRubriques()
+    {
+        $feuilleCalcule = FeuilleCalcule::find($this->feuille_calcule_id);
+        //dd($feuilleCalcule);
+        // Vérifier si la feuille de calcul existe
+        if ($feuilleCalcule) {
+            // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
+            $this->rubriques = $feuilleCalcule->rubriques ?? [];
+        } else {
+            $this->rubriques = [];
+        }
+    }
 
     public function updated($propertyName)
     {
@@ -72,6 +89,16 @@ class Create extends Component
         $numero = 'CR' . str_pad($contrat->id, 5, '0', STR_PAD_LEFT);
         $contrat->numero = $numero;
         $contrat->save();
+        foreach ($this->rubriques as $rubrique) {
+            $contratRubrique = new ContratRubrique;
+            $contratRubrique->contrat_id = $contrat->id;
+            $contratRubrique->rubrique_id = $rubrique->id;
+            $contratRubrique->montant = $this->montant[$rubrique->id];
+            $contratRubrique->save();
+        }
+
+        // Réinitialisez les données après l'enregistrement
+        $this->reset();
         return redirect('admin/contrats')->with('message','Contrat cree avec success');
     }
 

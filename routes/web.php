@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Admin\ClassificationController;
 use App\Http\Controllers\Admin\CompteController;
+use App\Http\Controllers\Admin\EnfantController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\admin\GenerationController;
@@ -90,6 +91,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(AgentController::class)->group(function(){
         Route::get('agents','index')->name('agent.index');
+        Route::get('agents/create', 'create')->name('agent.create');
     });
 
     Route::controller(TypeContratController::class)->group(function () {
@@ -117,9 +119,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('feuille-calcules', 'index')->name('feuille-calcule.index');
     });
 
-    // Route::controller(NatureRubriqueController::class)->group(function () {
-    //     Route::get('natures-rubriques', 'index')->name('nature-rubrique.index');
-    // });
 
     Route::controller(RubriqueController::class)->group(function () {
         Route::get('rubriques', 'index')->name('rubrique.index');
@@ -153,13 +152,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('agences', 'index')->name('agence.index');
     });
 
-    Route::controller(VariableController::class)->group(function () {
-        Route::get('variables', 'index')->name('variable.index');
+    Route::controller(EnfantController::class)->group(function () {
+        Route::get('enfants', 'index')->name('enfant.index');
     });
 
-    Route::controller(FormuleController::class)->group(function () {
-        Route::get('formules', 'index')->name('formule.index');
-    });
 
     Route::controller(GenerationController::class)->group(function () {
         Route::get('generations', 'index')->name('generation.index');

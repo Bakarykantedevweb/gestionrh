@@ -22,24 +22,6 @@ return new class extends Migration
         });
         DB::table('droits')->insert([
             [
-                'nom' => 'Roles',
-                'acces' => 1,
-                'route' => 'role.index',
-                'type_droit_id' => 3,
-            ],
-            [
-                'nom' => 'Permissions',
-                'acces' => 1,
-                'route' => 'droit.index',
-                'type_droit_id' => 3,
-            ],
-            [
-                'nom' => 'Utilisateurs',
-                'acces' => 1,
-                'route' => 'user.index',
-                'type_droit_id' => 3,
-            ],
-            [
                 'nom' => 'Agences',
                 'acces' => 1,
                 'route' => 'agence.index',
@@ -76,21 +58,15 @@ return new class extends Migration
                 'type_droit_id' => 1,
             ],
             [
+                'nom' => 'Enfants',
+                'acces' => 1,
+                'route' => 'enfant.index',
+                'type_droit_id' => 1,
+            ],
+            [
                 'nom' => 'Type Contrat',
                 'acces' => 1,
                 'route' => 'Typecontrat.index',
-                'type_droit_id' => 1,
-            ],
-            [
-                'nom' => 'Type Conge',
-                'acces' => 1,
-                'route' => 'Typeconge.index',
-                'type_droit_id' => 1,
-            ],
-            [
-                'nom' => 'Type Pret',
-                'acces' => 1,
-                'route' => 'Typepret.index',
                 'type_droit_id' => 1,
             ],
             [
@@ -103,12 +79,6 @@ return new class extends Migration
                 'nom' => 'Centre Impot',
                 'acces' => 1,
                 'route' => 'centreImpot.index',
-                'type_droit_id' => 2,
-            ],
-            [
-                'nom' => 'Feuille de Calcule',
-                'acces' => 1,
-                'route' => 'feuille-calcule.index',
                 'type_droit_id' => 2,
             ],
             [
@@ -134,6 +104,42 @@ return new class extends Migration
                 'acces' => 1,
                 'route' => 'generation.index',
                 'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Feuille de Calcule',
+                'acces' => 1,
+                'route' => 'feuille-calcule.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Type Pret',
+                'acces' => 1,
+                'route' => 'Typepret.index',
+                'type_droit_id' => 5,
+            ],
+            [
+                'nom' => 'Type Conge',
+                'acces' => 1,
+                'route' => 'Typeconge.index',
+                'type_droit_id' => 6,
+            ],
+            [
+                'nom' => 'Roles',
+                'acces' => 1,
+                'route' => 'role.index',
+                'type_droit_id' => 7,
+            ],
+            [
+                'nom' => 'Permissions',
+                'acces' => 1,
+                'route' => 'droit.index',
+                'type_droit_id' => 7,
+            ],
+            [
+                'nom' => 'Utilisateurs',
+                'acces' => 1,
+                'route' => 'user.index',
+                'type_droit_id' => 7,
             ],
         ]);
     }

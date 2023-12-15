@@ -22,7 +22,7 @@
                         <select wire:model="classification_id" class="form-control">
                             <option></option>
                             @foreach ($classifications as $classification)
-                                <option value="{{ $classification->id }}">{{ $classification->nom }}</option>
+                                <option value="{{ $classification->id }}">{{ $classification->nom.' - '. $classification->montant }}</option>
                             @endforeach
                         </select>
                         @error('classification_id')

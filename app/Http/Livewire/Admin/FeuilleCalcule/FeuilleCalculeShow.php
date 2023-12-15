@@ -55,7 +55,7 @@ class FeuilleCalculeShow extends Component
             $this->code = $dep->code;
             $this->libelle = $dep->libelle;
 
-            // Récupérez les catégories associées à la convention
+            // Répérez les catégories associées à la convention
             $selectedCategories = $dep->rubriques->pluck('id')->toArray();
             $this->selectRubrique = $selectedCategories;
         }
@@ -116,7 +116,7 @@ class FeuilleCalculeShow extends Component
     }
     public function render()
     {
-        $this->rubriques = Rubrique::orderBy('libelle','asc')->get();
+        $this->rubriques = Rubrique::get();
         $this->FeuilledeCalcules = FeuilleCalcule::get();
         return view('livewire.admin.feuille-calcule.feuille-calcule-show');
     }

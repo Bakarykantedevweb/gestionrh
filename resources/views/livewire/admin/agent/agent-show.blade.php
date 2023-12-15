@@ -11,7 +11,7 @@
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i
+                <a href="{{ route('agent.create') }}" class="btn add-btn"><i
                         class="fa fa-plus"></i> Ajouter un Agent</a>
                 <div class="view-icons">
                     <a href="" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>

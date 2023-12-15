@@ -107,7 +107,7 @@
                                     <tr>
                                         <td>{{ $rubrique->libelle }}</td>
                                         <td class="text-center">
-                                            <input wire:model="selectRubrique.{{ $rubrique->id }}" value="{{ $rubrique->id }}" type="checkbox">
+                                            <input wire:model="selectRubrique" value="{{ $rubrique->id }}" type="checkbox">
                                         </td>
                                     </tr>
                                 @endforeach

@@ -9,6 +9,8 @@ class Poste extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function departements()
     {
         return $this->belongsToMany(Departement::class);

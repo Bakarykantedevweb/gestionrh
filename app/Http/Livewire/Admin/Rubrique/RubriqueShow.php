@@ -103,7 +103,7 @@ class RubriqueShow extends Component
 
     public function render()
     {
-        $this->rubriques = Rubrique::orderBy('libelle', 'asc')->get();;
+        $this->rubriques = Rubrique::orderBy('libelle', 'asc')->get();
         return view('livewire.admin.rubrique.rubrique-show');
     }
 }

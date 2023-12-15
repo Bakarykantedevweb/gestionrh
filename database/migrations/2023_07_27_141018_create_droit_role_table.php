@@ -22,15 +22,15 @@ return new class extends Migration
         DB::table('droit_role')->insert([
             [
                 "role_id" => 1,
-                "droit_id" => 1,
+                "droit_id" => 18,
             ],
             [
                 "role_id" => 1,
-                "droit_id" => 2,
+                "droit_id" => 19,
             ],
             [
                 "role_id" => 1,
-                "droit_id" => 3,
+                "droit_id" => 20,
             ],
         ]);
     }

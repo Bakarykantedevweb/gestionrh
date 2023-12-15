@@ -35,53 +35,53 @@ return new class extends Migration
             $table->integer('blocked')->default('0');
             $table->timestamps();
         });
-        DB::table('agents')->insert([
-            [
-                'matricule' => 'MA001',
-                'nom'=>'Kante',
-                'prenom' => 'Bakary',
-                'jour' => 27,
-                'mois' => 'Avril',
-                'annee' => 2002,
-                'age' => 21,
-                'telephone' => '89247070',
-                'departement_id' => 1,
-                'poste_id' => 1,
-                'email' => 'kantebakary742@gmail.com',
-                'password' => Hash::make('password'),
-                'photo' => '1701787382.jpg'
-            ],
-            [
-                'matricule' => 'MA002',
-                'nom' => 'Diallo',
-                'prenom' => 'Fousseyni',
-                'jour' => 22,
-                'mois' => 'Juin',
-                'annee' => 2001,
-                'age' => 22,
-                'telephone' => '73442134',
-                'departement_id' => 2,
-                'poste_id' => 2,
-                'email' => 'fousby000@gmail.com',
-                'password' => Hash::make('password'),
-                'photo' => '1701787382.jpg'
-            ],
-            [
-                'matricule' => 'MA003',
-                'nom' => 'Coulibaly',
-                'prenom' => 'Awa',
-                'jour' => 2,
-                'mois' => 'Septembre',
-                'annee' => 2005,
-                'age' => 18,
-                'telephone' => '83560690',
-                'departement_id' => 3,
-                'poste_id' => 3,
-                'email' => 'evecoulibaly324@gmail.com',
-                'password' => Hash::make('password'),
-                'photo' => '1701787382.jpg'
-            ],
-        ]);
+        // DB::table('agents')->insert([
+        //     [
+        //         'matricule' => 'MA001',
+        //         'nom'=>'Kante',
+        //         'prenom' => 'Bakary',
+        //         'jour' => 27,
+        //         'mois' => 'Avril',
+        //         'annee' => 2002,
+        //         'age' => 21,
+        //         'telephone' => '89247070',
+        //         'departement_id' => 1,
+        //         'poste_id' => 1,
+        //         'email' => 'kantebakary742@gmail.com',
+        //         'password' => Hash::make('password'),
+        //         'photo' => '1701787382.jpg'
+        //     ],
+        //     [
+        //         'matricule' => 'MA002',
+        //         'nom' => 'Diallo',
+        //         'prenom' => 'Fousseyni',
+        //         'jour' => 22,
+        //         'mois' => 'Juin',
+        //         'annee' => 2001,
+        //         'age' => 22,
+        //         'telephone' => '73442134',
+        //         'departement_id' => 2,
+        //         'poste_id' => 2,
+        //         'email' => 'fousby000@gmail.com',
+        //         'password' => Hash::make('password'),
+        //         'photo' => '1701787382.jpg'
+        //     ],
+        //     [
+        //         'matricule' => 'MA003',
+        //         'nom' => 'Coulibaly',
+        //         'prenom' => 'Awa',
+        //         'jour' => 2,
+        //         'mois' => 'Septembre',
+        //         'annee' => 2005,
+        //         'age' => 18,
+        //         'telephone' => '83560690',
+        //         'departement_id' => 3,
+        //         'poste_id' => 3,
+        //         'email' => 'evecoulibaly324@gmail.com',
+        //         'password' => Hash::make('password'),
+        //         'photo' => '1701787382.jpg'
+        //     ],
+        // ]);
     }
 
     /**

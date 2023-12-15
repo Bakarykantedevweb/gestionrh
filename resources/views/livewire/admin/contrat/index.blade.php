@@ -27,6 +27,7 @@
                             <th>Numero Contrat</th>
                             <th>Date creation</th>
                             <th>Agent</th>
+                            <th>Feuille Calcule</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -43,6 +44,7 @@
                                 YYYY') }}
                             </td>
                             <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
+                            <td>{{ $items->feuilleCalcule->libelle }}</td>
                             <td class="text-right">
                                 <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
                                         class="fa fa-pencil"></i>

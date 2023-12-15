@@ -4,10 +4,14 @@ namespace App\Http\Livewire\Admin\Poste;
 
 use App\Models\Poste;
 use Livewire\Component;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Livewire\WithFileUploads;
 
 class PosteShow extends Component
 {
+    use WithFileUploads;
     public $postes,$nom, $poste_id;
+    public $fichier;
 
     protected function rules()
     {
@@ -96,6 +100,33 @@ class PosteShow extends Component
     {
         $this->nom = '';
     }
+
+    public function importPoste()
+    {
+        $this->validate([
+            'fichier' => 'required|mimes:xlsx',
+        ]);
+
+        $file = $this->fichier->getRealPath();
+        $spreadsheet = IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            try {
+                $nom = $worksheet->getCell('A' . $row)->getValue();
+
+                Poste::create([
+                    'nom' => $nom,
+                ]);
+            } catch (\Exception $e) {
+                session()->flash('error', $e->getMessage());
+            }
+        }
+        toastr()->success('Importation Reussie avec success');
+        return redirect('admin/postes');
+    }
+
     public function render()
     {
         $this->postes = Poste::get();

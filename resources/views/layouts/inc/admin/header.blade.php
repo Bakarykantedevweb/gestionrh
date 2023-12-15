@@ -18,7 +18,7 @@
 
                 <!-- Header Title -->
                 <div class="page-title-box">
-                    <span class="text-white">Resources Humaines</span>
+                    <span class="text-white">Gestions RH</span>
                 </div>
                 <!-- /Header Title -->
 

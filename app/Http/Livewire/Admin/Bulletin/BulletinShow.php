@@ -56,25 +56,33 @@ class BulletinShow extends Component
         $this->showTable = false;
     }
 
+
     public function getRubriques()
     {
         $feuilleCalcule = FeuilleCalcule::find($this->feuilleCalculeId);
-        // dd($feuilleCalcule);
+
         // Vérifier si la feuille de calcul existe
         if ($feuilleCalcule) {
             // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
             $this->rubriques = $feuilleCalcule->rubriques ?? [];
-            $this->contrats = [];
-            $this->montant = [];
-            // Récupérer la liste des agents liés à la feuille sélectionnée via la table contrats
-            if(count($feuilleCalcule->contrats))
-            {
-                $this->contrats = $feuilleCalcule->contrats;
-            }
-
+            $this->contrats = $feuilleCalcule->contrats ?? [];
+            $this->loadMontants();
         } else {
             $this->rubriques = [];
-            $this->agents = [];
+            $this->contrats = [];
+            $this->montant = [];
+        }
+    }
+
+    public function loadMontants()
+    {
+        foreach ($this->contrats as $contrat) {
+            foreach ($this->rubriques as $rubrique) {
+                // Utilisez votre relation pour récupérer le montant depuis la table contrat_rubrique
+                $montant = $contrat->contratRubriques()->where('rubrique_id', $rubrique->id)->value('montant');
+
+                $this->montant[$contrat->id][$rubrique->id] = $montant;
+            }
         }
     }
 

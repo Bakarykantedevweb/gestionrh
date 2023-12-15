@@ -18,8 +18,12 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('type_droits')->insert([
-            ['nom' => 'Administrations'],
-            ['nom' => 'Salaires'],
+            ['nom' => 'Gestion RH'],
+            ['nom' => 'Gestion Salaire'],
+            ['nom' => 'Gestion Stagiaire'],
+            ['nom' => 'Gestion Recrutement'],
+            ['nom' => 'Gestion Pret'],
+            ['nom' => 'Gestion Conge'],
             ['nom' => 'Utilisateurs'],
         ]);
     }
