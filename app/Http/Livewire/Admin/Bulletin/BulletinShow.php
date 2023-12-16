@@ -33,17 +33,6 @@ class BulletinShow extends Component
     }
 
 
-    public function getFeuilles($mois)
-    {
-        // Récupérez la liste des feuilles en excluant celles avec le statut "traité" pour le mois actuel
-        $feuilles = FeuilleCalcule::where('mois', $mois)
-            ->where('status', '!=', 'traité')
-            ->get();
-
-        return $feuilles;
-    }
-
-
     public function selectMonth($month)
     {
         $this->selectedMonth = $month;
@@ -139,8 +128,9 @@ class BulletinShow extends Component
 
         // Rafraîchissez la page ou redirigez si nécessaire
         toastr()->success('Preparation effectue avec success');
-        $this->reset();
-        return redirect('admin/bulletins');
+        $this->rubriques = [];
+        $this->montant = [];
+        $this->feuilleCalculeId = '';
     }
 
 

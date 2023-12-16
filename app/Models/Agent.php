@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Poste;
+use App\Models\Enfant;
 use App\Models\Departement;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +25,11 @@ class Agent extends Authenticatable
     public function poste()
     {
         return $this->belongsTo(Poste::class);
+    }
+
+    public function enfants()
+    {
+        return $this->hasMany(Enfant::class);
     }
 
     public function incrementLoginAttempts()
