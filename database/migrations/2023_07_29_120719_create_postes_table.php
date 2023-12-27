@@ -17,44 +17,6 @@ return new class extends Migration
             $table->string('nom');
             $table->timestamps();
         });
-        // DB::table('postes')->insert([
-        //     [
-        //         'nom' => 'Responsable DSI',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable DO',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable DCH',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable DFC',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Sécurité',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Entité Systèmes et Réseaux',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Entité  Bases de Données',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Entité Dévelop Appl Externe',
-        //     ],
-        //     [
-        //         'nom' => 'Administration RH et relations sociales',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Entité Développement RH',
-        //     ],
-        //     [
-        //         'nom' => 'Responsable Entité Communication interne',
-        //     ],
-        //     [
-        //         'nom' => 'Agent',
-        //     ],
-        // ]);
     }
 
     /**

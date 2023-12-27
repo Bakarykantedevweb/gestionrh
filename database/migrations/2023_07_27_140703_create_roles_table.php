@@ -20,7 +20,7 @@ return new class extends Migration
         });
         DB::table('roles')->insert([
             [
-                'nom' => 'Informaticien',
+                'nom' => 'Super Admin',
                 'type' => 1,
             ],
         ]);

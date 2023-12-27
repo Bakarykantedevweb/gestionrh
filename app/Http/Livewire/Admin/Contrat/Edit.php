@@ -20,6 +20,9 @@ class Edit extends Component
         $nombre_enfant, $nombre_femme, $centre_impot_id, $feuille_calcule_id,
         $prefix, $compte;
     public $classifications;
+    public $rubriques = [];
+    public $montant = [];
+    public $sexeAgent;
     public $options = [
         'Marie' => 'text',
         'Divorce' => 'text',
@@ -42,6 +45,14 @@ class Edit extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function getSexe()
+    {
+        $Agent = Agent::find($this->agent_id);
+        if ($Agent) {
+            $this->sexeAgent = $Agent->sexe;
+        }
+    }
+
     public function mount()
     {
         $contrat = Contrat::where('numero',$this->contrat->numero)->first();
@@ -57,6 +68,7 @@ class Edit extends Component
         $this->date_veuve = $contrat->date_veuf;
         $this->feuille_calcule_id = $contrat->feuille_calcule_id;
         $this->centre_impot_id = $contrat->centre_impot_id;
+
     }
 
     public function UpdateContrat()

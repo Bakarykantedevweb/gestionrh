@@ -31,6 +31,9 @@ use App\Http\Controllers\Admin\NatureRubriqueController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\VariableController;
 use App\Http\Controllers\Agent\DashboardAgentController;
+use App\Http\Controllers\Frontend\AuthFrontendController;
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\RegisterFrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,12 +45,28 @@ use App\Http\Controllers\Agent\DashboardAgentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::controller(FrontendController::class)->group(function(){
+    Route::get('/','index');
+});
+
+Route::controller(RegisterFrontendController::class)->group(function(){
+    Route::get('register-candidat','index');
+});
+
+Route::controller(AuthFrontendController::class)->group(function () {
+    Route::get('login-candidat', 'index')->name('login-candidat');
+    Route::post('login-candidat', 'autenticate');
+});
+
+Route::controller(AuthFrontendController::class)->middleware(['middleware' => "candidat"])->group(function () {
+    Route::get('logout-candidat','logout');
+});
 
 // Route Authentifcation Agents
 Route::middleware(['guest'])->group(function () {
     // Routes accessibles uniquement pour les utilisateurs invités (non authentifiés)
-    Route::get('/', [LoginAgentController::class, 'index']);
-    Route::post('/', [LoginAgentController::class, 'login'])->name('agent-login');
+    Route::get('/login-agent', [LoginAgentController::class, 'index']);
+    Route::post('/login-agent', [LoginAgentController::class, 'login'])->name('agent-login');
 });
 
 Route::middleware(['auth:webagent'])->group(function () {
@@ -147,7 +166,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::controller(DiplomeController::class)->group(function () {
         Route::get('diplomes', 'index')->name('diplome.index');
     });
-
     Route::controller(AgenceController::class)->group(function () {
         Route::get('agences', 'index')->name('agence.index');
     });
@@ -159,6 +177,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(GenerationController::class)->group(function () {
         Route::get('generations', 'index')->name('generation.index');
+        Route::get('generations/{id}/contrat/{contrat_id}', 'generer');
     });
 });
 

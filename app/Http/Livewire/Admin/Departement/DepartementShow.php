@@ -116,7 +116,7 @@ class DepartementShow extends Component
     public function render()
     {
         $this->departements = Departement::get();
-        $this->postes = Poste::get();
+        $this->postes = Poste::orderBy('nom','ASC')->get();
         return view('livewire.admin.departement.departement-show');
     }
 }

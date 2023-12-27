@@ -16,6 +16,6 @@ class DashboardAgentController extends Controller
     public function logout()
     {
         Auth::guard('webagent')->logout();
-        return redirect('/')->with('message', 'Merci pour votre site'); // Redirige où vous le souhaitez après la déconnexion
+        return redirect('/login-agent')->with('message', 'Merci pour votre site'); // Redirige où vous le souhaitez après la déconnexion
     }
 }

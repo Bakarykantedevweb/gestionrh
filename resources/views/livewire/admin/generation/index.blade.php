@@ -56,9 +56,12 @@
                             <td>{{ $items->contrat->agent->matricule }}</td>
                             <td>{{ $items->contrat->agent->prenom.' '.$items->contrat->agent->nom }}</td>
                             <td class="text-right">
-                                <div class="">
+                                {{-- <div class="">
                                     <button wire:click="afficherRubriques({{ $items->id }},{{ $items->contrat_id }})"
                                         class="btn btn-primary btn-sm btn-outline-light">Generer</button>
+                                </div> --}}
+                                <div class="">
+                                    <a href="{{ url('admin/generations/'.$items->id.'/contrat/'.$items->contrat_id) }}" target="_blank"><button class="btn btn-primary btn-sm btn-outline-light">Generer</button></a>
                                 </div>
                             </td>
                         </tr>
@@ -70,46 +73,6 @@
                     </tbody>
                 </table>
             </div>
-            @if ($rubriquesDuBulletin)
-            <h2>Rubriques du Bulletin</h2>
-            <ul>
-                @php
-                    $montant = 0;
-                    $salaireBruit = 0;
-                    $inps = 0;
-                    $its = 0;
-                    $nombre_part = 0;
-                    $salaireNet = 0;
-                @endphp
-                @foreach ($rubriquesDuBulletin as $item)
-                <li>{{ $item->rubrique->libelle }} : {{ number_format($item->montant) }}</li>
-                @php $montant += $item->montant; @endphp
-                @endforeach
-                <li>Salaire de Base : {{ number_format($detailContrat->salaire) }}</li>
-            </ul>
-            <h3>Salaire Brut: @php echo number_format($salaireBruit = $montant + $detailContrat->salaire ) @endphp</h3>
-            @php
-                $inps = ($salaireBruit * 3.6)/100;
-
-                if($detailContrat->situation_matrimoniale == 'Marie' AND $detailContrat->agent->sexe == 'F')
-                {
-                    $nombre_part = 10;
-                }
-
-                if($detailContrat->situation_matrimoniale == 'Marie' AND $detailContrat->agent->sexe == 'M')
-                {
-                    $nombreEnfant = $detailContrat->nombre_enfant * 2.5;
-                    $nombre_part = $nombreEnfant + 10;
-                }
-
-                $its = ($salaireBruit * $nombre_part) /100;
-
-                $salaireNet = $salaireBruit - $inps - $its;
-            @endphp
-            <h3>INPS: @php echo number_format($inps) @endphp</h3>
-            <h3>ITS: @php echo number_format($its) @endphp</h3>
-            <h3>Salaire Net: @php echo number_format($salaireNet) @endphp</h3>
-            @endif
         </div>
     </div>
 

@@ -88,6 +88,12 @@ return new class extends Migration
                 'type_droit_id' => 2,
             ],
             [
+                'nom' => 'Feuille de Calcule',
+                'acces' => 1,
+                'route' => 'feuille-calcule.index',
+                'type_droit_id' => 2,
+            ],
+            [
                 'nom' => 'Periode',
                 'acces' => 1,
                 'route' => 'periode.index',
@@ -103,12 +109,6 @@ return new class extends Migration
                 'nom' => 'Generation',
                 'acces' => 1,
                 'route' => 'generation.index',
-                'type_droit_id' => 2,
-            ],
-            [
-                'nom' => 'Feuille de Calcule',
-                'acces' => 1,
-                'route' => 'feuille-calcule.index',
                 'type_droit_id' => 2,
             ],
             [

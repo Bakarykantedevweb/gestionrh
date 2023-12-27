@@ -23,12 +23,14 @@ return new class extends Migration
             $table->id();
             $table->string('numero');
             $table->date('date_creation');
+            $table->date('date_debut')->nullable();
+            $table->date('date_fin')->nullable();
             $table->integer('anciennete')->nullable();
             $table->string('situation_matrimoniale');
             $table->date('date_mariage')->nullable();
             $table->date('date_divorce')->nullable();
             $table->date('date_voeuf')->nullable();
-            $table->integer('nombre_enfant')->nullable();
+            $table->integer('nombre_enfant')->default(0);
             $table->string('salaire');
             $table->foreignIdFor(Diplome::class)->constrained();
             $table->foreignIdFor(Agent::class)->constrained();

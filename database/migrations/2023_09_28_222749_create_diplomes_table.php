@@ -19,6 +19,24 @@ return new class extends Migration
             $table->foreignIdFor(Classification::class)->constrained();
             $table->timestamps();
         });
+        DB::table('diplomes')->insert([
+            [
+                'nom' => 'DUT',
+                'classification_id' => 4,
+            ],
+            [
+                'nom' => 'LICENCE',
+                'classification_id' => 3,
+            ],
+            [
+                'nom' => 'MAITRISE',
+                'classification_id' => 2,
+            ],
+            [
+                'nom' => 'MASTER',
+                'classification_id' => 1,
+            ],
+        ]);
     }
 
     /**

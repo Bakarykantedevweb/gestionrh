@@ -8,10 +8,10 @@
                     <li class="breadcrumb-item active">Contrats</li>
                 </ul>
             </div>
-            <div class="col-auto float-right ml-auto">
+            {{-- <div class="col-auto float-right ml-auto">
                 <a href="{{ url('admin/contrats/create') }}" class="btn add-btn"><i class="fa fa-plus"></i> Nouveau
                     Contrat</a>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- /Page Header -->
@@ -27,7 +27,6 @@
                             <th>Numero Contrat</th>
                             <th>Date creation</th>
                             <th>Agent</th>
-                            <th>Feuille Calcule</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -44,7 +43,6 @@
                                 YYYY') }}
                             </td>
                             <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
-                            <td>{{ $items->feuilleCalcule->libelle }}</td>
                             <td class="text-right">
                                 <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
                                         class="fa fa-pencil"></i>
@@ -55,7 +53,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center">Pas de Departements</td>
+                            <td colspan="5" class="text-center">Pas de Contrats</td>
                         </tr>
                         @endforelse
                     </tbody>

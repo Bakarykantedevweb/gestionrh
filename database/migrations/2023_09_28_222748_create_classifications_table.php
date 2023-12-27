@@ -18,6 +18,24 @@ return new class extends Migration
             $table->string('montant');
             $table->timestamps();
         });
+        DB::table('classifications')->insert([
+            [
+                'nom' => 'A',
+                'montant' => '400000',
+            ],
+            [
+                'nom' => 'B2',
+                'montant' => '300000',
+            ],
+            [
+                'nom' => 'C',
+                'montant' => '200000',
+            ],
+            [
+                'nom' => 'D',
+                'montant' => '100000',
+            ],
+        ]);
     }
 
     /**

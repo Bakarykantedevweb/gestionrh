@@ -31,6 +31,7 @@ class Create extends Component
     public $classifications;
     public $rubriques = [];
     public $montant = [];
+    public $sexeAgent;
 
     protected $rules = [
         'agent_id' => 'required|integer',
@@ -56,6 +57,14 @@ class Create extends Component
         }
     }
 
+    public function getSexe()
+    {
+        $Agent = Agent::find($this->agent_id);
+        if($Agent){
+            $this->sexeAgent = $Agent->sexe;
+        }
+    }
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
@@ -75,8 +84,8 @@ class Create extends Component
         $contrat->date_creation = $validatedData['date_entre'];
         $contrat->situation_matrimoniale = $this->selectedOption;
         $contrat->date_mariage = $this->date_mariage;
-        $contrat->date_voeuf = $this->date_veuve;
-        $contrat->date_divorce = $this->date_divorce;
+        // $contrat->date_voeuf = $this->date_veuve;
+        // $contrat->date_divorce = $this->date_divorce;
         $contrat->nombre_enfant = $this->nombre_enfant;
         $contrat->salaire = $this->montantCategorie;
         $contrat->nombre_jour_conge = 0;
@@ -102,10 +111,6 @@ class Create extends Component
         return redirect('admin/contrats')->with('message','Contrat cree avec success');
     }
 
-    // public function getClassificationMontants()
-    // {
-    //     return Diplome::with('classification')->get();
-    // }
 
     public function render()
     {

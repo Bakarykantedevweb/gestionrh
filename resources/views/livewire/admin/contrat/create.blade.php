@@ -27,7 +27,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Agent <span class="text-danger">*</span></label>
-                                    <select wire:model="agent_id" class="form-control">
+                                    <select wire:model="agent_id" wire:change="getSexe" class="form-control">
                                         <option value="">Choisissez un agent</option>
                                         @forelse ($agents as $agent)
                                         <option value="{{ $agent->id }}">{{ $agent->prenom . ' ' . $agent->nom }}
@@ -105,27 +105,43 @@
                                     <input type="date" wire:model="date_mariage" class="form-control">
                                 </div>
                                 @endif
-                                @if ($selectedOption == 'Divorce')
-                                <div class="form-group">
-                                    <label for="">Date Divorce</label>
-                                    <input type="date" wire:model="date_divorve" class="form-control">
-                                </div>
-                                @endif
                                 @if ($selectedOption == 'Veuf')
                                 <div class="form-group">
                                     <label for="">Date Veuve</label>
                                     <input type="date" wire:model="date_veuve" class="form-control">
                                 </div>
                                 @endif
-                                @if ($selectedOption == 'Célibataire')
+                            </div>
+                            <div class="col-md-6">
+                                @if ($selectedOption == 'Marie' AND $sexeAgent == 'M')
                                 <div class="form-group">
-                                    <label for="">Nombre d'enfants</label>
+                                    <label for="">Nombres d'enfants</label>
+                                    <input type="number" wire:model="nombre_enfant" class="form-control">
+                                </div>
+                                @endif
+                                @if ($selectedOption == 'Veuf')
+                                <div class="form-group">
+                                    <label for="">Nombres d'enfants</label>
                                     <input type="number" wire:model="nombre_enfant" class="form-control">
                                 </div>
                                 @endif
                             </div>
-                            <div class="col-md-6">
-                                @if ($selectedOption == 'Marie')
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @if ($selectedOption == 'Célibataire')
+                                <div class="form-group">
+                                    <label for="">Nombres d'enfants</label>
+                                    <input type="number" wire:model="nombre_enfant" class="form-control">
+                                </div>
+                                @endif
+                                @if ($selectedOption == 'Divorce')
+                                <div class="form-group">
+                                    <label for="">Nombres d'enfants</label>
+                                    <input type="number" wire:model="nombre_enfant" class="form-control">
+                                </div>
+                                @endif
+                                @if ($selectedOption == 'Veuf')
                                 <div class="form-group">
                                     <label for="">Nombres d'enfants</label>
                                     <input type="number" wire:model="nombre_enfant" class="form-control">

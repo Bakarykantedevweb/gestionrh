@@ -30,7 +30,7 @@ class Profile extends Component
         'name' => 'string|string',
         'email' => 'string|email',
         'photo' => 'image|max:1024',
-        'password' => ['confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/'],
+        'password' => ['confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'],
     ];
 
     public function updated($propertyName)
@@ -44,7 +44,7 @@ class Profile extends Component
             Contient au moins une lettre minuscule.
             Contient au moins un chiffre.
             Contient au moins un caractère spécial parmi @, $, !, %, *, ?, &.
-            A une longueur minimale de 10 caractères.
+            A une longueur minimale de 8 caractères.
         ',
     ];
 

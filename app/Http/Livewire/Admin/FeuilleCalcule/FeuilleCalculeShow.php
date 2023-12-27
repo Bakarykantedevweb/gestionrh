@@ -116,7 +116,7 @@ class FeuilleCalculeShow extends Component
     }
     public function render()
     {
-        $this->rubriques = Rubrique::get();
+        $this->rubriques = Rubrique::OrderBy('libelle','ASC')->get();
         $this->FeuilledeCalcules = FeuilleCalcule::get();
         return view('livewire.admin.feuille-calcule.feuille-calcule-show');
     }
