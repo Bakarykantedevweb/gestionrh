@@ -35,6 +35,11 @@ class ContratController extends Controller
             toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
+        $autorisation = $this->autorisation(Auth::user()->role, 'contrat.index');
+        if ($autorisation == 'false') {
+            toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
+            return redirect()->route('dashboard');
+        }
         try {
             if($numero)
             {

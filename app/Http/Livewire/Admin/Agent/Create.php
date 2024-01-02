@@ -40,11 +40,12 @@ class Create extends Component
     public $type_contrat_id, $diplome_id, $date_entre, $date_mariage,
         $date_divorce, $date_veuve,
         $nombre_enfant, $nombre_femme, $centre_impot_id, $feuille_calcule_id,
-        $prefix, $compte;
+        $prefix, $compte, $date_fin;
     public $classifications;
     public $rubriques = [];
     public $montant = [];
     public $sexeAgent;
+    public $showInputs = false;
 
     // Formation
     public $schools = [
@@ -104,9 +105,13 @@ class Create extends Component
         $this->montantCategorie = $diplome->classification->montant;
     }
 
-    // Formation public
+    public function changeType()
+    {
+        $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
+    }
 
-    // EducationForm.php
+    // Formation
+
 
     public function addSchool()
     {
@@ -182,6 +187,7 @@ class Create extends Component
                 $contrat = new Contrat;
                 $contrat->numero = '0000';
                 $contrat->date_creation = $validatedData['date_entre'];
+                $contrat->date_fin = $this->date_fin;
                 $contrat->situation_matrimoniale = $this->selectedOption;
                 $contrat->date_mariage = $this->date_mariage;
                 // $contrat->date_voeuf = $this->date_veuve;

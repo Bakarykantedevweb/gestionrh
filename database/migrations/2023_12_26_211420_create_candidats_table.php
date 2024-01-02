@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->string('cv')->nullable();
+            $table->string('lettre')->nullable();
             $table->timestamps();
         });
     }

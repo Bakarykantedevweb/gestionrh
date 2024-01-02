@@ -23,7 +23,6 @@ return new class extends Migration
             $table->id();
             $table->string('numero');
             $table->date('date_creation');
-            $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
             $table->integer('anciennete')->nullable();
             $table->string('situation_matrimoniale');

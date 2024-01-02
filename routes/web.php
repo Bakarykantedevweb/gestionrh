@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DiplomeController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BulletinController;
+use App\Http\Controllers\Admin\CandidatController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypePretController;
 use App\Http\Controllers\Admin\CategorieController;
@@ -28,11 +29,15 @@ use App\Http\Controllers\Admin\FeuilleCalculeController;
 use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\admin\GenerationController;
 use App\Http\Controllers\Admin\NatureRubriqueController;
+use App\Http\Controllers\admin\OffreController;
+use App\Http\Controllers\Admin\PostulantController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\VariableController;
 use App\Http\Controllers\Agent\DashboardAgentController;
+use App\Http\Controllers\Candidat\CandidatDashboardController;
 use App\Http\Controllers\Frontend\AuthFrontendController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\OffreFrontendController;
 use App\Http\Controllers\Frontend\RegisterFrontendController;
 
 /*
@@ -62,6 +67,11 @@ Route::controller(AuthFrontendController::class)->middleware(['middleware' => "c
     Route::get('logout-candidat','logout');
 });
 
+// Offre Frontend Cnntroller
+Route::controller(OffreFrontendController::class)->group(function () {
+    Route::get('offres','index');
+    Route::get('offres/{titre}', 'detail');
+});
 // Route Authentifcation Agents
 Route::middleware(['guest'])->group(function () {
     // Routes accessibles uniquement pour les utilisateurs invités (non authentifiés)
@@ -78,7 +88,7 @@ Route::middleware(['auth:webagent'])->group(function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('admin')->middleware(['auth'])->group(function(){
@@ -178,6 +188,34 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::controller(GenerationController::class)->group(function () {
         Route::get('generations', 'index')->name('generation.index');
         Route::get('generations/{id}/contrat/{contrat_id}', 'generer');
+    });
+
+    Route::controller(CategorieController::class)->group(function () {
+        Route::get('categories', 'index')->name('categorie.index');
+    });
+
+    Route::controller(OffreController::class)->group(function () {
+        Route::get('offres', 'index')->name('offre.index');
+        Route::get('offres/create', 'create');
+        Route::post('offres/create', 'store')->name('offre.store');
+        Route::get('offres/{id}/edit','edit');
+        Route::post('offres/{id}/edit', 'update');
+    });
+
+    Route::controller(CandidatController::class)->group(function () {
+        Route::get('candidats', 'index')->name('candidat.index');
+    });
+
+    Route::controller(PostulantController::class)->group(function () {
+        Route::get('postulants', 'index')->name('postulant.index');
+    });
+});
+
+// Candidat Dashboard
+Route::prefix('candidat')->middleware(['middleware' => "candidat"])->group(function()
+{
+    Route::controller(CandidatDashboardController::class)->group(function () {
+        Route::get('dashboard', 'index');
     });
 });
 

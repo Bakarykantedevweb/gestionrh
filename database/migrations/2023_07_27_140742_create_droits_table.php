@@ -141,6 +141,30 @@ return new class extends Migration
                 'route' => 'user.index',
                 'type_droit_id' => 7,
             ],
+            [
+                'nom' => 'Categorie',
+                'acces' => 1,
+                'route' => 'categorie.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Offre',
+                'acces' => 1,
+                'route' => 'offre.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Candidat',
+                'acces' => 1,
+                'route' => 'candidat.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Postulant',
+                'acces' => 1,
+                'route' => 'postulant.index',
+                'type_droit_id' => 4,
+            ],
         ]);
     }
 

@@ -18,14 +18,12 @@
                                 <nav class="d-none d-lg-block">
                                     <ul id="navigation">
                                         <li><a href="">Acceuil</a></li>
-                                        <li><a href="">Categories </a></li>
-                                        <li><a href="">Offres</a></li>
+                                        <li><a href="{{ url('offres') }}">Offres</a></li>
                                         <li><a href="">Contact</a></li>
                                         @if (Auth::guard('candidat')->check())
                                             <li><a href="#">{{ Auth::guard('candidat')->user()->prenom.' '.Auth::guard('candidat')->user()->nom }}</a>
                                                 <ul class="submenu">
-                                                    <li><a href="">Mes Offres</a></li>
-                                                    <li><a href="">Mon Profil</a></li>
+                                                    <li><a href="{{ url('candidat/dashboard') }}">Mon Compte</a></li>
                                                 </ul>
                                             </li>
                                         @endif

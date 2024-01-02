@@ -187,7 +187,7 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Type Contrat <span
                                                     class="text-danger">*</span></label>
-                                            <select wire:model="type_contrat_id" class="form-control">
+                                            <select wire:model="type_contrat_id" wire:change="changeType" class="form-control">
                                                 <option value="">Choisissez un type de contrat</option>
                                                 @forelse ($typeContrats as $typeContrat)
                                                 <option value="{{ $typeContrat->id }}">{{ $typeContrat->nom }}</option>
@@ -210,6 +210,17 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    @if ($showInputs)
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Date Fin du CDD<span class="text-danger">*</span></label>
+                                                <input type="date" wire:model="date_fin" class="form-control">
+                                                @error('date_fin')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-md-6">
                                         <label for="">Diplome</label>
                                         <select wire:model="diplome_id" wire:change="updateMontant"
@@ -323,7 +334,7 @@
                                                     {{ $feuille->code . '-' . $feuille->libelle }}
                                                 </option>
                                                 @empty
-                                                <option value="" selected>pas de Feuille de Calcule</option>
+                                                <option value="0" selected>pas de Feuille de Calcule</option>
                                                 @endforelse
                                             </select>
                                             @error('feuille_calcule_id')
