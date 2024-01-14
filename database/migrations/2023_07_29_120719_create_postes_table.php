@@ -17,6 +17,23 @@ return new class extends Migration
             $table->string('nom');
             $table->timestamps();
         });
+        DB::table('postes')->insert([
+            [
+                'nom' => 'Agent',
+            ],
+            [
+                'nom' => 'Responsable DSI-TG',
+            ],
+            [
+                'nom' => 'Responsable Sécurité ',
+            ],
+            [
+                'nom' => 'Responsable Entité Systèmes et Réseaux',
+            ],
+            [
+                'nom' => 'Responsable Entité Exploitation',
+            ]
+        ]);
     }
 
     /**

@@ -47,7 +47,7 @@
                             @enderror
                         </div>
                         <div class="submit-section">
-                            <button class="btn btn-success submit-btn">Importer</button>
+                            <button class="btn btn-primary" type="submit">Importer</button>
                         </div>
                     </form>
                 </div>

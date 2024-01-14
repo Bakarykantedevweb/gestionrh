@@ -205,9 +205,9 @@
                                             $ImpotBrut = 0; // Tranche 1 : 0%
                                         }
 
-                                        if ($detailContrat->situation_matrimoniale == 'Célibataire' || $detailContrat->situation_matrimoniale == 'Divorce' ||$detailContrat->situation_matrimoniale == 'Veuf')
+                                        if ($detailContrat->situation_matrimoniale == 'Célibataire' AND $detailContrat->nombre_enfant != 0)
                                         {
-                                            $ReductionChargeFamille = 0; // Célibataire, divorcé(e) ou veuf (veuve), sans enfant à charge
+                                            $ReductionChargeFamille = $detailContrat->nombre_enfant * 2.5;
                                         }
                                         elseif ($detailContrat->situation_matrimoniale == 'Marie' && $detailContrat->nombre_enfant == 0)
                                         {

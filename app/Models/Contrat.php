@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Agent;
 use App\Models\Rubrique;
+use App\Models\TypeContrat;
 use App\Models\FeuilleCalcule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,6 +33,11 @@ class Contrat extends Model
     public function contratRubriques()
     {
         return $this->hasMany(ContratRubrique::class);
+    }
+
+    public function typeContrat()
+    {
+        return $this->belongsTo(TypeContrat::class);
     }
 
 }

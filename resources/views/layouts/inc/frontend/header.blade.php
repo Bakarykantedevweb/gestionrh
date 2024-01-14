@@ -7,7 +7,7 @@
                     <div class="col-lg-3 col-md-2">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="/"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}"
+                            <a href="/"><img src="{{ asset('frontend/assets/img/logo/or.png') }}"
                                     alt=""></a>
                         </div>
                     </div>

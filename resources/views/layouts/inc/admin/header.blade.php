@@ -2,9 +2,9 @@
 
                 <!-- Logo -->
                 <div class="header-left">
-                    <a href="{{ route('dashboard') }}" class="logo">
-                        <img src="{{ asset('uploads/admin/profile/'.Auth::user()->photo) }}" class="img img-fluid rounded-circle" width="40" height="40" alt="">
-                    </a>
+                    <h1 style="font-family:'CircularStd', sans-serif;color:#2C7BE5" class="mt-2">
+                        OptiRH
+                    </h1>
                 </div>
                 <!-- /Logo -->
 
@@ -15,12 +15,6 @@
                         <span></span>
                     </span>
                 </a>
-
-                <!-- Header Title -->
-                <div class="page-title-box">
-                    <span class="text-white">Gestions RH</span>
-                </div>
-                <!-- /Header Title -->
 
                 <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 

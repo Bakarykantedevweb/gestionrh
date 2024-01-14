@@ -129,7 +129,7 @@ class PosteShow extends Component
 
     public function render()
     {
-        $this->postes = Poste::get();
+        $this->postes = Poste::OrderBy('nom','asc')->get();
         return view('livewire.admin.poste.poste-show');
     }
 }

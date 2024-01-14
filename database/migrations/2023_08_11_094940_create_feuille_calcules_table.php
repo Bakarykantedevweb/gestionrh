@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('libelle');
-            $table->string('status')->default('en attente');;
+            $table->string('status')->default('en attente');
             $table->timestamps();
         });
     }

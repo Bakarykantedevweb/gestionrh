@@ -58,7 +58,7 @@ class Index extends Component
     {
         $validatedData = $this->validate();
 
-        // try {
+        try {
             // Vérifiez si des éléments ont été cochés
             if (count($this->idsCoches) > 0) {
                 // Si le statut est "Validé" (Accepté), envoyez un e-mail
@@ -77,11 +77,11 @@ class Index extends Component
             }
             toastr()->success('Offre Valider avec success');
             return redirect('admin/postulants');
-        // } catch (\Throwable $th) {
-        //     // Gérez les exceptions ici (log, notification, etc.)
-        //     toastr()->error('Une erreur est survenue lors du traitement de la page',$th);
-        //     return redirect('admin/postulants');
-        // }
+        } catch (\Throwable $th) {
+            // Gérez les exceptions ici (log, notification, etc.)
+            toastr()->error('Une erreur est survenue lors du traitement de la page',$th);
+            return redirect('admin/postulants');
+        }
     }
 
 

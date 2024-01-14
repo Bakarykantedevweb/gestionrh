@@ -25,10 +25,10 @@
         </div>
     </div>
     @if ($OffreEnAttente)
-    <button data-toggle="modal" data-target="#emargement" type="button" class="btn btn-primary mb-3"
-        wire:click="traiterElementsCoches">
-        Valider les emargements
-    </button>
+        <button data-toggle="modal" data-target="#emargement" type="button" class="btn btn-primary mb-3"
+            wire:click="traiterElementsCoches">
+            Valider les emargements
+        </button>
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-table">

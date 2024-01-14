@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignIdFor(CentreImpot::class)->constrained();
             $table->foreignIdFor(FeuilleCalcule::class)->constrained();
             $table->float('nombre_jour_conge');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

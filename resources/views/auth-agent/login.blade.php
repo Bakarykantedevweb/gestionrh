@@ -6,7 +6,7 @@
 
             <!-- Account Logo -->
             <div class="account-logo">
-                <a href="/"><img src="admin/assets/img/logo2.png" alt="Dreamguy's Technologies"></a>
+                <a href="/"><img src="admin/assets/img/or.jpg" alt="Dreamguy's Technologies"></a>
             </div>
             <!-- /Account Logo -->
             @include('layouts.partials.error')
