@@ -3,10 +3,10 @@
     <div class="page-header">
         <div class="row align-contrats-center">
             <div class="col">
-                <h3 class="page-title">Bulletin</h3>
+                <h3 class="page-title"> Gestion des Salaires</h3>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-contrat"><a href="{{ route('dashboard') }}">Tableau de Bord </a></li>
-                    <li class="breadcrumb-contrat active">Bulletin</li>
+                    <li class="breadcrumb-contrat"><a href="{{ route('dashboard') }}">Tableau de Bord / </a></li>
+                    <li class="breadcrumb-contrat active"> Salaires</li>
                 </ul>
             </div>
         </div>

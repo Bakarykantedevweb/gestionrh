@@ -54,7 +54,7 @@ class BulletinShow extends Component
         if ($feuilleCalcule) {
             // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
             $this->rubriques = $feuilleCalcule->rubriques ?? [];
-            $this->contrats = $feuilleCalcule->contrats ?? [];
+            $this->contrats = $feuilleCalcule->contrats->where('status','0') ?? [];
             $this->loadMontants();
         } else {
             $this->rubriques = [];

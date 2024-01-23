@@ -30,7 +30,7 @@
                                             d="M7.778,12.000 L12.222,12.000 L12.222,10.000 L7.778,10.000 L7.778,12.000 ZM-0.000,-0.000 L-0.000,2.000 L20.000,2.000 L20.000,-0.000 L-0.000,-0.000 ZM3.333,7.000 L16.667,7.000 L16.667,5.000 L3.333,5.000 L3.333,7.000 Z" />
                                     </svg>
                                 </div>
-                                <h4>Filter Jobs</h4>
+                                <h4>Filtrer</h4>
                             </div>
                         </div>
                     </div>
@@ -44,14 +44,12 @@
                                 <div class="small-section-tittle2">
                                     <h4>Categories</h4>
                                 </div>
-                                @forelse ($categories as $categorie)
-                                    <label class="container">{{ $categorie->nom }}
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                @empty
-                                    <h4>Pas de Categories</h4>
-                                @endforelse
+                                @foreach($categories as $categorie)
+                                <label class="container">{{ $categorie->nom }}
+                                    <input type="checkbox" wire:model="categorie" value="{{ $categorie->id }}">
+                                    <span class="checkmark"></span>
+                                </label>
+                                @endforeach
                             </div>
                             <!-- select-Categories End -->
                         </div>
@@ -67,18 +65,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="count-job mb-35">
-                                        <span>39, 782 Jobs found</span>
-                                        <!-- Select job items start -->
-                                        <div class="select-job-items">
-                                            <span>Sort by</span>
-                                            <select name="select">
-                                                <option value="">None</option>
-                                                <option value="">job list</option>
-                                                <option value="">job list</option>
-                                                <option value="">job list</option>
-                                            </select>
-                                        </div>
-                                        <!--  Select job items End-->
+                                        <span>{{ count($offres) }} Offres Trouvées</span>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +104,7 @@
     </div>
     <!-- Job List Area End -->
     <!--Pagination Start  -->
-    <div class="pagination-area pb-115 text-center">
+    {{-- <div class="pagination-area pb-115 text-center">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -135,6 +122,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--Pagination End  -->
 </div>

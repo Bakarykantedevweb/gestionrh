@@ -14,11 +14,17 @@
                         <a href="{{ route($droit->route) }}"
                             class="@if (Route::currentRouteName() == $droit->route) text-light @endif">
                             @if ($droit->type_droit->id == 2)
-                                <i class="la la-money"></i>
-                            @elseif($droit->type_droit->id == 3)
-                                <i class="la la-cog"></i>
-                            @else
                                 <i class="la la-users"></i>
+                            @elseif($droit->type_droit->id == 3)
+                                <i class="la la-money"></i>
+                            @elseif($droit->type_droit->id == 1)
+                                <i class="la la-list"></i>
+                            @elseif($droit->type_droit->id == 4)
+                                <i class="la la-user-tie"></i>
+                            @elseif($droit->type_droit->id == 5)
+                                <i class="la la-edit"></i>
+                            @else
+                                <i class="la la-user-tie"></i>
                             @endif
                             <span>{{ $droit->nom }}</span>
                         </a>

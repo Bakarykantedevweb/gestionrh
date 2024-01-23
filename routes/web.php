@@ -1,44 +1,47 @@
 <?php
 
-use App\Http\Controllers\Admin\AgenceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\DroitController;
+use App\Http\Controllers\admin\OffreController;
 use App\Http\Controllers\Admin\PosteController;
+use App\Http\Controllers\Admin\AgenceController;
+use App\Http\Controllers\Admin\CompteController;
+use App\Http\Controllers\Admin\EnfantController;
 use App\Http\Controllers\Admin\ContratController;
 use App\Http\Controllers\Admin\DiplomeController;
+use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CandidatController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypePretController;
+use App\Http\Controllers\Admin\VariableController;
 use App\Http\Controllers\Admin\CategorieController;
+use App\Http\Controllers\admin\FormateurController;
+use App\Http\Controllers\admin\FormationController;
+use App\Http\Controllers\Admin\PostulantController;
 use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Auth\LoginAgentController;
 use App\Http\Controllers\Admin\ConventionController;
+use App\Http\Controllers\admin\GenerationController;
 use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\TypeContratController;
-use App\Http\Controllers\Admin\ClassificationController;
-use App\Http\Controllers\Admin\CompteController;
-use App\Http\Controllers\Admin\EnfantController;
-use App\Http\Controllers\Admin\FeuilleCalculeController;
-use App\Http\Controllers\Admin\FormuleController;
-use App\Http\Controllers\admin\GenerationController;
-use App\Http\Controllers\Admin\NatureRubriqueController;
-use App\Http\Controllers\admin\OffreController;
-use App\Http\Controllers\Admin\PostulantController;
-use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Admin\VariableController;
-use App\Http\Controllers\Agent\DashboardAgentController;
-use App\Http\Controllers\Candidat\CandidatDashboardController;
-use App\Http\Controllers\Frontend\AuthFrontendController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\admin\TypeFormationController;
+use App\Http\Controllers\Admin\ClassificationController;
+use App\Http\Controllers\Admin\FeuilleCalculeController;
+use App\Http\Controllers\Admin\NatureRubriqueController;
+use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Agent\DashboardAgentController;
+use App\Http\Controllers\Frontend\AuthFrontendController;
 use App\Http\Controllers\Frontend\OffreFrontendController;
 use App\Http\Controllers\Frontend\RegisterFrontendController;
+use App\Http\Controllers\Candidat\CandidatDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +124,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::controller(AgentController::class)->group(function(){
         Route::get('agents','index')->name('agent.index');
         Route::get('agents/create', 'create')->name('agent.create');
+        Route::get('agents/{matricule}/edit', 'edit')->name('agent.edit');
     });
 
     Route::controller(TypeContratController::class)->group(function () {
@@ -164,8 +168,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(ContratController::class)->group(function () {
         Route::get('contrats', 'index')->name('contrat.index');
-        Route::get('contrats/create', 'create');
-        Route::get('contrats/create/{numero}/edit', 'edit')->name('contrat.edit');
     });
 
     // Classification Route
@@ -187,7 +189,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(GenerationController::class)->group(function () {
         Route::get('generations', 'index')->name('generation.index');
-        Route::get('generations/{id}/contrat/{contrat_id}', 'generer');
     });
 
     Route::controller(CategorieController::class)->group(function () {
@@ -208,6 +209,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(PostulantController::class)->group(function () {
         Route::get('postulants', 'index')->name('postulant.index');
+    });
+
+    Route::controller(FormateurController::class)->group(function () {
+        Route::get('formateurs', 'index')->name('formateur.index');
+    });
+
+    Route::controller(TypeFormationController::class)->group(function () {
+        Route::get('type-formations', 'index')->name('typeformation.index');
+    });
+
+    Route::controller(FormationController::class)->group(function () {
+        Route::get('formations', 'index')->name('formation.index');
     });
 });
 

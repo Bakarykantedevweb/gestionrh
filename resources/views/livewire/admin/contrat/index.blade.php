@@ -44,7 +44,7 @@
                             <th>Date creation</th>
                             <th>Agent</th>
                             <th>Contrat</th>
-                            <th class="text-right">Action</th>
+                            <th class="text-right">Cloturer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,10 +62,7 @@
                             <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
                             <td>{{ $items->typeContrat->nom }}</td>
                             <td class="text-right">
-                                <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
-                                        class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-primary" href="#"><i class="fa fa-trash-o"></i>
+                                <a class="btn btn-danger" href="#"><i class="fa fa-close"></i>
                                 </a>
                             </td>
                         </tr>
@@ -93,7 +90,7 @@
                                 <th>Date Fin</th>
                                 <th>Agent</th>
                                 <th>Contrat</th>
-                                <th class="text-right">Action</th>
+                                <th class="text-right">Cloturer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,10 +112,7 @@
                                 <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
                                 <td>{{ $items->typeContrat->nom }}</td>
                                 <td class="text-right">
-                                    <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
-                                            class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-primary" href="#"><i class="fa fa-trash-o"></i>
+                                    <a class="btn btn-danger" href="#"><i class="fa fa-close"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -146,7 +140,6 @@
                                 <th>Date Fin</th>
                                 <th>Agent</th>
                                 <th>Contrat</th>
-                                <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -167,13 +160,6 @@
                                 </td>
                                 <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
                                 <td>{{ $items->typeContrat->nom }}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
-                                            class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-primary" href="#"><i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -199,7 +185,6 @@
                                 <th>Date Fin</th>
                                 <th>Agent</th>
                                 <th>Contrat</th>
-                                <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -220,13 +205,6 @@
                                 </td>
                                 <td>{{ $items->agent->prenom . '-' . $items->agent->nom }}</td>
                                 <td>{{ $items->typeContrat->nom }}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-primary" href="{{ route('contrat.edit',$items->numero) }}"><i
-                                            class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-primary" href="#"><i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
                             </tr>
                             @empty
                             <tr>

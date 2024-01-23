@@ -153,13 +153,6 @@ class Create extends Component
     {
         $validatedData = $this->validate();
         try {
-            // $data = [
-            //     'nom' => $validatedData['nom'],
-            //     'prenom' => $validatedData['prenom'],
-            //     'email' => $validatedData['email']
-            // ];
-            // Mail::to($validatedData['email'])
-            //     ->queue(new WelcomeAgent($data));
             $agent = new Agent();
             $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
@@ -228,7 +221,7 @@ class Create extends Component
         $this->agents = Agent::get();
         $this->departements = Departement::get();
         $this->diplomes = Diplome::get();
-        $this->typeContrats = TypeContrat::get();
+        $this->typeContrats = TypeContrat::limit(2)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
         return view('livewire.admin.agent.create');

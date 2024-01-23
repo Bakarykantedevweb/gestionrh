@@ -17,7 +17,7 @@
                             <div class="main-menu">
                                 <nav class="d-none d-lg-block">
                                     <ul id="navigation">
-                                        <li><a href="">Acceuil</a></li>
+                                        <li><a href="/">Acceuil</a></li>
                                         <li><a href="{{ url('offres') }}">Offres</a></li>
                                         <li><a href="">Contact</a></li>
                                         @if (Auth::guard('candidat')->check())

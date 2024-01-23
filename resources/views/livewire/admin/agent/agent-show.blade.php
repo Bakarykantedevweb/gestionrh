@@ -1,5 +1,4 @@
 <div>
-    @include('livewire.admin.agent.agent-modal')
     <!-- Page Header -->
     <div class="page-header">
         <div class="row align-items-center">
@@ -24,12 +23,6 @@
     @include('layouts.partials.error')
     <!-- Search Filter -->
     <div class="row filter-row">
-        {{-- <div class="col-sm-6 col-md-3">
-            <div class="form-group form-focus">
-                <input type="text" class="form-control floating">
-                <label class="focus-label">Employee ID</label>
-            </div>
-        </div> --}}
         <div class="col-sm-6 col-md-6">
             <div class="form-group form-focus">
                 <input type="search" wire:model.debounce.300ms="search" class="form-control floating">
@@ -59,7 +52,7 @@
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#" wire:click="editAgent('{{ encrypt($items->id) }}')" data-toggle="modal" data-target="#edit_employee"><i
+                            <a class="dropdown-item" href="{{ route('agent.edit',$items->matricule) }}"><i
                                     class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" wire:click="deleteAgent('{{ encrypt($items->id) }}')" href="#" data-toggle="modal"
                                 data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>

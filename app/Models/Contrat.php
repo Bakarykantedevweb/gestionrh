@@ -25,10 +25,13 @@ class Contrat extends Model
         return $this->belongsTo(FeuilleCalcule::class);
     }
 
+    // Contrat.php
     public function rubriques()
     {
-        return $this->belongsToMany(Rubrique::class);
+        return $this->belongsToMany(Rubrique::class, 'contrat_rubriques', 'contrat_id', 'rubrique_id')
+        ->withPivot('montant');
     }
+
 
     public function contratRubriques()
     {

@@ -9,10 +9,6 @@
                     <li class="breadcrumb-item active">Generations Bulletins</li>
                 </ul>
             </div>
-            {{-- <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_generation"><i
-                        class="fa fa-plus"></i>Generations Bulletins</a>
-            </div> --}}
         </div>
     </div>
     <!-- /Page Header -->
@@ -61,11 +57,6 @@
                                     <button wire:click="afficherRubriques({{ $items->id }},{{ $items->contrat_id }})"
                                         class="btn btn-primary btn-sm btn-outline-light">Generer</button>
                                 </div>
-                                {{-- <div class="">
-                                    <a href="{{ url('admin/generations/'.$items->id.'/contrat/'.$items->contrat_id) }}"
-                                        target="_blank"><button
-                                            class="btn btn-primary btn-sm btn-outline-light">Generer</button></a>
-                                </div> --}}
                             </td>
                         </tr>
                         @empty
@@ -81,20 +72,19 @@
     @endif
     @if ($GenerationBulletin)
     @php
-        $montant = 0;
-        $salaireBrut = 0;
-        $inps = 0;
-        $its = 0;
-        $nombre_part = 0;
-        $salaireNet = 0;
-        $Impotbrut = 0;
-        $ReductionChargeFamille=0;
+    $montant = 0;
+    $salaireBrut = 0;
+    $inps = 0;
+    $amo = 0;
+    $its = 0;
+    $tauxReduction = 0;
+    $salaireNet = 0;
     @endphp
     <!-- Page Header -->
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Payslip</h3>
+                <h3 class="page-title">Bulletin de Paie</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Bulletin de Paie</li>
@@ -116,7 +106,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="payslip-title">Payslip for the month of Feb 2019</h4>
+                    <h4 class="payslip-title">Bulletin pour le mois de {{ $detailBulletin->periode->mois }}, {{
+                        date('Y') }}</h4>
                     <div class="row">
                         <div class="col-sm-6 m-b-20">
                             <img src="{{ asset('admin/assets/img/bim.png') }}" class="inv-logo" alt="">
@@ -128,9 +119,10 @@
                         </div>
                         <div class="col-sm-6 m-b-20">
                             <div class="invoice-details">
-                                <h3 class="text-uppercase">Payslip #49029</h3>
+                                <h3 class="text-uppercase">Matricule #{{ $detailContrat->agent->matricule }}</h3>
                                 <ul class="list-unstyled">
-                                    <li>Salaire du mois: <span>Janvier, {{ date('Y') }}</span></li>
+                                    <li>Salaire du mois: <span>{{ $detailBulletin->periode->mois }}, {{ date('Y')
+                                            }}</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -168,68 +160,125 @@
                                         @endforelse
                                         <tr>
                                             <td><strong>Salaire de Base</strong>
-                                                <span class="float-right"><strong>{{ number_format($detailContrat->salaire) }}</strong></span>
-                                                </td>
+                                                <span class="float-right"><strong>{{
+                                                        number_format($detailContrat->salaire) }}</strong></span>
+                                            </td>
                                         </tr>
                                         @php
+                                            // Calcul de l'INPS et du revenu imposable
+                                            $salaireBrut = $montant + $detailContrat->salaire;
+                                            $inps = ($salaireBrut * 3.6)/100;
+                                            $amo = ($salaireBrut * 3.06)/100;
 
-                                        // Calcul de l'INPS et du revenu imposable
-                                        $salaireBrut = $montant + $detailContrat->salaire;
-                                        $inps = ($salaireBrut * 3.6)/100;
-                                        $RevenuImposable = $salaireBrut - $inps;
-                                        if ($RevenuImposable > 3494130)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 3494130) * 37 / 100; // Tranche 7 : 37%
-                                        }
-                                        elseif ($RevenuImposable > 2384195)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 2384195) * 31 / 100; // Tranche 6 : 31%
-                                        }
-                                        elseif ($RevenuImposable > 1789733)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 1789733) * 26 / 100; // Tranche 5 : 26%
-                                        }
-                                        elseif ($RevenuImposable > 1176400)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 1176400) * 18 / 100; // Tranche 4 : 18%
-                                        }
-                                        elseif ($RevenuImposable > 578400)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 578400) * 12 / 100; // Tranche 3 : 12%
-                                        }
-                                        elseif ($RevenuImposable > 330000)
-                                        {
-                                            $ImpotBrut = ($RevenuImposable - 330000) * 5 / 100; // Tranche 2 : 5%
-                                        }
-                                        else {
-                                            $ImpotBrut = 0; // Tranche 1 : 0%
-                                        }
+                                            $revenu = $salaireBrut - $inps - $amo;
+                                            $revenuAnnuelle = $revenu * 12;
+                                            $salaireArrondi = floor($revenuAnnuelle / 1000) * 1000;
 
-                                        if ($detailContrat->situation_matrimoniale == 'Célibataire' AND $detailContrat->nombre_enfant != 0)
-                                        {
-                                            $ReductionChargeFamille = $detailContrat->nombre_enfant * 2.5;
-                                        }
-                                        elseif ($detailContrat->situation_matrimoniale == 'Marie' && $detailContrat->nombre_enfant == 0)
-                                        {
-                                            $ReductionChargeFamille = 10; // Marié(e), sans enfant à charge
-                                        }
-                                        elseif ($detailContrat->situation_matrimoniale == 'Marie' && $detailContrat->agent->sexe == 'M')
-                                        {
-                                            $ReductionChargeFamille = ($detailContrat->nombre_enfant * 2.5) + 10; // Marié(e), homme, avec enfant(s)
-                                        } elseif ($detailContrat->situation_matrimoniale == 'Marie' && $detailContrat->agent->sexe == 'F')
-                                        {
-                                            $ReductionChargeFamille = 10; // Marié(e), femme, avec enfant(s)
+                                            function calculerITS($revenuAnnuel)
+                                            {
+                                                // Tableau des tranches
+                                                    $tranches = array(
+                                                        array("min" => 0, "max" => 330000, "taux" => 0),
+                                                        array("min" => 330001, "max" => 578400, "taux" => 5),
+                                                        array("min" => 578401, "max" => 1176400, "taux" => 12),
+                                                        array("min" => 1176401, "max" => 1789733, "taux" => 18),
+                                                        array("min" => 1789734, "max" => 2384195, "taux" => 26),
+                                                        array("min" => 2384196, "max" => 3494130, "taux" => 31),
+                                                        array("min" => 3494131, "max" => PHP_INT_MAX, "taux" => 37) // Ajout de la dernière tranche
+                                                    );
 
-                                        // TODO: Ajouter la logique pour la répartition entre les époux si nécessaire
-                                        }
+                                                    $cumulITS = 0;
 
-                                        $its = $ImpotBrut - $ReductionChargeFamille;
-                                        $salaireNet = $salaireBrut - $its;
+                                                    // Parcourir les tranches
+                                                    foreach ($tranches as $tranche) {
+                                                        // Vérifier si le revenu annuel est dans la tranche
+                                                        if ($revenuAnnuel > $tranche["min"] && $revenuAnnuel <= $tranche["max"]) {
+                                                            // Ajuster la valeur maximale de la tranche au revenu annuel donné
+                                                            $tranche["max"] = $revenuAnnuel;
+
+                                                            // Calculer l'ITS pour cette tranche
+                                                            $itsTranche = round($tranche["max"] - $tranche["min"]); // Arrondir le résultat
+                                                            $cumulITS += round($itsTranche * ($tranche["taux"] / 100)); // Arrondir le résultat
+
+                                                            // Terminer la boucle dès que la tranche appropriée est trouvée
+                                                            break;
+                                                        } else {
+                                                            // Calculer l'ITS pour cette tranche
+                                                            $itsTranche = round($tranche["max"] - $tranche["min"]); // Arrondir le résultat
+                                                            $cumulITS += round($itsTranche * ($tranche["taux"] / 100)); // Arrondir le résultat
+                                                        }
+                                                    }
+
+                                                    return $cumulITS;
+                                            }
+
+                                                $revenuAnnuel = $salaireArrondi;
+
+                                                $resultatITS = calculerITS($revenuAnnuel);
+
+                                                //echo "Pour un revenu annuel de $revenuAnnuel FCFA, l'ITS est de $resultatITS FCFA.";
+
+                                                function calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants) {
+                                                // Appliquer la réduction en fonction de l'état civil
+                                                switch ($etatCivil) {
+                                                    case 'Célibataire':
+                                                    case 'Divorce':
+                                                    case 'Veuf':
+                                                        // Pas de réduction pour célibataire, divorcé ou veuf
+                                                        $reductionEtatCivil = 0;
+                                                        break;
+                                                    case 'Marie':
+                                                        // Réduction de 10% pour les travailleurs mariés
+                                                        $reductionEtatCivil = 0.10;
+                                                        break;
+                                                    default:
+                                                        $reductionEtatCivil = 0;
+                                                        break;
+                                                }
+
+                                                // Appliquer la réduction en fonction du nombre d'enfants à charge
+                                                $reductionEnfants = min(0.025 * $nombreEnfants, 0.25); // Maximum de 25%
+
+                                                // Calculer le total des réductions
+                                                $totalReductions = $reductionEtatCivil + $reductionEnfants;
+
+                                                // Calculer l'ITS après les réductions
+                                                $itsApresReduction = $itsAvantReduction * (1 - $totalReductions);
+
+                                                // Calculer le pourcentage du taux de réduction
+                                                $pourcentageReduction = $totalReductions * 100;
+
+                                                $itsApresReduction = round($itsApresReduction, 0, PHP_ROUND_HALF_DOWN);
+
+                                                return array(
+                                                    'itsApresReduction' => $itsApresReduction,
+                                                    'pourcentageReduction' => $pourcentageReduction
+                                                );
+                                            }
+
+                                            // Exemple d'utilisation
+                                            $itsAvantReduction = $resultatITS ;  // Montant de l'ITS avant réduction
+                                            $etatCivil = $detailContrat->situation_matrimoniale;         // État civil du travailleur (celibataire, marie, divorce, veuf)
+                                            $nombreEnfants = $detailContrat->nombre_enfant;           // Nombre d'enfants à charge     // True si l'enfant est invalide, sinon false
+
+                                            $resultats = calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants);
+
+                                            // echo "ITS avant réduction : $itsAvantReduction FCFA\n";
+                                            // echo "ITS après réduction : {$resultats['itsApresReduction']} FCFA\n";
+                                            // echo "Pourcentage du taux de réduction : {$resultats['pourcentageReduction']}%\n";
+                                            // echo "Revenu Annuel $revenuAnnuelle\n";
+                                            $tauxITS = ($resultats['itsApresReduction'] / $revenuAnnuelle) * 100;
+                                            $tauxReduit = $tauxITS - 2;
+                                            $ITSAnnuelReduit = ($revenuAnnuelle * $tauxReduit) / 100;
+                                            $its = $ITSAnnuelReduit / 12;
+
+                                            $salaireNet = $salaireBrut - $inps - $amo - $its;
 
                                         @endphp
                                         <tr>
                                             <td><strong>Salaire Brut</strong>
-                                                <span class="float-right"><strong>{{ number_format($salaireBrut) }}</strong></span>
+                                                <span class="float-right"><strong>{{ number_format($salaireBrut)
+                                                        }}</strong></span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -242,17 +291,16 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <td><strong>INPS</strong> <span
-                                                    class="float-right">{{ number_format($inps) }}</span></td>
+                                            <td><strong>INPS</strong> <span class="float-right">{{ number_format($inps)
+                                                    }}</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Impot Brut</strong> <span class="float-right">{{ number_format($ImpotBrut) }}</span></td>
+                                            <td><strong>AMO</strong> <span class="float-right">{{ number_format($amo)
+                                                    }}</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>ITS</strong> <span class="float-right">{{ number_format($its) }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Charge de Familles</strong> <span class="float-right">{{ $ReductionChargeFamille }}</span></td>
+                                            <td><strong>ITS</strong> <span class="float-right">{{ number_format($its)
+                                                    }}</span></td>
                                         </tr>
                                         {{-- <tr>
                                             <td><strong>Total Deductions</strong> <span

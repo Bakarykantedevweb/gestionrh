@@ -27,6 +27,12 @@ class Agent extends Authenticatable
         return $this->belongsTo(Poste::class);
     }
 
+    public function contrat()
+    {
+        return $this->hasOne(Contrat::class, 'agent_id');
+    }
+
+
     public function enfants()
     {
         return $this->hasMany(Enfant::class);

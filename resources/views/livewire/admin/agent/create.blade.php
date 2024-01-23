@@ -1,5 +1,4 @@
 <div>
-    @include('livewire.admin.agent.agent-modal')
     <!-- Page Header -->
     <div class="page-header">
         <div class="row align-items-center">

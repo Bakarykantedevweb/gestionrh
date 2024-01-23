@@ -66,54 +66,6 @@ class AgentShow extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
-
-
-    public function saveEmploye()
-    {
-        $validatedData = $this->validate();
-        try {
-            // $data = [
-            //     'nom' => $validatedData['nom'],
-            //     'prenom' => $validatedData['prenom'],
-            //     'email' => $validatedData['email']
-            // ];
-            // Mail::to($validatedData['email'])
-            //     ->queue(new WelcomeAgent($data));
-            if(Agent::where())
-            $agent = new Agent();
-            $agent->matricule = '00000';
-            $agent->prenom = $validatedData['prenom'];
-            $agent->nom = $validatedData['nom'];
-            $agent->email = $validatedData['email'];
-            $agent->jour = $validatedData['jour'];
-            $agent->mois = $validatedData['mois'];
-            $agent->annee = $validatedData['annee'];
-            $agent->age = $this->age;
-            $agent->telephone = $validatedData['telephone'];
-            $agent->departement_id = $validatedData['departement_id'];
-            $agent->poste_id = $validatedData['poste_id'];
-            $agent->sexe = $validatedData['sexe'];
-            $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
-            $this->photo->storeAs('admin/agent/', $imageName);
-            $agent->photo = $imageName;
-            $agent->password = Hash::make('password');
-            $agent->save();
-            $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
-            $agent->matricule = $matricule;
-            $agent->save();
-            toastr()->success('message', 'Operation effectue avec Success');
-            return redirect('admin/agents');
-            $this->resetInput();
-            $this->dispatchBrowserEvent('close-modal');
-        } catch (\Throwable $th) {
-            //throw $th;
-            toastr()->error('error', $th);
-            return redirect('admin/agents');
-            $this->resetInput();
-            $this->dispatchBrowserEvent('close-modal');
-        }
-    }
-
     public function editAgent($id)
     {
         $agent = Agent::find(decrypt($id));

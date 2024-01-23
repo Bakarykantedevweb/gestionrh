@@ -27,7 +27,7 @@
     @if ($OffreEnAttente)
         <button data-toggle="modal" data-target="#emargement" type="button" class="btn btn-primary mb-3"
             wire:click="traiterElementsCoches">
-            Valider les emargements
+            Valider les offres
         </button>
         <div class="row">
             <div class="col-md-12">
@@ -68,7 +68,7 @@
                                         <td><a href="{{ url('uploads/frontend/candidat/lettre/'.$postuler->candidat->lettre) }}" target="_blank" class="btn btn-success btn-sm">Voir Lettre</a></td>
                                         <td class="text-center">
                                             @if($postuler->status == '0')
-                                            <button class="btn btn-primary btn-sm">En Attente</button>
+                                            <button class="btn btn-danger btn-sm">En Attente</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -182,7 +182,7 @@
                                                 target="_blank" class="btn btn-success btn-sm">Voir Lettre</a></td>
                                         <td class="text-center">
                                             @if($postuler->status == '2')
-                                            <button class="btn btn-primary btn-sm">Rejeté</button>
+                                            <button class="btn btn-danger btn-sm">Rejeté</button>
                                             @endif
                                         </td>
                                     </tr>

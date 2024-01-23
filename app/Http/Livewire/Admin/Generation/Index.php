@@ -19,17 +19,13 @@ class Index extends Component
     public $PeriodeId;
     public $rubriquesDuBulletin = null;
     public $detailContrat;
-
-    // private function disableContents()
-    // {
-    //     $this->listeGeneration = false;
-    //     $this->GenerationBulletin = false;
-    // }
+    public $detailBulletin;
 
     public function afficherRubriques($bulletinId, $contratId)
     {
         // Récupérez les rubriques du bulletin depuis la table bulletin_rubrique
         $this->rubriquesDuBulletin = BulletinRubrique::where('bulletin_id', $bulletinId)->get();
+        $this->detailBulletin = Bulletin::where('id', $bulletinId)->first();
         $this->detailContrat = Contrat::where('id', $contratId)->first();
         $this->listeGeneration = false;
         $this->GenerationBulletin = true;
