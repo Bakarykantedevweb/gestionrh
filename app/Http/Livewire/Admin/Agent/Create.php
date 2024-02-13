@@ -14,6 +14,7 @@ use App\Models\TypeContrat;
 use Livewire\WithFileUploads;
 use App\Models\FeuilleCalcule;
 use App\Models\ContratRubrique;
+use App\Models\Education;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -47,11 +48,6 @@ class Create extends Component
     public $sexeAgent;
     public $showInputs = false;
 
-    // Formation
-    public $schools = [
-        ['name' => '', 'cycle' => '', 'diplome' => '', 'year' => ''],
-    ];
-
     protected function rules()
     {
         return [
@@ -64,7 +60,7 @@ class Create extends Component
             'email' => 'required|email|unique:agents',
             'telephone' => 'required|integer|min:8',
             'departement_id' => 'required|integer',
-            'poste_id' => 'required|integer|unique:agents',
+            'poste_id' => 'required|integer',
             'sexe' => 'required|string',
             'photo' => 'image|max:1024',
             // Contrat
@@ -110,22 +106,6 @@ class Create extends Component
         $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
     }
 
-    // Formation
-
-
-    public function addSchool()
-    {
-        $this->schools[] = ['name' => '', 'cycle' => '', 'diplome' => '', 'year' => ''];
-        $this->emit('tabChanged', 'emp_formation'); // Émettre un événement pour changer l'onglet actif
-    }
-
-
-    public function removeSchool($index)
-    {
-        unset($this->schools[$index]);
-        $this->schools = array_values($this->schools);
-        $this->emit('tabChanged', 'emp_formation');
-    }
 
     public function updated($champs)
     {
@@ -147,7 +127,34 @@ class Create extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
+    public function updatedPrenom()
+    {
+        $this->generateEmail();
+    }
 
+    public function updatedNom()
+    {
+        $this->generateEmail();
+    }
+
+    private function generateEmail()
+    {
+        $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
+
+        // Vérifier si l'email existe déjà
+        if (Agent::where('email', $baseEmail)->exists()) {
+            $count = 1;
+
+            // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
+            while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
+                $count++;
+            }
+
+            $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
+        } else {
+            $this->email = $baseEmail;
+        }
+    }
 
     public function saveEmploye()
     {
@@ -157,7 +164,7 @@ class Create extends Component
             $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
             $agent->nom = $validatedData['nom'];
-            $agent->email = $validatedData['email'];
+            $agent->email = $this->email;
             $agent->jour = $validatedData['jour'];
             $agent->mois = $validatedData['mois'];
             $agent->annee = $validatedData['annee'];
@@ -175,8 +182,7 @@ class Create extends Component
             $agent->matricule = $matricule;
             $agent->save();
             // Save Contrat
-            if($agent)
-            {
+            if ($agent) {
                 $contrat = new Contrat;
                 $contrat->numero = '0000';
                 $contrat->date_creation = $validatedData['date_entre'];
@@ -204,9 +210,6 @@ class Create extends Component
                     $contratRubrique->montant = $this->montant[$rubrique->id];
                     $contratRubrique->save();
                 }
-
-                // Réinitialisez les données après l'enregistrement
-                $this->reset();
             }
             toastr()->success('Message', 'Operation effectue avec Success');
             return redirect('admin/agents');
@@ -216,6 +219,7 @@ class Create extends Component
             return redirect()->back();
         }
     }
+
     public function render()
     {
         $this->agents = Agent::get();

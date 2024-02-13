@@ -171,8 +171,13 @@
                                             $amo = ($salaireBrut * 3.06)/100;
 
                                             $revenu = $salaireBrut - $inps - $amo;
-                                            $revenuAnnuelle = $revenu * 12;
+                                            $revenuArrondi = round($revenu, 0);
+                                            $revenuAnnuelle = $revenuArrondi * 12;
                                             $salaireArrondi = floor($revenuAnnuelle / 1000) * 1000;
+
+                                            // echo "Revenu : $revenuArrondi FCFA <br>";
+                                            // echo "Revenu Annulle : $revenuAnnuelle FCFA <br>";
+                                            // echo "Revenu Arrondi : $salaireArrondi FCFA <br>";
 
                                             function calculerITS($revenuAnnuel)
                                             {
@@ -216,7 +221,7 @@
 
                                                 $resultatITS = calculerITS($revenuAnnuel);
 
-                                                //echo "Pour un revenu annuel de $revenuAnnuel FCFA, l'ITS est de $resultatITS FCFA.";
+                                                //echo "Pour un revenu annuel de $revenuAnnuel FCFA, l'ITS est de $resultatITS FCFA. <br>";
 
                                                 function calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants) {
                                                 // Appliquer la réduction en fonction de l'état civil
@@ -263,10 +268,12 @@
 
                                             $resultats = calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants);
 
-                                            // echo "ITS avant réduction : $itsAvantReduction FCFA\n";
-                                            // echo "ITS après réduction : {$resultats['itsApresReduction']} FCFA\n";
-                                            // echo "Pourcentage du taux de réduction : {$resultats['pourcentageReduction']}%\n";
-                                            // echo "Revenu Annuel $revenuAnnuelle\n";
+                                            // echo "ITS avant réduction : $itsAvantReduction FCFA <br>";
+                                            // echo "ITS après réduction : {$resultats['itsApresReduction']} FCFA <br>";
+                                            // echo "Pourcentage du taux de réduction : {$resultats['pourcentageReduction']}% <br>";
+                                            // echo "Revenu Annuel $revenuAnnuelle <br>";
+                                            // echo "Situation matrimoniale $detailContrat->situation_matrimoniale <br>";
+                                            // echo "Nombre enfant $detailContrat->nombre_enfant <br>";
                                             $tauxITS = ($resultats['itsApresReduction'] / $revenuAnnuelle) * 100;
                                             $tauxReduit = $tauxITS - 2;
                                             $ITSAnnuelReduit = ($revenuAnnuelle * $tauxReduit) / 100;

@@ -59,6 +59,18 @@ class Index extends Component
 
     }
 
+    public function delete_formateur($id)
+    {
+        $this->formateur_id = $id;
+    }
+
+    public function destroyFormateur()
+    {
+        Formateur::where('id',$this->formateur_id)->delete();
+        toastr()->success("Operation effectue avec success");
+        return redirect('admin/formateurs');
+    }
+
     public function closeModal()
     {
         $this->resetInput();

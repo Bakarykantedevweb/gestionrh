@@ -26,7 +26,7 @@ class WelcomeAgent extends Mailable
 
     public function build()
     {
-        return $this->from("kantebakary742@gmail.com") // L'expéditeur
+        return $this->from("optirh517@gmail.com") // L'expéditeur
         ->subject("Gestion des RH") // Le sujet
         ->view('mail.welcomeAgent', $this->data); // La vue
     }

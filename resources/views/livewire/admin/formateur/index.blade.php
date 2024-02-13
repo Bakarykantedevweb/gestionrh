@@ -32,7 +32,7 @@
                     <tbody>
                         @forelse ($formateurs as $items)
                             <tr>
-                                <td>1</td>
+                                <td>{{ $items->id }}</td>
                                 <td>
                                     <h2 class="table-avatar">
                                         <a href="" class="avatar"><img alt="" src="{{ asset('admin/assets/img/téléchargement.png') }}"></a>
@@ -47,7 +47,7 @@
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="#" data-toggle="modal" wire:click="edit_formateur({{ $items->id }})" data-target="#add_formateur"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_type"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" wire:click="delete_formateur({{ $items->id }})" data-target="#delete_formateur"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>

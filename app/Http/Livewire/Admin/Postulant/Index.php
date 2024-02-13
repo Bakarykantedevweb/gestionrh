@@ -19,6 +19,8 @@ class Index extends Component
     public $OffreEnAttente = true;
     public $OffreAccepte = false;
     public $OffreRejete = false;
+    public $showInputs;
+    public $date , $heure;
 
     private function disableContents()
     {
@@ -40,6 +42,11 @@ class Index extends Component
         $this->idsCoches = array_keys(array_filter($this->selectedItems));
         // Maintenant, vous avez les ID des éléments cochés dans le tableau $idsCoches
         // Vous pouvez les utiliser pour effectuer des opérations ou des mises à jour
+    }
+
+    public function changeType()
+    {
+        $this->showInputs = $this->status == 1;
     }
 
     protected function rules()
@@ -68,6 +75,8 @@ class Index extends Component
                         'nom' => $postulerDetail->candidat->nom,
                         'prenom' => $postulerDetail->candidat->prenom,
                         'titre' => $postulerDetail->offre->titre,
+                        'date' => $this->date,
+                        'heure' => $this->heure,
                     ];
                     Mail::to($postulerDetail->candidat->email)
                         ->queue(new AccepteCandidatMail($data));

@@ -2,17 +2,22 @@
 
 namespace App\Http\Livewire\Admin\Agent;
 
-use App\Mail\WelcomeAgent;
 use Carbon\Carbon;
 use App\Models\Agent;
 use App\Models\Poste;
-use Livewire\Component;
-use App\Models\Departement;
+use App\Models\Contrat;
 use App\Models\Diplome;
+use Livewire\Component;
+use App\Mail\WelcomeAgent;
+use App\Models\CentreImpot;
+use App\Models\Departement;
+use App\Models\TypeContrat;
+use Livewire\WithFileUploads;
+use App\Models\FeuilleCalcule;
+use App\Models\ContratRubrique;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Livewire\WithFileUploads;
 
 class AgentShow extends Component
 {
@@ -23,6 +28,31 @@ class AgentShow extends Component
     public $jour, $mois, $annee, $nombre;
     public $agent_id;
     public $classification_id, $diplome_id, $profile, $photo;
+
+    // Contrat
+    public $typeContrats, $centreImpots, $feuilles; // Variable pour stocker le montant de la catégorie sélectionnée
+    public $montantCategorie;
+    public $type_contrat_id, $date_entre, $date_mariage,
+        $date_divorce, $date_veuve,
+        $nombre_enfant, $nombre_femme, $centre_impot_id, $feuille_calcule_id,
+        $prefix, $compte, $date_fin;
+    public $classifications;
+    public $rubriques = [];
+    public $montant = [];
+    public $sexeAgent;
+    public $showInputs = false;
+    public $selectedOption;
+
+    public $agentListes = true;
+    public $agentEdit = false;
+
+    public $options = [
+        'Marie' => 'text',
+        'Divorce' => 'text',
+        'Veuf' => 'text',
+        'Célibataire' => 'hidden',
+    ];
+
     protected function rules()
     {
         return [
@@ -37,7 +67,14 @@ class AgentShow extends Component
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
             'sexe' => 'required|string',
-            'photo' => 'image|max:1024',
+            // 'photo' => 'image|max:1024',
+            // Contrat
+            'type_contrat_id' => 'required|integer',
+            'centre_impot_id' => 'required|integer',
+            'diplome_id' => 'required|integer',
+            'feuille_calcule_id' => 'required|integer',
+            'date_entre' => 'required|date',
+            'selectedOption' => 'required|string',
         ];
     }
 
@@ -66,9 +103,57 @@ class AgentShow extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
+    public function updatedPrenom()
+    {
+        $this->generateEmail();
+    }
+
+    public function updatedNom()
+    {
+        $this->generateEmail();
+    }
+
+    private function generateEmail()
+    {
+        $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
+
+        // Vérifier si l'email existe déjà
+        if (Agent::where('email', $baseEmail)->exists()) {
+            $count = 1;
+
+            // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
+            while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
+                $count++;
+            }
+
+            $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
+        } else {
+            $this->email = $baseEmail;
+        }
+    }
+
+    public function changeType()
+    {
+        $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
+    }
+
+    public function getRubriques()
+    {
+        $feuilleCalcule = FeuilleCalcule::find($this->feuille_calcule_id);
+        //dd($feuilleCalcule);
+        // Vérifier si la feuille de calcul existe
+        if ($feuilleCalcule) {
+            // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
+            $this->rubriques = $feuilleCalcule->rubriques ?? [];
+        } else {
+            $this->rubriques = [];
+        }
+    }
+
     public function editAgent($id)
     {
-        $agent = Agent::find(decrypt($id));
+        $agent = Agent::find($id);
+
         if ($agent) {
             $this->agent_id = $agent->id;
             $this->prenom = $agent->prenom;
@@ -80,9 +165,40 @@ class AgentShow extends Component
             $this->age = $agent->age;
             $this->telephone = $agent->telephone;
             $this->departement_id = $agent->departement_id;
-            $this->poste_id = $agent->poste_id;
+
+            if ($this->departement_id) {
+                $this->poste_id = $agent->poste_id;
+            }
+
             $this->sexe = $agent->sexe;
-            $this->photo = $agent->photo;
+
+            if ($agent->contrat) {
+                $contrat = $agent->contrat;
+
+                // Vérification avant d'affecter les valeurs
+                $this->type_contrat_id = $contrat->type_contrat_id ?? null;
+                $this->date_entre = $contrat->date_creation ?? null;
+                $this->date_fin = $contrat->date_fin ?? null;
+                $this->diplome_id = $contrat->diplome_id ?? null;
+                $this->montantCategorie = $contrat->salaire ?? null;
+                $this->selectedOption = $contrat->situation_matrimoniale ?? null;
+                $this->date_mariage = $contrat->date_mariage ?? null;
+                $this->nombre_enfant = $contrat->nombre_enfant ?? null;
+                $this->centre_impot_id = $contrat->centre_impot_id ?? null;
+                $this->feuille_calcule_id = $contrat->feuille_calcule_id ?? null;
+
+                if ($this->feuille_calcule_id) {
+                    $contratRubriques = $contrat->contratRubriques;
+
+                    foreach ($contratRubriques as $contratRubrique) {
+                        // Vérification avant d'affecter les valeurs
+                        $this->montant[$contratRubrique->rubrique_id] = $contratRubrique->montant ?? null;
+                    }
+                }
+            }
+
+            $this->agentEdit = true;
+            $this->agentListes = false;
         }
     }
 
@@ -103,11 +219,38 @@ class AgentShow extends Component
             $agent->departement_id = $validatedData['departement_id'];
             $agent->poste_id = $validatedData['poste_id'];
             $agent->sexe = $validatedData['sexe'];
-            $imageName = Carbon::now()->timestamp . '.' . $this->photo->extension();
-            $this->photo->storeAs('admin/agent/', $imageName);
-            $agent->photo = $imageName;
             $agent->password = Hash::make('password');
             $agent->save();
+            if ($agent) {
+                $contrat = $agent->contrat;
+                $contrat->date_creation = $validatedData['date_entre'];
+                if ($validatedData['type_contrat_id'] == 1) {
+                    $contrat->date_fin = NULL;
+                } else {
+                    $contrat->date_fin = $this->date_fin;
+                }
+                $contrat->situation_matrimoniale = $this->selectedOption;
+                $contrat->date_mariage = $this->date_mariage;
+                $contrat->nombre_enfant = $this->nombre_enfant;
+                $contrat->salaire = $this->montantCategorie;
+                $contrat->nombre_jour_conge = 0;
+                $contrat->agent_id = $agent->id;
+                $contrat->type_contrat_id = $validatedData['type_contrat_id'];
+                $contrat->centre_impot_id = $validatedData['centre_impot_id'];
+                $contrat->feuille_calcule_id = $validatedData['feuille_calcule_id'];
+                $contrat->diplome_id = $validatedData['diplome_id'];
+                $contrat->save();
+                foreach ($this->rubriques as $rubrique) {
+                    $contratRubrique = ContratRubrique::firstOrNew([
+                        'contrat_id' => $contrat->id,
+                        'rubrique_id' => $rubrique->id,
+                    ]);
+
+                    $contratRubrique->montant = $this->montant[$rubrique->id];
+                    $contratRubrique->save();
+                }
+
+            }
             toastr()->success('message', 'Operation effectue avec Success');
             return redirect('admin/agents');
             $this->resetInput();
@@ -172,6 +315,9 @@ class AgentShow extends Component
         $this->agents = Agent::get();
         $this->departements = Departement::get();
         $this->diplomes = Diplome::get();
+        $this->typeContrats = TypeContrat::limit(2)->get();
+        $this->centreImpots = CentreImpot::get();
+        $this->feuilles = FeuilleCalcule::get();
         return view('livewire.admin.agent.agent-show');
     }
 }

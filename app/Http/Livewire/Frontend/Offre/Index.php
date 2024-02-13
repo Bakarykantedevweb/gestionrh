@@ -20,6 +20,7 @@ class Index extends Component
             $query->whereIn('categorie_id', is_array($this->categorie) ? $this->categorie : [$this->categorie]);
         })
         ->where('date_limite', '>=', now())
+        ->orderBy('id','desc')
         ->get();
 
         return view('livewire.frontend.offre.index');

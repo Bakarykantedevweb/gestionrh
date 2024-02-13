@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title','Gestion Scolaire | Connexion')
+@section('title','Gestion RH | Connexion')
 @section('content')
     <div class="account-content">
         <div class="container">

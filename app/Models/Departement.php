@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Agent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Departement extends Model
 {
@@ -12,5 +13,10 @@ class Departement extends Model
     public function postes()
     {
         return $this->belongsToMany(Poste::class);
+    }
+
+    public function agents()
+    {
+        return $this->hasMany(Agent::class);
     }
 }

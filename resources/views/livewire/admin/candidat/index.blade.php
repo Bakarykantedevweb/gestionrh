@@ -27,7 +27,7 @@
                             <th>Nom & Prenom</th>
                             <th>Telephone</th>
                             <th>Email</th>
-                            <th class="text-center">Action</th>
+                            {{-- <th class="text-center">Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -43,13 +43,13 @@
                             </td>
                             <td>{{ $candidat->telephone }}</td>
                             <td>{{ $candidat->email }}</td>
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 <button type="button" class="btn btn-primary btn-sm">Supprimer</button>
-                            </td>
+                            </td> --}}
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Pas de Candidats</td>
+                                <td colspan="4" class="text-center">Pas de Candidats</td>
                             </tr>
                         @endforelse
                     </tbody>

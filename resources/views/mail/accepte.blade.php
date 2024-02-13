@@ -21,6 +21,7 @@
 
         <p style="line-height: 1.6;">Nous sommes impatients de discuter avec vous et d'en apprendre davantage sur vos
             compétences et votre expérience.</p>
+        <p style="line-height: 1.6;"> La date de l'entretien est le {{ \Carbon\Carbon::parse($data['date'])->isoFormat('LL') }} à {{ $data['heure'] }}</p>
 
         <p style="line-height: 1.6;">Merci et félicitations encore !</p>
 

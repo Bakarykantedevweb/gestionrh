@@ -199,13 +199,7 @@ class Edit extends Component
             $agent->departement_id = $validatedData['departement_id'];
             $agent->poste_id = $validatedData['poste_id'];
             $agent->sexe = $validatedData['sexe'];
-            // $imageName = Carbon::now()->timestamp . '.' . $validatedData['photo']->extension();
-            // $validatedData['photo']->storeAs('admin/agent/', $imageName);
-            // $agent->photo = $imageName;
-
-            // Sauvegarder les informations de base
             $agent->save();
-
             // Mettre à jour le contrat lié à l'agent
             $contrat = $agent->contrat;
             $contrat->date_creation = $validatedData['date_entre'];

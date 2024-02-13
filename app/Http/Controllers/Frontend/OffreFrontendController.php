@@ -20,7 +20,7 @@ class OffreFrontendController extends Controller
             toastr()->error('Aucun element Trouve !!!!!');
             return redirect('offres');
         }
-        $offre = Offre::where('titre', $titre)->first();
+        $offre = Offre::where('titre', $titre)->where('date_limite','>',now())->first();
         if($offre)
         {
             return view('frontend.offre.detail',compact('offre'));

@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form wire:submit.prevent="UpdatePostuler">
                     <div class="form-group">
-                        <select wire:model="status" class="form-control">
+                        <select wire:model="status" wire:change="changeType" class="form-control">
                             <option value="">...</option>
                             <option value="1">Validé</option>
                             <option value="2">Rejeté</option>
@@ -20,6 +20,16 @@
                         <span class="text-danger">Le champs est obligatoire</span>
                         @enderror
                     </div>
+                    @if ($showInputs)
+                        <div class="form-group">
+                            <label for="">Date entretien</label>
+                            <input type="date" wire:model="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Heure</label>
+                            <input type="time" wire:model="heure" class="form-control">
+                        </div>
+                    @endif
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Enregistrer</button>
                     </div>

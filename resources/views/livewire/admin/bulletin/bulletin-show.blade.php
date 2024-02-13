@@ -69,7 +69,7 @@
                                     @foreach ($rubriques as $rubrique)
                                         <td class="text-center">
                                             <input type="number" min="0" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
-                                                class="form-control">
+                                                class="">
                                         </td>
                                     @endforeach
                                 </tr>

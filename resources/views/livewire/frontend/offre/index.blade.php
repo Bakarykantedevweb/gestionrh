@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="items-link f-right">
                                     <a href="{{ url('offres/'.$offre->titre) }}">Details</a>
-                                    <span>{{ $offre->date_publication }}</span>
+                                    <span>{{ \Carbon\Carbon::parse($offre->date_publication)->isoFormat('LL') }}</span>
                                 </div>
                             </div>
                             @empty

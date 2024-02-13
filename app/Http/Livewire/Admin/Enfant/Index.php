@@ -28,7 +28,7 @@ class Index extends Component
             'annee' => 'required',
             'age' => 'required|integer',
             'agent_id' => 'required|integer',
-            'photo' => 'image|max:1024|file|mimes:png,jpg,jpeg',
+            'photo' => 'image|max:10240|file|mimes:png,jpg,jpeg',
         ];
     }
 

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Poste;
 use App\Models\Enfant;
+use App\Models\Contrat;
+use App\Models\Formation;
 use App\Models\Departement;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +38,11 @@ class Agent extends Authenticatable
     public function enfants()
     {
         return $this->hasMany(Enfant::class);
+    }
+
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class);
     }
 
     public function incrementLoginAttempts()

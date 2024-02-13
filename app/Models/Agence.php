@@ -10,4 +10,9 @@ class Agence extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function stagiaires()
+    {
+        return $this->hasMany(Stagiaire::class);
+    }
 }

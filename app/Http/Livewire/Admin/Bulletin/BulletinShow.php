@@ -54,7 +54,7 @@ class BulletinShow extends Component
         if ($feuilleCalcule) {
             // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
             $this->rubriques = $feuilleCalcule->rubriques ?? [];
-            $this->contrats = $feuilleCalcule->contrats->where('status','0') ?? [];
+            $this->contrats = $feuilleCalcule->contrats->where('status', '0') ?? [];
             $this->loadMontants();
         } else {
             $this->rubriques = [];
@@ -77,6 +77,7 @@ class BulletinShow extends Component
 
     public function SaveBulletin()
     {
+        $BulletinExiste = False;
         // Vérifiez si les données nécessaires sont disponibles
         if ($this->feuilleCalculeId && $this->selectedMonthName) {
             // Obtenez la période
@@ -86,37 +87,42 @@ class BulletinShow extends Component
             // Parcourez les contrats pour enregistrer dans la table bulletin
             foreach ($this->contrats as $contrat) {
                 // Insérez ou mettez à jour dans la table bulletin
-                $bulletin = Bulletin::updateOrCreate(
-                    [
-                        'periode_id' => $periode->id,
-                        'contrat_id' => $contrat->id,
-                    ],
-                );
+                if (Bulletin::where('contrat_id', $contrat->id)->where('periode_id', $periode->id)->exists()) {
+                    $BulletinExiste = true;
+                } else {
 
-                // Incrémentez le champ nombre_jour_conge de 2.5 pour les agents associés à la feuille
-                $contrat->update([
-                    'nombre_jour_conge' => $contrat->nombre_jour_conge + 2.5,
-                ]);
+                    $bulletin = Bulletin::updateOrCreate(
+                        [
+                            'periode_id' => $periode->id,
+                            'contrat_id' => $contrat->id,
+                        ],
+                    );
 
-                // Créez un tableau pour les montants de l'agent
-                $montantsAgent = [];
+                    // Incrémentez le champ nombre_jour_conge de 2.5 pour les agents associés à la feuille
+                    $contrat->update([
+                        'nombre_jour_conge' => $contrat->nombre_jour_conge + 2.5,
+                    ]);
 
-                // Parcourez les rubriques pour récupérer les montants pour l'agent actuel
-                foreach ($this->rubriques as $rubrique) {
-                    $contratId = $contrat->id;
-                    $rubriqueId = $rubrique->id;
+                    // Créez un tableau pour les montants de l'agent
+                    $montantsAgent = [];
 
-                    // Vérifiez si la clé existe avant d'accéder à $this->montant
-                    if (isset($this->montant[$contratId][$rubriqueId])) {
-                        // Ajoutez le montant à $montantsAgent
-                        $montantsAgent[$rubriqueId] = $this->montant[$contratId][$rubriqueId];
+                    // Parcourez les rubriques pour récupérer les montants pour l'agent actuel
+                    foreach ($this->rubriques as $rubrique) {
+                        $contratId = $contrat->id;
+                        $rubriqueId = $rubrique->id;
 
-                        // Utilisez la méthode create pour insérer dans la table bulletin_rubrique
-                        BulletinRubrique::create([
-                            'bulletin_id' => $bulletin->id,
-                            'rubrique_id' => $rubriqueId,
-                            'montant' => $montantsAgent[$rubriqueId],
-                        ]);
+                        // Vérifiez si la clé existe avant d'accéder à $this->montant
+                        if (isset($this->montant[$contratId][$rubriqueId])) {
+                            // Ajoutez le montant à $montantsAgent
+                            $montantsAgent[$rubriqueId] = $this->montant[$contratId][$rubriqueId];
+
+                            // Utilisez la méthode create pour insérer dans la table bulletin_rubrique
+                            BulletinRubrique::create([
+                                'bulletin_id' => $bulletin->id,
+                                'rubrique_id' => $rubriqueId,
+                                'montant' => $montantsAgent[$rubriqueId],
+                            ]);
+                        }
                     }
                 }
             }
@@ -127,10 +133,17 @@ class BulletinShow extends Component
         // Ajoutez d'autres actions nécessaires après le traitement
 
         // Rafraîchissez la page ou redirigez si nécessaire
-        toastr()->success('Preparation effectue avec success');
-        $this->rubriques = [];
-        $this->montant = [];
-        $this->feuilleCalculeId = '';
+        if ($BulletinExiste) {
+            toastr()->error('Vous avez deja fait la preparation de ce mois');
+            $this->rubriques = [];
+            $this->montant = [];
+            $this->feuilleCalculeId = '';
+        } else {
+            toastr()->success('Preparation effectue avec success');
+            $this->rubriques = [];
+            $this->montant = [];
+            $this->feuilleCalculeId = '';
+        }
     }
 
 

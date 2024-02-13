@@ -25,7 +25,7 @@ class AccepteCandidatMail extends Mailable
 
     public function build()
     {
-        return $this->from("kantebakary742@gmail.com") // L'expéditeur
+        return $this->from("optirh517@gmail.com") // L'expéditeur
         ->subject("Gestion des RH OptiRH") // Le sujet
         ->view('mail.accepte', $this->data); // La vue
     }

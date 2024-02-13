@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('libelle');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
         DB::table('rubriques')->insert([

@@ -35,7 +35,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\admin\TypeFormationController;
 use App\Http\Controllers\Admin\ClassificationController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
-use App\Http\Controllers\Admin\NatureRubriqueController;
+use App\Http\Controllers\Admin\StagiaireController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 use App\Http\Controllers\Frontend\AuthFrontendController;
@@ -221,6 +221,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(FormationController::class)->group(function () {
         Route::get('formations', 'index')->name('formation.index');
+        Route::get('formations/create','create')->name('formation.create');
+    });
+
+    Route::controller(StagiaireController::class)->group(function () {
+        Route::get('stagiaires', 'index')->name('stagiaire.index');
+        Route::get('convention/{matricule}','generation');
+        Route::get('attestation/{matricule}', 'generationAttestation');
     });
 });
 

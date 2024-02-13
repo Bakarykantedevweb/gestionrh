@@ -50,7 +50,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                    <input class="form-control" wire:model="email" type="email">
+                                    <input class="form-control" readonly wire:model="email" type="email">
                                     @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -356,7 +356,7 @@
                                         <tbody>
                                             <tr>
                                                 @foreach ($rubriques as $rubrique)
-                                                <td><input type="number" class="form-control"
+                                                <td><input type="number" class=""
                                                         wire:model="montant.{{ $rubrique->id }}" /></td>
                                                 @endforeach
                                             </tr>
