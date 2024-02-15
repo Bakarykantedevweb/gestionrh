@@ -103,34 +103,6 @@ class AgentShow extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
-    public function updatedPrenom()
-    {
-        $this->generateEmail();
-    }
-
-    public function updatedNom()
-    {
-        $this->generateEmail();
-    }
-
-    private function generateEmail()
-    {
-        $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
-
-        // Vérifier si l'email existe déjà
-        if (Agent::where('email', $baseEmail)->exists()) {
-            $count = 1;
-
-            // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
-            while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
-                $count++;
-            }
-
-            $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
-        } else {
-            $this->email = $baseEmail;
-        }
-    }
 
     public function changeType()
     {
@@ -264,19 +236,6 @@ class AgentShow extends Component
         }
     }
 
-    public function deleteAgent($id)
-    {
-        $this->agent_id = decrypt($id);
-    }
-
-    public function destroyAgent()
-    {
-        Agent::where('id', $this->agent_id)->delete();
-        toastr()->success('Operation effectue avec Success');
-        return redirect('admin/agents');
-        $this->resetInput();
-        $this->dispatchBrowserEvent('close-modal');
-    }
 
     public function closeModal()
     {

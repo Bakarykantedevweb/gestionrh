@@ -14,7 +14,7 @@
 
         <h1 style="color: #333;">Nouvelle formation disponible !</h1>
 
-        <h2 style="margin-top: 0;">Cher agent,</h2>
+        <h2 style="margin-top: 0;">Cher {{ $agent->prenom.' '. $agent->nom }},</h2>
 
         <p style="line-height: 1.6;">Vous avez été sélectionné pour suivre une nouvelle formation :</p>
 
@@ -30,6 +30,10 @@
             <tr>
                 <td style="padding: 8px; border: 1px solid #ddd;">Date de fin</td>
                 <td style="padding: 8px; border: 1px solid #ddd;">{{ \Carbon\Carbon::parse($formation->date_fin)->isoFormat('LL') }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #ddd;">Heure</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">{{ $formation->heure }}</td>
             </tr>
         </table>
 

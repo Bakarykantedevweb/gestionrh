@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AffectationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
@@ -124,7 +125,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::controller(AgentController::class)->group(function(){
         Route::get('agents','index')->name('agent.index');
         Route::get('agents/create', 'create')->name('agent.create');
-        Route::get('agents/{matricule}/edit', 'edit')->name('agent.edit');
     });
 
     Route::controller(TypeContratController::class)->group(function () {
@@ -228,6 +228,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('stagiaires', 'index')->name('stagiaire.index');
         Route::get('convention/{matricule}','generation');
         Route::get('attestation/{matricule}', 'generationAttestation');
+    });
+
+    Route::controller(AffectationController::class)->group(function () {
+        Route::get('affectations', 'index')->name('affectation.index');
     });
 });
 

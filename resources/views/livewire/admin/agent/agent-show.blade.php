@@ -1,5 +1,6 @@
 <div>
     <!-- Page Header -->
+    @include('livewire.admin.agent.modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
@@ -149,7 +150,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                        <input class="form-control" readonly wire:model="email" type="email">
+                                        <input class="form-control" wire:model="email" type="email">
                                         @error('email')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

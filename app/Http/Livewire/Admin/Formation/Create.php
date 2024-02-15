@@ -69,7 +69,8 @@ class Create extends Component
                         $agent = Agent::find($isChecked);
                         if ($agent) {
                             $data = [
-                                'formation' => $formation
+                                'formation' => $formation,
+                                'agent' => $agent
                             ];
                             Mail::to($agent->email)
                             ->queue(new FormationMailAgent($data));

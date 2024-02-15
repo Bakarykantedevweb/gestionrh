@@ -59,7 +59,7 @@ return new class extends Migration
             ],
             [
                 'nom' => 'Enfants',
-                'acces' => 1,
+                'acces' => 0,
                 'route' => 'enfant.index',
                 'type_droit_id' => 2,
             ],
@@ -187,6 +187,12 @@ return new class extends Migration
                 'nom' => 'Stagaire',
                 'acces' => 1,
                 'route' => 'stagiaire.index',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Affectation',
+                'acces' => 1,
+                'route' => 'affectation.index',
                 'type_droit_id' => 2,
             ],
         ]);
