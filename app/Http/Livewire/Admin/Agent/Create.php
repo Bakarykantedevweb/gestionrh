@@ -178,7 +178,7 @@ class Create extends Component
             $agent->photo = $imageName;
             $agent->password = Hash::make('password');
             $agent->save();
-            $matricule = 'MA' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
+            $matricule = 'MA-' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
             $agent->matricule = $matricule;
             $agent->save();
             // Save Contrat
@@ -200,7 +200,7 @@ class Create extends Component
                 $contrat->feuille_calcule_id = $validatedData['feuille_calcule_id'];
                 $contrat->diplome_id = $validatedData['diplome_id'];
                 $contrat->save();
-                $numero = 'CR' . str_pad($contrat->id, 5, '0', STR_PAD_LEFT);
+                $numero = 'CR-' . str_pad($contrat->id, 5, '0', STR_PAD_LEFT);
                 $contrat->numero = $numero;
                 $contrat->save();
                 foreach ($this->rubriques as $rubrique) {

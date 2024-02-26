@@ -49,7 +49,7 @@
             </div>
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
-                    <select class="select floating">
+                    <select class="form-control">
                         <option>Select Designation</option>
                         <option>Web Developer</option>
                         <option>Web Designer</option>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
-                    <select class="select floating">
+                    <select class="form-control">
                         <option>Select Designation</option>
                         <option>Web Developer</option>
                         <option>Web Designer</option>
@@ -73,50 +73,78 @@
             </div>
         </div>
         <!-- Search Filter -->
-
-        <div class="row staff-grid-row">
-            @forelse ($agents as $items)
-                <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-                    <div class="profile-widget">
-                        <div class="profile-img">
-                            <a href="" class="avatar">
-                                @if ($items->photo)
-                                    <img src="{{ asset('uploads/admin/agent/' . $items->photo) }}" alt="">
-                                @else
-                                    <img src="{{ asset('admin/assets/img/téléchargement.png') }}" alt="">
-                                @endif
-                            </a>
-                        </div>
-                        <div class="dropdown profile-action">
-                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button type="button" class="dropdown-item"
-                                    wire:click="editAgent({{ $items->id }})"><i class="fa fa-pencil m-r-5"></i>
-                                    Modifier</button>
-                                <a class="dropdown-item"><i class="fa fa-exchange m-r-5"></i> Affecter</a>
-                                <a class="dropdown-item"><i class="fa fa-history m-r-5"></i> Historique</a>
-                                @if ($items->blocked == 1)
-                                    <a class="dropdown-item" wire:click="activer({{ $items->id }})" href="#"
-                                        data-toggle="modal" data-target=""><i class="fa fa-unlock m-r-5"></i>
-                                        Activer</a>
-                                @endif
-                            </div>
-                        </div>
-                        <h4 class="user-name m-t-10 mb-0 text-ellipsis">
-                            <a href="">{{ $items->prenom . ' ' . $items->nom }}</a>
-                        </h4>
-                        @if ($items->blocked == 1)
-                            <div class="small text-danger">Le compte est Desactivé <i class="fa fa-lock"></i></div>
-                            <div class="small text-danger">Nombres de Tentatives({{ $items->login_attempts }})</div>
-                        @endif
-                        <div class="small text-muted">{{ $items->poste->nom }}</div>
-                        <div class="small text-muted">({{ $items->departement->code }})</div>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Nom complet</th>
+                                <th>Matricule</th>
+                                <th>Email</th>
+                                <th>Telephone</th>
+                                <th class="text-nowrap">Date de naissance</th>
+                                <th>Age</th>
+                                <th class="text-right no-sort">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($agents as $items)
+                                <tr @if ($items->blocked == 1) class="table-danger" @endif>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            @if ($items->photo)
+                                                <a href="" class="avatar"><img
+                                                        src="{{ asset('uploads/admin/agent/' . $items->photo) }}"
+                                                        alt=""></a>
+                                            @else
+                                                <a href=""><img
+                                                        src="{{ asset('admin/assets/img/téléchargement.png') }}"
+                                                        alt=""></a>
+                                            @endif
+                                            <a href="">{{ $items->prenom . ' ' . $items->nom }}
+                                                <span>{{ $items->departement->code }}</span></a>
+                                        </h2>
+                                    </td>
+                                    <td>{{ $items->matricule }}</td>
+                                    <td>{{ $items->email }}</td>
+                                    <td>+223 {{ $items->telephone }}</td>
+                                    <td>{{ $items->jour . '-' . $items->mois . '-' . $items->annee }}</td>
+                                    <td>{{ $items->age }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <button type="button" class="dropdown-item"
+                                                    wire:click="editAgent({{ $items->id }})"><i
+                                                        class="fa fa-pencil m-r-5"></i>
+                                                    Modifier</button>
+                                                <a href="#" wire:click="affectation({{ $items->id }})"
+                                                    class="dropdown-item" data-toggle="modal"
+                                                    data-target="#add_affectation"><i class="fa fa-exchange m-r-5"></i>
+                                                    Affecter</a>
+                                                <a class="dropdown-item"><i class="fa fa-history m-r-5"></i>
+                                                    Historique</a>
+                                                @if ($items->blocked == 1)
+                                                    <a class="dropdown-item" wire:click="activer({{ $items->id }})"
+                                                        href="#" data-toggle="modal" data-target=""><i
+                                                            class="fa fa-unlock m-r-5"></i>
+                                                        Activer</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Pas d'agents pour le moment</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
-            @empty
-                <h4 class="text-center">Pas d'employees</h4>
-            @endforelse
+            </div>
         </div>
     @endif
     @if ($agentEdit)
@@ -239,9 +267,9 @@
                                     <div class="form-group">
                                         <label>Poste <span class="text-danger">*</span></label>
                                         <select class="form-control" wire:model="poste_id">
-                                            <option value="">---</option>
                                             @foreach ($postes as $pos)
-                                                <option value="{{ $pos->id }}" {{ $this->departement_id ? 'selected' : '' }}>
+                                                <option value="{{ $pos->id }}"
+                                                    {{ $this->departement_id ? 'selected' : '' }}>
                                                     {{ $pos->nom }}
                                                 </option>
                                             @endforeach
@@ -373,15 +401,15 @@
                                             @if ($selectedOption == 'Marie')
                                                 <div class="form-group">
                                                     <label for="">Nombres d'enfants</label>
-                                                    <input type="number" min="0" max="4" wire:model="nombre_enfant"
-                                                        class="form-control">
+                                                    <input type="number" min="0" max="4"
+                                                        wire:model="nombre_enfant" class="form-control">
                                                 </div>
                                             @endif
                                             @if ($selectedOption == 'Veuf')
                                                 <div class="form-group">
                                                     <label for="">Nombres d'enfants</label>
-                                                    <input type="number" wire:model="nombre_enfant"
-                                                        min="0" max="4" class="form-control">
+                                                    <input type="number" wire:model="nombre_enfant" min="0"
+                                                        max="4" class="form-control">
                                                 </div>
                                             @endif
                                         </div>
@@ -391,22 +419,22 @@
                                             @if ($selectedOption == 'Célibataire')
                                                 <div class="form-group">
                                                     <label for="">Nombres d'enfants</label>
-                                                    <input type="number" min="0" max="4" wire:model="nombre_enfant"
-                                                        class="form-control">
+                                                    <input type="number" min="0" max="4"
+                                                        wire:model="nombre_enfant" class="form-control">
                                                 </div>
                                             @endif
                                             @if ($selectedOption == 'Divorce')
                                                 <div class="form-group">
                                                     <label for="">Nombres d'enfants</label>
-                                                    <input type="number" wire:model="nombre_enfant"
-                                                        min="0" max="4" class="form-control">
+                                                    <input type="number" wire:model="nombre_enfant" min="0"
+                                                        max="4" class="form-control">
                                                 </div>
                                             @endif
                                             @if ($selectedOption == 'Veuf')
                                                 <div class="form-group">
                                                     <label for="">Nombres d'enfants</label>
-                                                    <input type="number" wire:model="nombre_enfant"
-                                                        min="0" max="4" class="form-control">
+                                                    <input type="number" wire:model="nombre_enfant" min="0"
+                                                        max="4" class="form-control">
                                                 </div>
                                             @endif
                                         </div>

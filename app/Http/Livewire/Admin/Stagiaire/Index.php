@@ -18,6 +18,8 @@ class Index extends Component
     public $stagiaires;
     public $stageTermines;
     public $agences;
+    public $sexe;
+    public $sexeS;
 
     public $matricule;
     public $departementId;
@@ -27,6 +29,12 @@ class Index extends Component
     public $stageEnCour = true;
     public $stageTermine = false;
     public $statistique = false;
+    public $showInputs = false;
+
+    public function changeType()
+    {
+        $this->showInputs = $this->agence_id == 1; // Vérifiez si l'ID est 2 pour le type CDD
+    }
 
     private function disableContents()
     {
@@ -44,7 +52,6 @@ class Index extends Component
     protected function rules()
     {
         return [
-            'departement_id' => 'required|integer',
             'agence_id' => 'required|integer',
             'nom' => 'required',
             'prenom' => 'required',
@@ -52,6 +59,7 @@ class Index extends Component
             'telephone' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'required',
+            'sexe' => 'required|string',
         ];
     }
 
@@ -74,6 +82,7 @@ class Index extends Component
         $this->date_debut = '';
         $this->date_fin = '';
         $this->agence_id = '';
+        $this->sexe = '';
     }
     public function SaveStagiaire()
     {
@@ -98,14 +107,15 @@ class Index extends Component
                 $stagiaire = Stagiaire::find($this->stagiaire_id);
             }
             $stagiaire->matricule = '00000';
-            $stagiaire->departement_id = $validatedData['departement_id'];
             $stagiaire->agence_id = $validatedData['agence_id'];
+            $stagiaire->departement_id = $this->departement_id;
             $stagiaire->nom = $validatedData['nom'];
             $stagiaire->prenom = $validatedData['prenom'];
             $stagiaire->email = $validatedData['email'];
             $stagiaire->telephone = $validatedData['telephone'];
             $stagiaire->date_debut = $validatedData['date_debut'];
             $stagiaire->date_fin = $validatedData['date_fin'];
+            $stagiaire->sexe = $validatedData['sexe'];
             $stagiaire->save();
 
             // Logique supplémentaire pour la sauvegarde et la mise à jour
@@ -137,6 +147,25 @@ class Index extends Component
             $this->telephone = $stagiaire->telephone;
             $this->date_debut = $stagiaire->date_debut;
             $this->date_fin = $stagiaire->date_fin;
+            $this->sexe = $stagiaire->sexe;
+        }
+    }
+
+    public function deleteStagiaire($id)
+    {
+        $this->stagiaire_id = $id;
+    }
+
+    public function destroyStagiaire()
+    {
+        try {
+            Stagiaire::where('id', $this->stagiaire_id)->delete();
+            toastr()->success('Stagiaire a été supprimé avec success');
+            return redirect('admin/stagiaires');
+        } catch (\Throwable $th) {
+            //throw $th;
+            toastr()->error('Une Erreur est survenue lors du traitement de la page');
+            return redirect('admin/stagiaires');
         }
     }
 
@@ -158,8 +187,12 @@ class Index extends Component
         ->when($this->agenceId, function ($query) {
             $query->where('agence_id', $this->agenceId);
         })
+        ->when($this->sexeS, function ($query) {
+            $query->where('sexe', $this->sexeS);
+        })
         ->where('date_fin', '>=', now())
         ->get();
+
         $this->stageTermines = Stagiaire::when($this->matricule, function ($query) {
             $query->where('matricule', 'ILIKE', '%' . $this->matricule . '%');
         })->when($this->departementId, function ($query) {
@@ -168,11 +201,15 @@ class Index extends Component
         ->when($this->agenceId, function ($query) {
             $query->where('agence_id', $this->agenceId);
         })
+        ->when($this->sexeS, function ($query) {
+            $query->where('sexe', $this->sexeS);
+        })
         ->where('date_fin', '<', now())
         ->get();
+
         if($this->statistique || $this->stageEnCour){
 
-            $this->agences = Agence::where('status','0')->orderBy('nom','ASC')->get();
+            $this->agences = Agence::where('status','0')->get();
 
         }
         return view('livewire.admin.stagiaire.index');

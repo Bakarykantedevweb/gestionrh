@@ -5,10 +5,12 @@ namespace App\Http\Livewire\Admin\Agent;
 use Carbon\Carbon;
 use App\Models\Agent;
 use App\Models\Poste;
+use App\Models\Agence;
 use App\Models\Contrat;
 use App\Models\Diplome;
 use Livewire\Component;
 use App\Mail\WelcomeAgent;
+use App\Models\Affectation;
 use App\Models\CentreImpot;
 use App\Models\Departement;
 use App\Models\TypeContrat;
@@ -41,10 +43,15 @@ class AgentShow extends Component
     public $montant = [];
     public $sexeAgent;
     public $showInputs = false;
+    public $showInputsAgence = false;
     public $selectedOption;
+    public $agences;
+    public $detailAgent;
 
     public $agentListes = true;
     public $agentEdit = false;
+    public $agence_id;
+    public $date_debut;
 
     public $options = [
         'Marie' => 'text',
@@ -75,8 +82,13 @@ class AgentShow extends Component
             'feuille_calcule_id' => 'required|integer',
             'date_entre' => 'required|date',
             'selectedOption' => 'required|string',
+
+            // 'agence_id' => 'required|integer',
+            // 'date_debut' => 'required'
         ];
     }
+
+
 
     public function updated($champs)
     {
@@ -89,6 +101,11 @@ class AgentShow extends Component
             $currentYear = date('Y');
             $this->age = $currentYear - $this->annee;
         }
+    }
+
+    public function changeTypeAgence()
+    {
+        $this->showInputsAgence = $this->agence_id == 1; // Vérifiez si l'ID est 2 pour le type CDD
     }
 
     public function updatedDiplomeId($value)
@@ -120,6 +137,12 @@ class AgentShow extends Component
         } else {
             $this->rubriques = [];
         }
+    }
+
+    public function updateMontant()
+    {
+        $diplome = Diplome::find($this->diplome_id);
+        $this->montantCategorie = $diplome->classification->montant;
     }
 
     public function editAgent($id)
@@ -179,6 +202,7 @@ class AgentShow extends Component
         $validatedData = $this->validate();
         try {
 
+            // dd($this->agent_id);
             $agent = Agent::find($this->agent_id);
             $agent->prenom = $validatedData['prenom'];
             $agent->nom = $validatedData['nom'];
@@ -236,6 +260,52 @@ class AgentShow extends Component
         }
     }
 
+    public function affectation($id)
+    {
+        $this->detailAgent = Agent::find($id);
+    }
+
+    public function SaveAffectation()
+    {
+        // dd($this->agence_id);
+        $validatedData = $this->validate([
+            'departement_id' => 'nullable',
+            'poste_id' => 'nullable',
+        ]);
+
+        try {
+            $existingAffectation = Affectation::where('agent_id', $this->detailAgent->id)
+                ->where('agence_id', $validatedData['agence_id'])
+                ->where('departement_id', $validatedData['departement_id'])
+                ->where('poste_id', $validatedData['poste_id'])
+                ->where(function ($query) use ($validatedData) {
+                    $query->where('date_debut', '<=', $validatedData['date_debut'])
+                    ->where('date_fin', '>=', $validatedData['date_debut']);
+                })
+                ->first();
+
+            if ($existingAffectation) {
+                toastr()->error("Cet agent est déjà affecté à la même agence, département, poste avec une date de début qui chevauche.");
+                return redirect('admin/agents');
+            }
+
+            $affectation = new Affectation();
+            $affectation->agent_id = $this->detailAgent->id;
+            $affectation->agence_id = $validatedData['agence_id'];
+            $affectation->departement_id = $validatedData['departement_id'];
+            $affectation->poste_id = $validatedData['poste_id'];
+            $affectation->date_debut = $validatedData['date_debut'];
+            $affectation->date_fin = $validatedData['date_fin'];
+            $affectation->save();
+
+            toastr()->success("L'affectation de l'agent a été effectuée avec succès");
+            return redirect('admin/agents');
+        } catch (\Throwable $th) {
+            toastr()->error('Erreur', $th->getMessage());
+            return redirect('admin/agents');
+        }
+    }
+
 
     public function closeModal()
     {
@@ -264,10 +334,11 @@ class AgentShow extends Component
 
         $agent->unblockAccount();
         $agent->resetLoginAttempts();
-
-        return redirect()->route('agent.index')
-            ->with('message', 'Le compte de l\'agent a été activé.');
+        toastr()->success('Le compte de l\'agent a été activé.');
+        return redirect('admin/agents');
     }
+
+
 
     public function render()
     {
@@ -277,6 +348,7 @@ class AgentShow extends Component
         $this->typeContrats = TypeContrat::limit(2)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
+        $this->agences = Agence::get();
         return view('livewire.admin.agent.agent-show');
     }
 }

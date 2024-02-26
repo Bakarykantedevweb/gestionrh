@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('telephone');
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->foreignIdFor(Departement::class)->constrained();
+            $table->string('sexe');
             $table->foreignIdFor(Agence::class)->constrained();
+            $table->foreignId('departement_id')->nullable()->constrained('departements');
             $table->timestamps();
         });
     }

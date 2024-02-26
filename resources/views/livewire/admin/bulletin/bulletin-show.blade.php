@@ -52,7 +52,7 @@
                     </div>
                     <!-- Search Filter -->
                     <div class="table-responsive m-t-15">
-                        <table class="table table-striped custom-table">
+                        <table class="table table-striped custom-table datatable">
                             <thead>
                                 @if ($rubriques)
                                 <tr>
@@ -65,11 +65,17 @@
                             <tbody>
                                 @forelse ($contrats as $contrat)
                                 <tr>
-                                    <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom.'('.$contrat->agent->poste->nom.')' }}</td>
+                                    {{-- <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}</td> --}}
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="">{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}
+                                                <span>{{ $contrat->agent->departement->code }}</span></a>
+                                        </h2>
+                                    </td>
                                     @foreach ($rubriques as $rubrique)
                                         <td class="text-center">
-                                            <input type="number" min="0" wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
-                                                class="">
+                                            <input type="number" readonly wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
+                                                class="form-control">
                                         </td>
                                     @endforeach
                                 </tr>

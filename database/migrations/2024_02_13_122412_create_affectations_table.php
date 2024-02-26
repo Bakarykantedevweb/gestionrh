@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('affectations', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Agent::class)->constrained();
-            $table->foreignIdFor(Agence::class)->constrained();
             $table->date('date_debut');
             $table->date('date_fin')->nullable();
             $table->timestamps();

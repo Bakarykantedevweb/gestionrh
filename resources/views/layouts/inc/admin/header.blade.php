@@ -24,7 +24,7 @@
                     <!-- Notifications -->
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i> <span class="badge badge-pill">3</span>
+                            <i class="fa fa-bell-o"></i> <span class="badge badge-danger">3</span>
                         </a>
                         <div class="dropdown-menu notifications">
                             <div class="topnav-dropdown-header">
@@ -34,7 +34,7 @@
                             <div class="noti-content">
                                 <ul class="notification-list">
                                     <li class="notification-message">
-                                        <a href="activities.html">
+                                        <a href="">
                                             <div class="media">
                                                 <span class="avatar">
                                                     <img alt="" src="assets/img/profiles/avatar-02.jpg">

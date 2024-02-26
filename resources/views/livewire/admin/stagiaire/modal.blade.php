@@ -13,23 +13,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label">Departements <span class="text-danger">*</span></label>
-                                <select wire:model="departement_id" class="form-control">
-                                    <option value="">---</option>
-                                    @foreach ($departements as $items)
-                                        <option value="{{ $items->id }}">{{ $items->nom }} ({{ $items->code }})
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('departement_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
                                 <label class="col-form-label">Agences <span class="text-danger">*</span></label>
-                                <select wire:model="agence_id" class="form-control">
+                                <select wire:model="agence_id" wire:change="changeType" class="form-control">
                                     <option value="">---</option>
                                     @foreach ($agences as $agence)
                                         <option value="{{ $agence->id }}">{{ $agence->nom }}</option>
@@ -40,6 +25,25 @@
                                 @enderror
                             </div>
                         </div>
+                        @if ($showInputs)
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Departements <span
+                                            class="text-danger">*</span></label>
+                                    <select wire:model="departement_id" class="form-control">
+                                        <option value="">---</option>
+                                        @foreach ($departements as $items)
+                                            <option value="{{ $items->id }}">{{ $items->nom }}
+                                                ({{ $items->code }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('departement_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label">Nom <span class="text-danger">*</span></label>
@@ -100,6 +104,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Sexe <span class="text-danger">*</span></label>
+                                <select wire:model="sexe" class="form-control">
+                                    <option value="">---</option>
+                                    <option value="M">Masculin</option>
+                                    <option value="F">Feminin</option>
+                                </select>
+                                @error('sexe')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="submit-section">
@@ -143,7 +160,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($stagiaireAgences ?? [] as $sta)
-                                        <tr @if($sta->date_fin < now()) class="table-danger" @endif>
+                                        <tr @if ($sta->date_fin < now()) class="table-danger" @endif>
                                             <td>{{ $sta->matricule }}</td>
                                             <td>{{ $sta->prenom }}</td>
                                             <td>{{ $sta->nom }}</td>
@@ -167,3 +184,29 @@
     </div>
 </div>
 <!-- /Add Employee Modal -->
+
+
+<!-- Delete Poste Modal -->
+<div wire:ignore.self id="delete_stagiaire" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Supprimer Stagiaire</h5>
+                <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form wire:submit.prevent="destroyStagiaire">
+                    <div class="form-header">
+                        <p>Voulez-vous vraiment supprimer?</p>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Supprimer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Poste Modal -->

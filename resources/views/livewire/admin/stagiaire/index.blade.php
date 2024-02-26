@@ -64,9 +64,15 @@
                     </select>
                 </div>
             </div>
-            {{-- <div class="col-sm-6 col-md-3">
-            <a href="#" class="btn btn-success btn-block"> Search </a>
-        </div> --}}
+            <div class="col-sm-3 col-md-3">
+                <div class="form-group form-focus">
+                    <select wire:model="sexeS" class="form-control">
+                        <option value="">---</option>
+                        <option value="M">Masculin</option>
+                        <option value="F">Feminin</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <!-- Search Filter -->
         <div class="row">
@@ -81,8 +87,8 @@
                                 <th>Telephone</th>
                                 <th>Date Debut</th>
                                 <th>Date Fin</th>
-                                <th>Departement</th>
                                 <th>Agence</th>
+                                <th>Departement</th>
                                 <th>Convention</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -96,10 +102,15 @@
                                     <td>{{ $stagiaire->telephone }}</td>
                                     <td>{{ \Carbon\Carbon::parse($stagiaire->date_debut)->isoFormat('LL') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($stagiaire->date_fin)->isoFormat('LL') }}</td>
-                                    <td>{{ $stagiaire->departement->code }}</td>
                                     <td>{{ $stagiaire->agence->nom }}</td>
+                                    @if ($stagiaire->departement_id)
+                                        <td>{{ $stagiaire->departement->code }}</td>
+                                    @else
+                                        <td>Pas de departements</td>
+                                    @endif
                                     <td>
-                                        <a href="{{ url('admin/convention/'.$stagiaire->matricule) }}" target="_blank" class="btn btn-primary btn-sm">
+                                        <a href="{{ url('admin/convention/' . $stagiaire->matricule) }}" target="_blank"
+                                            class="btn btn-primary btn-sm">
                                             <i class="fa fa-file-pdf-o"></i>
                                         </a>
                                     </td>
@@ -112,8 +123,8 @@
                                                     wire:click="editStagiaire({{ $stagiaire->id }})"
                                                     data-toggle="modal" data-target="#add_stagiaire"><i
                                                         class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#delete_job"><i class="fa fa-trash-o m-r-5"></i>
+                                                <a class="dropdown-item" href="#" wire:click="deleteStagiaire({{ $stagiaire->id }})" data-toggle="modal"
+                                                    data-target="#delete_stagiaire"><i class="fa fa-trash-o m-r-5"></i>
                                                     Delete</a>
                                             </div>
                                         </div>
@@ -142,7 +153,8 @@
                             <div class="stats-box mb-4">
                                 <p>{{ $agence->nom }}</p>
                                 <h3>{{ count($agence->stagiaires) }}</h3>
-                                <button class="btn btn-primary" wire:click="voirStagiaires({{ $agence->id }})" data-toggle="modal" data-target="#voir_stagiaire"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-primary" wire:click="voirStagiaires({{ $agence->id }})"
+                                    data-toggle="modal" data-target="#voir_stagiaire"><i class="fa fa-eye"></i></button>
                             </div>
                         </div>
                     @empty
@@ -181,6 +193,15 @@
                     </select>
                 </div>
             </div>
+            <div class="col-sm-3 col-md-3">
+                <div class="form-group form-focus">
+                    <select wire:model="sexeS" class="form-control">
+                        <option value="">---</option>
+                        <option value="M">Masculin</option>
+                        <option value="F">Feminin</option>
+                    </select>
+                </div>
+            </div>
             {{-- <div class="col-sm-6 col-md-3">
             <a href="#" class="btn btn-success btn-block"> Search </a>
         </div> --}}
@@ -200,8 +221,8 @@
                                 <th>Telephone</th>
                                 <th class="text-danger">Date Debut</th>
                                 <th class="text-danger">Date Fin</th>
-                                <th>Departement</th>
                                 <th>Agence</th>
+                                <th>Departement</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -218,10 +239,15 @@
                                         {{ \Carbon\Carbon::parse($stagiaire->date_debut)->isoFormat('LL') }}</td>
                                     <td class="text-danger">
                                         {{ \Carbon\Carbon::parse($stagiaire->date_fin)->isoFormat('LL') }}</td>
-                                    <td>{{ $stagiaire->departement->code }}</td>
                                     <td>{{ $stagiaire->agence->nom }}</td>
+                                     @if ($stagiaire->departement_id)
+                                        <td>{{ $stagiaire->departement->code }}</td>
+                                    @else
+                                        <td>Pas de departements</td>
+                                    @endif
                                     <td class="text-center">
-                                        <a href="{{ url('admin/attestation/'.$stagiaire->matricule) }}" target="_blank" class="btn btn-primary btn-sm">
+                                        <a href="{{ url('admin/attestation/' . $stagiaire->matricule) }}"
+                                            target="_blank" class="btn btn-primary btn-sm">
                                             Attestation
                                         </a>
                                     </td>
