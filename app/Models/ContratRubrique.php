@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Rubrique;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ContratRubrique extends Model
 {
@@ -12,4 +13,9 @@ class ContratRubrique extends Model
     protected $guarded = [];
 
     protected $table = 'contrat_rubrique';
+
+    public function rubrique()
+    {
+        return $this->belongsTo(Rubrique::class);
+    }
 }

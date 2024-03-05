@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Agence;
+use App\Models\Departement;
 use App\Models\Diplome;
+use App\Models\Poste;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
@@ -30,8 +32,8 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('sexe')->nullable();
             $table->foreignIdFor(Agence::class)->constrained();
-            $table->foreignId('departement_id')->constrained('departements')->onDelete('cascade');
-            $table->foreignId('poste_id')->constrained('postes')->onDelete('cascade');
+            $table->foreignIdFor(Departement::class)->constrained();
+            $table->foreignIdFor(Poste::class)->constrained();
             $table->string('login_attempts')->nullable();
             $table->string('last_login_attempt')->nullable();
             $table->integer('blocked')->default('0');

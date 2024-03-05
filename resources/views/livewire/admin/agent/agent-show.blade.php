@@ -120,11 +120,7 @@
                                                     wire:click="editAgent({{ $items->id }})"><i
                                                         class="fa fa-pencil m-r-5"></i>
                                                     Modifier</button>
-                                                <a href="#" wire:click="affectation({{ $items->id }})"
-                                                    class="dropdown-item" data-toggle="modal"
-                                                    data-target="#add_affectation"><i class="fa fa-exchange m-r-5"></i>
-                                                    Affecter</a>
-                                                <a class="dropdown-item"><i class="fa fa-history m-r-5"></i>
+                                                <a href="{{ url('admin/agents/'.$items->matricule.'/detail') }}" class="dropdown-item"><i class="fa fa-history m-r-5"></i>
                                                     Historique</a>
                                                 @if ($items->blocked == 1)
                                                     <a class="dropdown-item" wire:click="activer({{ $items->id }})"

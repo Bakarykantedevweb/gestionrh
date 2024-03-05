@@ -5,11 +5,16 @@ namespace App\Http\Livewire\Admin\Departement;
 use App\Models\Departement;
 use App\Models\Poste;
 use Livewire\Component;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Livewire\WithFileUploads;
 
 class DepartementShow extends Component
 {
+    use WithFileUploads;
     public $departements , $code, $nom , $dep_id;
     public $postes,$selectPoste = [];
+    public $search = '';
+    public $fichier;
 
     protected function rules()
     {
@@ -101,6 +106,34 @@ class DepartementShow extends Component
         }
     }
 
+    public function importDepartement()
+    {
+        $this->validate([
+            'fichier' => 'required|mimes:xlsx',
+        ]);
+
+        $file = $this->fichier->getRealPath();
+        $spreadsheet = IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            try {
+                $code = $worksheet->getCell('A' . $row)->getValue();
+                $nom = $worksheet->getCell('B' . $row)->getValue();
+
+                Departement::create([
+                    'code' => $code,
+                    'nom' => $nom,
+                ]);
+            } catch (\Exception $e) {
+                session()->flash('success', $e->getMessage());
+            }
+        }
+        toastr()->success('Importation Reussie avec success');
+        return redirect('admin/departements');
+    }
+
     public function closeModal()
     {
         $this->resetInput();
@@ -111,12 +144,15 @@ class DepartementShow extends Component
         $this->code = '';
         $this->nom = '';
         $this->selectPoste = '';
+        $this->fichier = '';
+        $this->search = '';
     }
 
     public function render()
     {
         $this->departements = Departement::get();
-        $this->postes = Poste::orderBy('nom','ASC')->get();
+        $this->postes = Poste::orWhereRaw('LOWER(nom) like ?', ['%' . strtolower($this->search) . '%'])
+                            ->get();
         return view('livewire.admin.departement.departement-show');
     }
 }

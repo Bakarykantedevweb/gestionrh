@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Departement extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     public function postes()
     {
         return $this->belongsToMany(Poste::class);

@@ -25,6 +25,7 @@
                         @enderror
                     </div>
                     <div class="table-responsive m-t-15">
+                        <input wire:model="search" type="search" class="form-control" placeholder="Recherche...">
                         <table class="table table-striped custom-table">
                             <thead>
                                 <tr>
@@ -54,6 +55,35 @@
 </div>
 <!-- /Add Department Modal -->
 
+<!-- import Poste Modal -->
+<div wire:ignore.self id="import_departement" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choisissez Votre ficher</h5>
+                <button type="button" class="close" wire:click="closeModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form wire:submit.prevent="importDepartement">
+                    <div class="form-group">
+                        <label>Ficher <span class="text-danger">*</span></label>
+                        <input class="form-control" wire:model="fichier" type="file">
+                        @error('fichier')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-success submit-btn">Importer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /import Poste Modal -->
+
 <!-- Edit Department Modal -->
 <div wire:ignore.self id="edit_departement" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -81,6 +111,7 @@
                         @enderror
                     </div>
                     <div class="table-responsive m-t-15">
+                        <input wire:model="search" type="search" class="form-control" placeholder="Recherche...">
                         <table class="table table-striped custom-table">
                             <thead>
                                 <tr>

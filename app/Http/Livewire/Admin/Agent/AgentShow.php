@@ -247,7 +247,7 @@ class AgentShow extends Component
                 }
 
             }
-            toastr()->success('message', 'Operation effectue avec Success');
+            session()->flash('success', 'Operation effectue avec Success');
             return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
@@ -257,52 +257,6 @@ class AgentShow extends Component
             return redirect('admin/agents');
             $this->resetInput();
             $this->dispatchBrowserEvent('close-modal');
-        }
-    }
-
-    public function affectation($id)
-    {
-        $this->detailAgent = Agent::find($id);
-    }
-
-    public function SaveAffectation()
-    {
-        // dd($this->agence_id);
-        $validatedData = $this->validate([
-            'departement_id' => 'nullable',
-            'poste_id' => 'nullable',
-        ]);
-
-        try {
-            $existingAffectation = Affectation::where('agent_id', $this->detailAgent->id)
-                ->where('agence_id', $validatedData['agence_id'])
-                ->where('departement_id', $validatedData['departement_id'])
-                ->where('poste_id', $validatedData['poste_id'])
-                ->where(function ($query) use ($validatedData) {
-                    $query->where('date_debut', '<=', $validatedData['date_debut'])
-                    ->where('date_fin', '>=', $validatedData['date_debut']);
-                })
-                ->first();
-
-            if ($existingAffectation) {
-                toastr()->error("Cet agent est déjà affecté à la même agence, département, poste avec une date de début qui chevauche.");
-                return redirect('admin/agents');
-            }
-
-            $affectation = new Affectation();
-            $affectation->agent_id = $this->detailAgent->id;
-            $affectation->agence_id = $validatedData['agence_id'];
-            $affectation->departement_id = $validatedData['departement_id'];
-            $affectation->poste_id = $validatedData['poste_id'];
-            $affectation->date_debut = $validatedData['date_debut'];
-            $affectation->date_fin = $validatedData['date_fin'];
-            $affectation->save();
-
-            toastr()->success("L'affectation de l'agent a été effectuée avec succès");
-            return redirect('admin/agents');
-        } catch (\Throwable $th) {
-            toastr()->error('Erreur', $th->getMessage());
-            return redirect('admin/agents');
         }
     }
 

@@ -119,12 +119,27 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Departement <span class="text-danger">*</span></label>
+                                    <label>Agence <span class="text-danger">*</span></label>
+                                    <select wire:model="agence_id" class="form-control">
+                                        <option>---</option>
+                                        @foreach ($agences as $agence)
+                                            <option value="{{ $agence->id }}">{{ $agence->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('agence_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Departement <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-control" wire:model="departement_id">
                                         <option value="">---</option>
                                         @foreach ($departements as $dep)
                                             <option value="{{ $dep->id }}">
-                                                {{ $dep->nom . '(' . $dep->code . ')' }}
+                                                {{ $dep->code }} - {{ $dep->nom }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -143,6 +158,16 @@
                                         @endforeach
                                     </select>
                                     @error('poste_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Date Prise service<span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" wire:model="date_debut" class="form-control">
+                                    @error('date_debut')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -233,6 +258,9 @@
                                                     {{ $diplome->nom }}-{{ $diplome->classification->nom }}</option>
                                             @endforeach
                                         </select>
+                                        @error('diplome_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label for="">Salaire de Base</label>
@@ -273,15 +301,15 @@
                                         @if ($selectedOption == 'Marie')
                                             <div class="form-group">
                                                 <label for="">Nombres d'enfants</label>
-                                                <input type="number" min="0" max="4" wire:model="nombre_enfant"
-                                                    class="form-control">
+                                                <input type="number" min="0" max="4"
+                                                    wire:model="nombre_enfant" class="form-control">
                                             </div>
                                         @endif
                                         @if ($selectedOption == 'Veuf')
                                             <div class="form-group">
                                                 <label for="">Nombres d'enfants</label>
-                                                <input type="number" min="0" max="4" wire:model="nombre_enfant"
-                                                    class="form-control">
+                                                <input type="number" min="0" max="4"
+                                                    wire:model="nombre_enfant" class="form-control">
                                             </div>
                                         @endif
                                     </div>
@@ -291,15 +319,15 @@
                                         @if ($selectedOption == 'Célibataire')
                                             <div class="form-group">
                                                 <label for="">Nombres d'enfants</label>
-                                                <input type="number" wire:model="nombre_enfant" min="0" max="4"
-                                                    class="form-control">
+                                                <input type="number" wire:model="nombre_enfant" min="0"
+                                                    max="4" class="form-control">
                                             </div>
                                         @endif
                                         @if ($selectedOption == 'Divorce')
                                             <div class="form-group">
                                                 <label for="">Nombres d'enfants</label>
-                                                <input type="number" wire:model="nombre_enfant" min="0" max="4"
-                                                    class="form-control">
+                                                <input type="number" wire:model="nombre_enfant" min="0"
+                                                    max="4" class="form-control">
                                             </div>
                                         @endif
                                         @if ($selectedOption == 'Veuf')
@@ -365,7 +393,7 @@
                                             <tr>
                                                 @foreach ($rubriques as $rubrique)
                                                     <td>
-                                                        <input type="number" class=""
+                                                        <input type="number" class="form-control"
                                                             wire:model="montant.{{ $rubrique->id }}" />
                                                     </td>
                                                 @endforeach

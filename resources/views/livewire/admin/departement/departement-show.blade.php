@@ -13,6 +13,10 @@
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_departement"><i
                         class="fa fa-plus"></i> Nouveau Departement</a>
             </div>
+            <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn btn-succ" data-toggle="modal" data-target="#import_departement"><i class="fa fa-plus"></i>
+                    Importer</a>
+            </div>
         </div>
     </div>
     <!-- /Page Header -->

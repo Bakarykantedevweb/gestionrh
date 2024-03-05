@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Poste;
+use App\Models\Agence;
 use App\Models\Enfant;
 use App\Models\Contrat;
 use App\Models\Formation;
@@ -18,6 +19,11 @@ class Agent extends Authenticatable
     protected $table = 'agents';
 
     protected $guarded = [];
+
+    public function agence()
+    {
+        return $this->belongsTo(Agence::class);
+    }
 
     public function departement()
     {

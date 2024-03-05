@@ -4,17 +4,19 @@ namespace App\Http\Livewire\Admin\Agent;
 
 use Carbon\Carbon;
 use App\Models\Agent;
+use App\Models\Agence;
 use App\Models\Contrat;
 use App\Models\Diplome;
 use Livewire\Component;
+use App\Models\Education;
 use App\Mail\WelcomeAgent;
+use App\Models\Affectation;
 use App\Models\CentreImpot;
 use App\Models\Departement;
 use App\Models\TypeContrat;
 use Livewire\WithFileUploads;
 use App\Models\FeuilleCalcule;
 use App\Models\ContratRubrique;
-use App\Models\Education;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -47,7 +49,9 @@ class Create extends Component
     public $montant = [];
     public $sexeAgent;
     public $showInputs = false;
-
+    public $agences;
+    public $agence_id;
+    public $date_debut;
     protected function rules()
     {
         return [
@@ -59,6 +63,7 @@ class Create extends Component
             'age' => 'required|integer',
             'email' => 'required|email|unique:agents',
             'telephone' => 'required|integer|min:8',
+            'agence_id' => 'required|integer',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
             'sexe' => 'required|string',
@@ -69,6 +74,7 @@ class Create extends Component
             'diplome_id' => 'required|integer',
             'feuille_calcule_id' => 'required|integer',
             'date_entre' => 'required|date',
+            'date_debut' => 'required|date',
             'selectedOption' => 'required|string',
         ];
     }
@@ -170,6 +176,7 @@ class Create extends Component
             $agent->annee = $validatedData['annee'];
             $agent->age = $this->age;
             $agent->telephone = $validatedData['telephone'];
+            $agent->agence_id  = $validatedData['agence_id'];
             $agent->departement_id = $validatedData['departement_id'];
             $agent->poste_id = $validatedData['poste_id'];
             $agent->sexe = $validatedData['sexe'];
@@ -181,8 +188,15 @@ class Create extends Component
             $matricule = 'MA-' . str_pad($agent->id, 3, '0', STR_PAD_LEFT);
             $agent->matricule = $matricule;
             $agent->save();
-            // Save Contrat
             if ($agent) {
+                $affectation = new Affectation();
+                $affectation->agent_id = $agent->id;
+                $affectation->agence_id  = $validatedData['agence_id'];
+                $affectation->departement_id = $validatedData['departement_id'];
+                $affectation->poste_id = $validatedData['poste_id'];
+                $affectation->date_debut = $validatedData['date_debut'];
+                $affectation->save();
+                // Save Contrat
                 $contrat = new Contrat;
                 $contrat->numero = '0000';
                 $contrat->date_creation = $validatedData['date_entre'];
@@ -211,7 +225,7 @@ class Create extends Component
                     $contratRubrique->save();
                 }
             }
-            toastr()->success('Message', 'Operation effectue avec Success');
+            session()->flash('success', 'Operation effectue avec Success');
             return redirect('admin/agents');
         } catch (\Throwable $th) {
             //throw $th;
@@ -228,6 +242,7 @@ class Create extends Component
         $this->typeContrats = TypeContrat::limit(2)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
+        $this->agences = Agence::get();
         return view('livewire.admin.agent.create');
     }
 }

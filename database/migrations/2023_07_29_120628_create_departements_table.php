@@ -18,24 +18,6 @@ return new class extends Migration
             $table->string('nom');
             $table->timestamps();
         });
-        DB::table('departements')->insert([
-            [
-                'code' => 'DSI',
-                'nom' => 'Direction des Systemes d\'information',
-            ],
-            [
-                'code' => 'DO',
-                'nom' => 'Direction des Operations',
-            ],
-            [
-                'code' => 'DCH',
-                'nom' => 'Direction des Capitals Humains',
-            ],
-            [
-                'code' => 'DFC',
-                'nom' => 'Direction des Finances Comptabilites',
-            ],
-        ]);
     }
 
     /**

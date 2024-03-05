@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $agence_id ? 'Modifier':'Ajouter' }}</h5>
+                    <h5 class="modal-title">Titre</h5>
                     <button type="button" wire:click="closeModal" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -18,7 +18,7 @@
                             @enderror
                         </div>
                         <div class="submit-section">
-                            <button class="btn btn-primary" type="submit">{{ $agence_id ? 'Mettre a jour':'Enregistrer' }}</button>
+                            <button class="btn btn-primary" type="submit">Soumettre</button>
                         </div>
                     </form>
                 </div>
