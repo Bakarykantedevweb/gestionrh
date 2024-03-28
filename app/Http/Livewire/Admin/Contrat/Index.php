@@ -41,7 +41,7 @@ class Index extends Component
     public function render()
     {
         $this->cdiListes = Contrat::where('type_contrat_id',1)->get();
-        $this->cddListes = Contrat::where('type_contrat_id', 2)->where('date_fin', '>', now())->get();
+        $this->cddListes = Contrat::where('type_contrat_id', 2)->where('date_fin', '>=', now())->get();
         $this->contratTermineListes = Contrat::where('type_contrat_id', 2)->where('date_fin', '<', now())->get();
         $this->contratCaisseListes = Contrat::where('status', 1)->get();
         return view('livewire.admin.contrat.index');

@@ -133,34 +133,34 @@ class Create extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
-    public function updatedPrenom()
-    {
-        $this->generateEmail();
-    }
+    // public function updatedPrenom()
+    // {
+    //     $this->generateEmail();
+    // }
 
-    public function updatedNom()
-    {
-        $this->generateEmail();
-    }
+    // public function updatedNom()
+    // {
+    //     $this->generateEmail();
+    // }
 
-    private function generateEmail()
-    {
-        $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
+    // private function generateEmail()
+    // {
+    //     $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
 
-        // Vérifier si l'email existe déjà
-        if (Agent::where('email', $baseEmail)->exists()) {
-            $count = 1;
+    //     // Vérifier si l'email existe déjà
+    //     if (Agent::where('email', $baseEmail)->exists()) {
+    //         $count = 1;
 
-            // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
-            while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
-                $count++;
-            }
+    //         // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
+    //         while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
+    //             $count++;
+    //         }
 
-            $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
-        } else {
-            $this->email = $baseEmail;
-        }
-    }
+    //         $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
+    //     } else {
+    //         $this->email = $baseEmail;
+    //     }
+    // }
 
     public function saveEmploye()
     {
@@ -170,7 +170,7 @@ class Create extends Component
             $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
             $agent->nom = $validatedData['nom'];
-            $agent->email = $this->email;
+            $agent->email = $validatedData['email'];
             $agent->jour = $validatedData['jour'];
             $agent->mois = $validatedData['mois'];
             $agent->annee = $validatedData['annee'];

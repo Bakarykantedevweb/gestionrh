@@ -21,11 +21,11 @@
                     <div class="card-body">
                         <h5 class="card-title">Choisissez</h5>
                         @foreach ($periodes as $periode)
-                        <div class="stats-list mb-2">
-                            <a href="#" wire:click="selectMonth('{{ $periode->mois }}')">
-                                {{ ucfirst($periode->mois) }}
-                            </a>
-                        </div>
+                            <div class="stats-list mb-2">
+                                <a href="#" wire:click="selectMonth('{{ $periode->mois }}')">
+                                    {{ ucfirst($periode->mois) }}
+                                </a>
+                            </div>
                         @endforeach
                         <button wire:click="annuler" type="button" class="btn btn-primary">Annuler</button>
                     </div>
@@ -55,47 +55,47 @@
                         <table class="table table-striped custom-table datatable">
                             <thead>
                                 @if ($rubriques)
-                                <tr>
-                                    <th>Agents</th>
-                                    @foreach ($rubriques as $rubrique)
-                                        <th class="text-center">{{ $rubrique->libelle }}</th>
-                                    @endforeach
-                                </tr>
+                                    <tr>
+                                        <th>Agents</th>
+                                        @foreach ($rubriques as $rubrique)
+                                            <th class="text-center">{{ $rubrique->libelle }}</th>
+                                        @endforeach
+                                    </tr>
                             </thead>
                             <tbody>
                                 @forelse ($contrats as $contrat)
-                                <tr>
-                                    {{-- <td>{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}</td> --}}
-                                    <td>
-                                        <h2 class="table-avatar">
-                                            <a href="">{{ $contrat->agent->prenom.' '.$contrat->agent->nom }}
-                                                <span>{{ $contrat->agent->departement->code }}</span></a>
-                                        </h2>
-                                    </td>
-                                    @foreach ($rubriques as $rubrique)
-                                        <td class="text-center">
-                                            <input type="number" readonly wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
-                                                class="form-control">
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="">{{ $contrat->agent->prenom . ' ' . $contrat->agent->nom }}
+                                                    <span>{{ $contrat->agent->departement->code }}</span></a>
+                                            </h2>
                                         </td>
-                                    @endforeach
-                                </tr>
+                                        @foreach ($rubriques as $rubrique)
+                                            <td class="text-center">
+                                                <input type="number" readonly
+                                                    wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
+                                                    class="form-control">
+                                            </td>
+                                        @endforeach
+                                    </tr>
                                 @empty
-                                    <td class="text-center">Pas D'contrats pour cette feuille</td>
+                                    <td class="text-center">Pas de contrats pour cette feuille</td>
                                 @endforelse
-                                @else
+                            @else
                                 <tr>
                                     <td colspan="2" class="text-center">Aucune rubrique trouvée</td>
                                 </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    @if ($rubriques)
-                        <button class="btn btn-primary btn-outline-light" type="submit">Terminer</button>
-                    @endif
-                </div>
             @endif
+            </tbody>
+            </table>
         </div>
-    </form>
+        @if ($rubriques)
+            <button class="btn btn-primary btn-outline-light" type="submit">Terminer</button>
+        @endif
+</div>
+@endif
+</div>
+</form>
 
 </div>

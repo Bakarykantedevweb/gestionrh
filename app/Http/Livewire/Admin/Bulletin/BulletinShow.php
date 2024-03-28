@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Bulletin;
 
+use App\Mail\SalaireAgentInfo;
 use App\Models\Agent;
 use App\Models\Contrat;
 use App\Models\Periode;
@@ -10,6 +11,7 @@ use App\Models\Bulletin;
 use App\Models\Rubrique;
 use App\Models\FeuilleCalcule;
 use App\Models\BulletinRubrique;
+use Illuminate\Support\Facades\Mail;
 
 class BulletinShow extends Component
 {
@@ -45,7 +47,6 @@ class BulletinShow extends Component
         $this->showTable = false;
     }
 
-
     public function getRubriques()
     {
         $feuilleCalcule = FeuilleCalcule::find($this->feuilleCalculeId);
@@ -54,7 +55,22 @@ class BulletinShow extends Component
         if ($feuilleCalcule) {
             // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
             $this->rubriques = $feuilleCalcule->rubriques ?? [];
-            $this->contrats = $feuilleCalcule->contrats->where('status', '0') ?? [];
+
+            // Récupérer tous les contrats liés à la feuille
+            $contrats = $feuilleCalcule->contrats ?? [];
+
+            // Filtrer les contrats en fonction de leur type et de la date de fin
+            $this->contrats = $contrats->filter(function ($contrat) {
+                if ($contrat->type_contrat_id == 1) {
+                    return true; // Toujours inclure les contrats de type CDI
+                } elseif ($contrat->type_contrat_id == 2) {
+                    // Inclure les contrats de type CDD dont la date de fin est supérieure ou égale à aujourd'hui
+                    return $contrat->date_fin >= now();
+                }
+                return false;
+            });
+
+            // Charger les montants
             $this->loadMontants();
         } else {
             $this->rubriques = [];
@@ -62,6 +78,7 @@ class BulletinShow extends Component
             $this->montant = [];
         }
     }
+
 
     public function loadMontants()
     {
@@ -90,13 +107,10 @@ class BulletinShow extends Component
                 if (Bulletin::where('contrat_id', $contrat->id)->where('periode_id', $periode->id)->exists()) {
                     $BulletinExiste = true;
                 } else {
-
-                    $bulletin = Bulletin::updateOrCreate(
-                        [
-                            'periode_id' => $periode->id,
-                            'contrat_id' => $contrat->id,
-                        ],
-                    );
+                    $bulletin = Bulletin::updateOrCreate([
+                        'periode_id' => $periode->id,
+                        'contrat_id' => $contrat->id,
+                    ]);
 
                     // Incrémentez le champ nombre_jour_conge de 2.5 pour les agents associés à la feuille
                     $contrat->update([
@@ -127,25 +141,36 @@ class BulletinShow extends Component
                 }
             }
 
-            // Ajoutez d'autres actions nécessaires après l'enregistrement
+            // Envoyer un email aux contrats
+            if (!$BulletinExiste) {
+                foreach ($this->contrats as $contrat) {
+                    $data = [
+                        'periode' => $periode,
+                        'contrat' => $contrat
+                    ];
+
+                    if ($contrat->agent) {
+                        Mail::to($contrat->agent->email)->queue(new SalaireAgentInfo($data));
+                    } else {
+                        toastr()->error('Une erreur est survenue lors de l\envoie du Mail');
+                    }
+
+                }
+            }
         }
-
-        // Ajoutez d'autres actions nécessaires après le traitement
-
         // Rafraîchissez la page ou redirigez si nécessaire
         if ($BulletinExiste) {
-            toastr()->error('Vous avez deja fait la preparation de ce mois');
+            toastr()->error('Vous avez déjà effectué la préparation de ce mois');
             $this->rubriques = [];
             $this->montant = [];
             $this->feuilleCalculeId = '';
         } else {
-            toastr()->success('Preparation effectue avec success');
+            toastr()->success('Préparation effectuée avec succès');
             $this->rubriques = [];
             $this->montant = [];
             $this->feuilleCalculeId = '';
         }
     }
-
 
     public function render()
     {

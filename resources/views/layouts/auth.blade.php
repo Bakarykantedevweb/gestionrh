@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <meta name="description" content="Smarthr - Bootstrap Admin Template">
-		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-        <meta name="author" content="Dreamguys - Bootstrap Admin Template">
-        <meta name="robots" content="noindex, nofollow">
-        <title>@yield('title')</title>
 
-		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>@yield('title')</title>
 
-		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="admin/assets/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
 
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="admin/assets/css/style.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="admin/assets/css/font-awesome.min.css">
 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-    </head>
-    <body class="account-page">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="admin/assets/css/style.css">
 
-		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-			@yield('content')
-        </div>
-		<!-- /Main Wrapper -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+   <script src="assets/js/html5shiv.min.js"></script>
+   <script src="assets/js/respond.min.js"></script>
+  <![endif]-->
+  @livewireStyles
+</head>
 
-		<!-- jQuery -->
-        <script src="admin/assets/js/jquery-3.5.1.min.js"></script>
+<body class="account-page">
 
-		<!-- Bootstrap Core JS -->
-        <script src="admin/assets/js/popper.min.js"></script>
-        <script src="admin/assets/js/bootstrap.min.js"></script>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        @yield('content')
+    </div>
+    <!-- /Main Wrapper -->
 
-		<!-- Custom JS -->
-		<script src="admin/assets/js/app.js"></script>
+    <!-- jQuery -->
+    <script src="admin/assets/js/jquery-3.5.1.min.js"></script>
 
-    </body>
+    <!-- Bootstrap Core JS -->
+    <script src="admin/assets/js/popper.min.js"></script>
+    <script src="admin/assets/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="admin/assets/js/app.js"></script>
+     @livewireScripts
+</body>
+
 </html>

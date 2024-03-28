@@ -67,7 +67,7 @@ return new class extends Migration
                 'nom' => 'Type Contrat',
                 'acces' => 1,
                 'route' => 'Typecontrat.index',
-                'type_droit_id' => 2,
+                'type_droit_id' => 1,
             ],
             [
                 'nom' => 'Contrat',
@@ -115,13 +115,13 @@ return new class extends Migration
                 'nom' => 'Type Pret',
                 'acces' => 1,
                 'route' => 'Typepret.index',
-                'type_droit_id' => 2,
+                'type_droit_id' => 1,
             ],
             [
                 'nom' => 'Type Conge',
                 'acces' => 1,
                 'route' => 'Typeconge.index',
-                'type_droit_id' => 2,
+                'type_droit_id' => 1,
             ],
             [
                 'nom' => 'Roles',

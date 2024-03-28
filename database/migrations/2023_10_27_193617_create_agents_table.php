@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('login_attempts')->nullable();
             $table->string('last_login_attempt')->nullable();
             $table->integer('blocked')->default('0');
+            $table->boolean('password_changed')->default('false');
             $table->timestamps();
         });
     }

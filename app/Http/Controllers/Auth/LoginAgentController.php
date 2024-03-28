@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Agent;
+use Livewire\Livewire;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Agent\Password\Index;
 
 class LoginAgentController extends Controller
 {
-    public function index(Request $req)
+    public function index()
     {
         return view('auth-agent.login');
     }
@@ -31,6 +33,10 @@ class LoginAgentController extends Controller
             }
 
             if (Auth::guard('webagent')->attempt($request->only('email', 'password'))) {
+                // Vérifier si le mot de passe a été changé
+                if (!$agent->password_changed) {
+                    dd('ok');
+                }
                 $agent->resetLoginAttempts();
                 return redirect()->route('agent-dashboard');
             } else {

@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Admin\Agent;
 
+use App\Models\Periode;
 use Livewire\Component;
+use App\Models\Bulletin;
 use App\Models\Affectation;
 use App\Models\ContratRubrique;
+use App\Models\BulletinRubrique;
 
 class Detail extends Component
 {

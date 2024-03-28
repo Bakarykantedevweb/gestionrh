@@ -1,242 +1,357 @@
 @extends('layouts.agent')
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="welcome-box">
-                <div class="welcome-img">
-                    <img alt="" src="admin/assets/img/profiles/avatar-02.jpg">
-                </div>
-                <div class="welcome-det">
-                    <h3>{{ Auth::guard('webagent')->user()->prenom . ' - ' . Auth::guard('webagent')->user()->nom }}</h3>
-                    <p>
-                        @php
-                            use Carbon\Carbon;
+    <div class="content container-fluid">
+        <div class="page-name 	mb-4">
+            <h4 class="m-0"><img src="{{ asset('uploads/admin/agent/' . Auth::guard('webagent')->user()->photo) }}" class="mr-1" alt="profile" />
+                Bienvenue {{ Auth::guard('webagent')->user()->prenom . ' - ' . Auth::guard('webagent')->user()->nom }}</h4>
+            <label>
+                @php
+                    use Carbon\Carbon;
 
-                            // Définir la locale en français pour les dates
-                            Carbon::setLocale('fr');
+                    // Définir la locale en français pour les dates
+                    Carbon::setLocale('fr');
 
-                            // Obtenir la date actuelle et la formater en "jour mois année" en français
-                            $date = ucfirst(Carbon::now()->isoFormat('dddd, D MMMM YYYY', 'Do MMMM YYYY'));
+                    // Obtenir la date actuelle et la formater en "jour mois année" en français
+                    $date = ucfirst(Carbon::now()->isoFormat('dddd, D MMMM YYYY', 'Do MMMM YYYY'));
 
-                            echo $date; // Affiche la date formatée avec la première lettre en majuscule
+                    echo $date; // Affiche la date formatée avec la première lettre en majuscule
 
-                        @endphp
-                    </p>
+                @endphp
+            </label>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-6 col-sm-12 col-12">
+                <div class="breadcrumb-path ">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('agent-dashboard') }}"><img src="{{ asset('agent/assets/img/dash.png') }}"
+                                    class="mr-3" alt="breadcrumb" />Acceuil</a>
+                        </li>
+                        <li class="breadcrumb-item active">Tableau de Bord</li>
+                    </ul>
+                    <h3>Tableau de Bord</h3>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-8 col-md-8">
-            <section class="dash-section">
-                <h1 class="dash-sec-title">Today</h1>
-                <div class="dash-sec-content">
-                    <div class="dash-info-list">
-                        <a href="#" class="dash-card text-danger">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-hourglass-o"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>Richard Miles is off sick today</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar"><img src="admin/assets/img/profiles/avatar-09.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="dash-info-list">
-                        <a href="#" class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-suitcase"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>You are away today</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar"><img src="admin/assets/img/profiles/avatar-02.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="dash-info-list">
-                        <a href="#" class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-building-o"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>You are working from home today</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar"><img src="admin/assets/img/profiles/avatar-02.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="dash-section">
-                <h1 class="dash-sec-title">Tomorrow</h1>
-                <div class="dash-sec-content">
-                    <div class="dash-info-list">
-                        <div class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-suitcase"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>2 people will be away tomorrow</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <a href="#" class="e-avatar"><img src="admin/assets/img/profiles/avatar-04.jpg"
-                                            alt=""></a>
-                                    <a href="#" class="e-avatar"><img src="admin/assets/img/profiles/avatar-08.jpg"
-                                            alt=""></a>
-                                </div>
-                            </div>
+        <div class="row mb-4">
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card board1 fill1 ">
+                    <div class="card-body">
+                        <div class="card_widget_header">
+                            <label>Congés</label>
+                            <h4>700</h4>
+                        </div>
+                        <div class="card_widget_img">
+                            <img src="{{ asset('agent/assets/img/dash1.png') }}" alt="card-img" />
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <section class="dash-section">
-                <h1 class="dash-sec-title">Next seven days</h1>
-                <div class="dash-sec-content">
-                    <div class="dash-info-list">
-                        <div class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-suitcase"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>2 people are going to be away</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <a href="#" class="e-avatar"><img src="admin/assets/img/profiles/avatar-05.jpg"
-                                            alt=""></a>
-                                    <a href="#" class="e-avatar"><img src="admin/assets/img/profiles/avatar-07.jpg"
-                                            alt=""></a>
-                                </div>
-                            </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card board1 fill2 ">
+                    <div class="card-body">
+                        <div class="card_widget_header">
+                            <label>Companies</label>
+                            <h4>30</h4>
                         </div>
-                    </div>
-                    <div class="dash-info-list">
-                        <div class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-user-plus"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>Your first day is going to be on Thursday</p>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar"><img src="admin/assets/img/profiles/avatar-02.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card_widget_img">
+                            <img src="{{ asset('agent/assets/img/dash2.png') }}" alt="card-img" />
                         </div>
-                    </div>
-                    <div class="dash-info-list">
-                        <a href="" class="dash-card">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <p>It's Spring Bank Holiday on Monday</p>
-                                </div>
-                            </div>
-                        </a>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        <div class="col-lg-4 col-md-4">
-            <div class="dash-sidebar">
-                <section>
-                    <h5 class="dash-title">Projects</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="time-list">
-                                <div class="dash-stats-list">
-                                    <h4>71</h4>
-                                    <p>Total Tasks</p>
-                                </div>
-                                <div class="dash-stats-list">
-                                    <h4>14</h4>
-                                    <p>Pending Tasks</p>
-                                </div>
-                            </div>
-                            <div class="request-btn">
-                                <div class="dash-stats-list">
-                                    <h4>2</h4>
-                                    <p>Total Projects</p>
-                                </div>
-                            </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card board1 fill3 ">
+                    <div class="card-body">
+                        <div class="card_widget_header">
+                            <label>Leaves</label>
+                            <h4>9</h4>
+                        </div>
+                        <div class="card_widget_img">
+                            <img src="{{ asset('agent/assets/img/dash3.png') }}" alt="card-img" />
                         </div>
                     </div>
-                </section>
-                <section>
-                    <h5 class="dash-title">Your Leave</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="time-list">
-                                <div class="dash-stats-list">
-                                    <h4>4.5</h4>
-                                    <p>Leave Taken</p>
-                                </div>
-                                <div class="dash-stats-list">
-                                    <h4>12</h4>
-                                    <p>Remaining</p>
-                                </div>
-                            </div>
-                            <div class="request-btn">
-                                <a class="btn btn-primary" href="#">Apply Leave</a>
-                            </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card board1 fill4 ">
+                    <div class="card-body">
+                        <div class="card_widget_header">
+                            <label>Salaire Brut</label>
+                            <h4>$5.8M</h4>
+                        </div>
+                        <div class="card_widget_img">
+                            <img src="{{ asset('agent/assets/img/dash4.png') }}" alt="card-img" />
                         </div>
                     </div>
-                </section>
-                <section>
-                    <h5 class="dash-title">Your time off allowance</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="time-list">
-                                <div class="dash-stats-list">
-                                    <h4>5.0 Hours</h4>
-                                    <p>Approved</p>
-                                </div>
-                                <div class="dash-stats-list">
-                                    <h4>15 Hours</h4>
-                                    <p>Remaining</p>
-                                </div>
-                            </div>
-                            <div class="request-btn">
-                                <a class="btn btn-primary" href="#">Apply Time Off</a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <h5 class="dash-title">Upcoming Holiday</h5>
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h4 class="holiday-title mb-0">Mon 20 May 2019 - Ramzan</h4>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xl-6 d-flex mobile-h">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Total Employees</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="invoice_chart"></div>
+                        <div class="text-center text-muted">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="mt-4">
+                                        <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>
+                                            Business</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mt-4">
+                                        <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>
+                                            Testing</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mt-4">
+                                        <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>
+                                            Development</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Total Salary By Unit</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="sales_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="row">
+            <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                <div class="card card-list flex-fill">
+                    <div class="card-header ">
+                        <h4 class="card-title">Total Salary By Unit</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="team-list">
+                            <div class="team-view">
+                                <div class="team-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-03.jpg') }}" alt="avatar" />
+                                </div>
+                                <div class="team-content">
+                                    <label>Maria Cotton</label>
+                                    <span>PHP</span>
+                                </div>
+                            </div>
+                            <div class="team-action">
+                                <ul>
+                                    <li><a><i data-feather="trash-2"></i></a></li>
+                                    <li><a><i data-feather="edit-2"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="team-list">
+                            <div class="team-view">
+                                <div class="team-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-04.jpg') }}" alt="avatar" />
+                                </div>
+                                <div class="team-content">
+                                    <label>Linda Craver</label>
+                                    <span>IOS</span>
+                                </div>
+                            </div>
+                            <div class="team-action">
+                                <ul>
+                                    <li><a><i data-feather="trash-2"></i></a></li>
+                                    <li><a><i data-feather="edit-2"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="team-list">
+                            <div class="team-view">
+                                <div class="team-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-06.jpg') }}" alt="avatar" />
+                                </div>
+                                <div class="team-content">
+                                    <label>Jenni Sims</label>
+                                    <span>Android</span>
+                                </div>
+                            </div>
+                            <div class="team-action">
+                                <ul>
+                                    <li><a><i data-feather="trash-2"></i></a></li>
+                                    <li><a><i data-feather="edit-2"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="team-list">
+                            <div class="team-view">
+                                <div class="team-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-11.jpg') }}" alt="avatar" />
+                                </div>
+                                <div class="team-content">
+                                    <label>Danny</label>
+                                    <span>Design</span>
+                                </div>
+                            </div>
+                            <div class="team-action">
+                                <ul>
+                                    <li><a><i data-feather="trash-2"></i></a></li>
+                                    <li><a><i data-feather="edit-2"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-12 col-12 d-flex">
+                <div class="card card-list flex-fill">
+                    <div class="card-header">
+                        <div class="">
+                            <h4 class="card-title">Recent Activities</h3>
+                        </div>
+                    </div>
+                    <div class="card-body dash-activity">
+                        <div class="slimscroll activity_scroll">
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-02.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-05.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>3 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-07.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>4 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-08.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-09.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>6 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-10.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-12.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>3 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-set">
+                                <div class="activity-img">
+                                    <img src="{{ asset('agent/assets/img/profiles/avatar-13.jpg') }}" alt="avatar">
+                                </div>
+                                <div class="activity-content">
+                                    <label>Lorem ipsum dolor sit amet,</label>
+                                    <span>4 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leave-viewall activit">
+                            <a>View all <img src="{{ asset('agent/assets/img/right-arrow.png') }}" class="ml-2" alt="arrow"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-12 col-12 d-flex">
+                <div class="card card-list flex-fill">
+                    <div class="card-header ">
+                        <h4 class="card-title-dash">Your Upcoming Leave</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="roomsBtn">
+                                <a class="dropdown-item" href="#">Action</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="leave-set">
+                            <span class="leave-inactive">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
+                            <label>Mon, 16 Dec 2021</label>
+                        </div>
+                        <div class="leave-set">
+                            <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
+                            <label>Fri, 20 Dec 2021</label>
+                        </div>
+                        <div class="leave-set">
+                            <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
+                            <label>Wed, 25 Dec 2021</label>
+                        </div>
+                        <div class="leave-set">
+                            <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
+                            <label>Fri, 27 Dec 2021</label>
+                        </div>
+                        <div class="leave-set">
+                            <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                            </span>
+                            <label>Tue, 31 Dec 2021</label>
+                        </div>
+                        <div class="leave-viewall">
+                            <a href="leave.html">View all <img src="assets/img/right-arrow.png" class="ml-2"
+                                    alt="arrow" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     </div>
 @endsection

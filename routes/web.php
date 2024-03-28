@@ -77,11 +77,12 @@ Route::controller(OffreFrontendController::class)->group(function () {
     Route::get('offres/{titre}', 'detail');
 });
 // Route Authentifcation Agents
-Route::middleware(['guest'])->group(function () {
-    // Routes accessibles uniquement pour les utilisateurs invités (non authentifiés)
+Route::group(['middleware' => 'agent.guest'], function () {
+    // Vos routes de connexion pour les agents ici
     Route::get('/login-agent', [LoginAgentController::class, 'index']);
     Route::post('/login-agent', [LoginAgentController::class, 'login'])->name('agent-login');
 });
+
 
 Route::middleware(['auth:webagent'])->group(function () {
     // Routes sécurisées pour les agents

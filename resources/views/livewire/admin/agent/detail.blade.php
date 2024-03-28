@@ -1,37 +1,4 @@
 <div>
-    <!-- Add Client Modal -->
-    <div id="add_client" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Bulletin {{ $this->agent->prenom . ' ' . $this->agent->nom }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped custom-table datatable">
-                        <tr>
-                            <th>Libelle</th>
-                            <th>Janvier</th>
-                            <th>Fevrier</th>
-                            <th>Mars</th>
-                            <th>Avril</th>
-                            <th>Mai</th>
-                            <th>Juin</th>
-                            <th>Juillet</th>
-                            <th>Aout</th>
-                            <th>Septembre</th>
-                            <th>Octobre</th>
-                            <th>Novembre</th>
-                            <th>Decembre</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Client Modal -->
 
     <!-- Page Header -->
     <div class="page-header">
@@ -72,19 +39,14 @@
                                         <small class="text-muted">{{ $this->agent->poste->nom }}</small>
                                         <div class="staff-id">Matricule : {{ $this->agent->matricule }}</div>
                                         {{-- <div class="small doj text-muted">Date of Join : 1st Jan 2013</div> --}}
-                                        <div class="staff-msg">
-                                            <a class="btn btn-custom" href="#" data-toggle="modal"
-                                                data-target="#add_client">
-                                                Bulletin General
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <ul class="personal-info">
                                         <li>
                                             <div class="title">Telephone:</div>
-                                            <div class="text"><a href="">+223 {{ $this->agent->telephone }}</a>
+                                            <div class="text"><a href="">+223
+                                                    {{ $this->agent->telephone }}</a>
                                             </div>
                                         </li>
                                         <li>
@@ -164,7 +126,11 @@
                                 <li>
                                     <div class="title">Date de cloture</div>
                                     <div class="text">
-                                        {{ \Carbon\Carbon::parse($this->contrat->date_fin)->isoFormat('LL') }}
+                                        @if ($this->contrat->date_fin == '')
+                                            Indeterminée
+                                        @else
+                                            {{ \Carbon\Carbon::parse($this->contrat->date_fin)->isoFormat('LL') }}
+                                        @endif
                                     </div>
                                 </li>
                                 <li>
