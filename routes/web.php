@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\AffectationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\CongeAgentController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\CongeController;
 use App\Http\Controllers\Admin\DroitController;
 use App\Http\Controllers\admin\OffreController;
 use App\Http\Controllers\Admin\PosteController;
@@ -13,31 +14,33 @@ use App\Http\Controllers\Admin\CompteController;
 use App\Http\Controllers\Admin\EnfantController;
 use App\Http\Controllers\Admin\ContratController;
 use App\Http\Controllers\Admin\DiplomeController;
-use App\Http\Controllers\Admin\FormuleController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CandidatController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypePretController;
-use App\Http\Controllers\Admin\VariableController;
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\admin\FormateurController;
 use App\Http\Controllers\admin\FormationController;
 use App\Http\Controllers\Admin\PostulantController;
+use App\Http\Controllers\Admin\StagiaireController;
 use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Auth\LoginAgentController;
-use App\Http\Controllers\Admin\ConventionController;
 use App\Http\Controllers\admin\GenerationController;
+use App\Http\Controllers\Admin\AffectationController;
 use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\TypeContratController;
+use App\Http\Controllers\Agent\LogoutAgentController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Agent\profileAgentController;
 use App\Http\Controllers\admin\TypeFormationController;
+use App\Http\Controllers\Agent\AgentBulletinController;
 use App\Http\Controllers\Admin\ClassificationController;
 use App\Http\Controllers\Admin\FeuilleCalculeController;
-use App\Http\Controllers\Admin\StagiaireController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Agent\AgentFormationController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 use App\Http\Controllers\Frontend\AuthFrontendController;
 use App\Http\Controllers\Frontend\OffreFrontendController;
@@ -54,12 +57,13 @@ use App\Http\Controllers\Candidat\CandidatDashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::controller(FrontendController::class)->group(function(){
-    Route::get('/','index');
+
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/', 'index');
 });
 
-Route::controller(RegisterFrontendController::class)->group(function(){
-    Route::get('register-candidat','index');
+Route::controller(RegisterFrontendController::class)->group(function () {
+    Route::get('register-candidat', 'index');
 });
 
 Route::controller(AuthFrontendController::class)->group(function () {
@@ -68,50 +72,65 @@ Route::controller(AuthFrontendController::class)->group(function () {
 });
 
 Route::controller(AuthFrontendController::class)->middleware(['middleware' => "candidat"])->group(function () {
-    Route::get('logout-candidat','logout');
+    Route::get('logout-candidat', 'logout');
 });
 
 // Offre Frontend Cnntroller
 Route::controller(OffreFrontendController::class)->group(function () {
-    Route::get('offres','index');
+    Route::get('offres', 'index');
     Route::get('offres/{titre}', 'detail');
 });
-// Route Authentifcation Agents
+// Routes de connexion et de déconnexion pour les agents
 Route::group(['middleware' => 'agent.guest'], function () {
-    // Vos routes de connexion pour les agents ici
-    Route::get('/login-agent', [LoginAgentController::class, 'index']);
-    Route::post('/login-agent', [LoginAgentController::class, 'login'])->name('agent-login');
+    Route::get('login-agent', [LoginAgentController::class, 'index'])->name('agent-login');
 });
 
+Route::get('agent/logout', [LogoutAgentController::class, 'logout'])->name('agent.logout');
+// Routes pour les agents
+Route::middleware(['auth.agent'])->group(function () {
+    Route::get('agent-dashboard', [DashboardAgentController::class, 'index'])->name('agent-dashboard');
 
-Route::middleware(['auth:webagent'])->group(function () {
-    // Routes sécurisées pour les agents
-    Route::controller(DashboardAgentController::class)->group(function () {
-        Route::get('agent-dashboard', 'index')->name('agent-dashboard');
-        Route::get('agent-logout', 'logout')->name('agent-logout');
+    Route::prefix('agent')->group(function () {
+
+        Route::controller(ProfileAgentController::class)->group(function () {
+            Route::get('profile', 'index');
+        });
+
+        Route::controller(AgentBulletinController::class)->group(function(){
+            Route::get('bulletins','index')->name('agent.bulletin');
+        });
+
+        Route::controller(CongeAgentController::class)->group(function (){
+            Route::get('conges','index')->name('congeAgent.index');
+            Route::get('conges/create', 'create')->name('congeAgent.create');
+        });
+
+        Route::controller(AgentFormationController::class)->group(function (){
+            Route::get('formations','index')->name('formationAgent.index');
+        });
     });
 });
+
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-Route::prefix('admin')->middleware(['auth'])->group(function(){
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
-    Route::controller(DepartementController::class)->group(function(){
-        Route::get('departements','index')->name('departement.index');
+    Route::controller(DepartementController::class)->group(function () {
+        Route::get('departements', 'index')->name('departement.index');
     });
 
     Route::controller(PosteController::class)->group(function () {
         Route::get('postes', 'index')->name('poste.index');
     });
 
-    Route::controller(UserManagementController::class)->group(function(){
-        Route::get('usersManagements','index')->name('user.index');
+    Route::controller(UserManagementController::class)->group(function () {
+        Route::get('usersManagements', 'index')->name('user.index');
     });
 
-    Route::controller(RoleController::class)->group(function(){
-        Route::get('roles','index')->name('role.index');
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('roles', 'index')->name('role.index');
         Route::post('roles/store', 'store')->name('role.store');
         Route::post('/getDroit', 'getDroit');
         Route::post('/exceptDroit', 'exceptDroit');
@@ -119,12 +138,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::post('roles/delet', 'destroy')->name('role.delete');
     });
 
-    Route::controller(DroitController::class)->group(function(){
-        Route::get('droits','index')->name('droit.index');
+    Route::controller(DroitController::class)->group(function () {
+        Route::get('droits', 'index')->name('droit.index');
     });
 
-    Route::controller(AgentController::class)->group(function(){
-        Route::get('agents','index')->name('agent.index');
+    Route::controller(AgentController::class)->group(function () {
+        Route::get('agents', 'index')->name('agent.index');
         Route::get('agents/create', 'create')->name('agent.create');
         Route::get('agents/{matricule}/detail', 'detail')->name('agent.detail');
     });
@@ -174,7 +193,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     // Classification Route
     Route::controller(ClassificationController::class)->group(function () {
-        Route::get('classifications','index')->name('classification.index');
+        Route::get('classifications', 'index')->name('classification.index');
     });
 
     Route::controller(DiplomeController::class)->group(function () {
@@ -201,7 +220,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
         Route::get('offres', 'index')->name('offre.index');
         Route::get('offres/create', 'create');
         Route::post('offres/create', 'store')->name('offre.store');
-        Route::get('offres/{id}/edit','edit');
+        Route::get('offres/{id}/edit', 'edit');
         Route::post('offres/{id}/edit', 'update');
     });
 
@@ -223,25 +242,27 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     Route::controller(FormationController::class)->group(function () {
         Route::get('formations', 'index')->name('formation.index');
-        Route::get('formations/create','create')->name('formation.create');
+        Route::get('formations/create', 'create')->name('formation.create');
     });
 
     Route::controller(StagiaireController::class)->group(function () {
         Route::get('stagiaires', 'index')->name('stagiaire.index');
-        Route::get('convention/{matricule}','generation');
+        Route::get('convention/{matricule}', 'generation');
         Route::get('attestation/{matricule}', 'generationAttestation');
     });
 
     Route::controller(AffectationController::class)->group(function () {
         Route::get('affectations', 'index')->name('affectation.index');
     });
+
+    Route::controller(CongeController::class)->group(function () {
+        Route::get('conges', 'index')->name('conge.index');
+    });
 });
 
 // Candidat Dashboard
-Route::prefix('candidat')->middleware(['middleware' => "candidat"])->group(function()
-{
+Route::prefix('candidat')->middleware(['middleware' => "candidat"])->group(function () {
     Route::controller(CandidatDashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
     });
 });
-

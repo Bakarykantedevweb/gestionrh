@@ -7,6 +7,7 @@ use App\Models\Periode;
 use Livewire\Component;
 use App\Models\Bulletin;
 use App\Models\BulletinRubrique;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -20,22 +21,7 @@ class Index extends Component
     public $rubriquesDuBulletin = null;
     public $detailContrat;
     public $detailBulletin;
-
-    public function afficherRubriques($bulletinId, $contratId)
-    {
-        // Récupérez les rubriques du bulletin depuis la table bulletin_rubrique
-        $this->rubriquesDuBulletin = BulletinRubrique::where('bulletin_id', $bulletinId)->get();
-        $this->detailBulletin = Bulletin::where('id', $bulletinId)->first();
-        $this->detailContrat = Contrat::where('id', $contratId)->first();
-        $this->listeGeneration = false;
-        $this->GenerationBulletin = true;
-    }
-
-    public function retour()
-    {
-        $this->listeGeneration = true;
-        $this->GenerationBulletin = false;
-    }
+    public $contrat;
 
     public function mount()
     {
@@ -52,6 +38,22 @@ class Index extends Component
             // Réinitialisez la liste des contrats si aucune période n'est sélectionnée
             $this->bulletins = [];
         }
+    }
+
+    public function afficherRubriques($bulletinId, $contratId)
+    {
+        // Récupérez les rubriques du bulletin depuis la table bulletin_rubrique
+        $this->rubriquesDuBulletin = BulletinRubrique::where('bulletin_id', $bulletinId)->get();
+        $this->detailBulletin = Bulletin::where('id', $bulletinId)->first();
+        $this->detailContrat = Contrat::where('id', $contratId)->first();
+        $this->listeGeneration = false;
+        $this->GenerationBulletin = true;
+    }
+
+    public function retour()
+    {
+        $this->listeGeneration = true;
+        $this->GenerationBulletin = false;
     }
 
 

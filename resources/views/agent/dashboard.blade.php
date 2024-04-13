@@ -37,11 +37,24 @@
                 <div class="card board1 fill1 ">
                     <div class="card-body">
                         <div class="card_widget_header">
-                            <label>Congés</label>
-                            <h4>700</h4>
+                            <label>Solde Congé</label>
+                            <h4>{{ Auth::guard('webagent')->user()->contrat->nombre_jour_conge }}</h4>
                         </div>
                         <div class="card_widget_img">
                             <img src="{{ asset('agent/assets/img/dash1.png') }}" alt="card-img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card board1 fill4 ">
+                    <div class="card-body">
+                        <div class="card_widget_header">
+                            <label>Salaire de Base</label>
+                            <h4>{{ number_format(Auth::guard('webagent')->user()->contrat->salaire) }}</h4>
+                        </div>
+                        <div class="card_widget_img">
+                            <img src="{{ asset('agent/assets/img/dash4.png') }}" alt="card-img" />
                         </div>
                     </div>
                 </div>
@@ -68,19 +81,6 @@
                         </div>
                         <div class="card_widget_img">
                             <img src="{{ asset('agent/assets/img/dash3.png') }}" alt="card-img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card board1 fill4 ">
-                    <div class="card-body">
-                        <div class="card_widget_header">
-                            <label>Salaire Brut</label>
-                            <h4>$5.8M</h4>
-                        </div>
-                        <div class="card_widget_img">
-                            <img src="{{ asset('agent/assets/img/dash4.png') }}" alt="card-img" />
                         </div>
                     </div>
                 </div>
@@ -134,224 +134,5 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                <div class="card card-list flex-fill">
-                    <div class="card-header ">
-                        <h4 class="card-title">Total Salary By Unit</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="team-list">
-                            <div class="team-view">
-                                <div class="team-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-03.jpg') }}" alt="avatar" />
-                                </div>
-                                <div class="team-content">
-                                    <label>Maria Cotton</label>
-                                    <span>PHP</span>
-                                </div>
-                            </div>
-                            <div class="team-action">
-                                <ul>
-                                    <li><a><i data-feather="trash-2"></i></a></li>
-                                    <li><a><i data-feather="edit-2"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-list">
-                            <div class="team-view">
-                                <div class="team-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-04.jpg') }}" alt="avatar" />
-                                </div>
-                                <div class="team-content">
-                                    <label>Linda Craver</label>
-                                    <span>IOS</span>
-                                </div>
-                            </div>
-                            <div class="team-action">
-                                <ul>
-                                    <li><a><i data-feather="trash-2"></i></a></li>
-                                    <li><a><i data-feather="edit-2"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-list">
-                            <div class="team-view">
-                                <div class="team-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-06.jpg') }}" alt="avatar" />
-                                </div>
-                                <div class="team-content">
-                                    <label>Jenni Sims</label>
-                                    <span>Android</span>
-                                </div>
-                            </div>
-                            <div class="team-action">
-                                <ul>
-                                    <li><a><i data-feather="trash-2"></i></a></li>
-                                    <li><a><i data-feather="edit-2"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-list">
-                            <div class="team-view">
-                                <div class="team-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-11.jpg') }}" alt="avatar" />
-                                </div>
-                                <div class="team-content">
-                                    <label>Danny</label>
-                                    <span>Design</span>
-                                </div>
-                            </div>
-                            <div class="team-action">
-                                <ul>
-                                    <li><a><i data-feather="trash-2"></i></a></li>
-                                    <li><a><i data-feather="edit-2"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-12 col-12 d-flex">
-                <div class="card card-list flex-fill">
-                    <div class="card-header">
-                        <div class="">
-                            <h4 class="card-title">Recent Activities</h3>
-                        </div>
-                    </div>
-                    <div class="card-body dash-activity">
-                        <div class="slimscroll activity_scroll">
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-02.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>2 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-05.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>3 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-07.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>4 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-08.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>5 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-09.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>6 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-10.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>2 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-12.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>3 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-set">
-                                <div class="activity-img">
-                                    <img src="{{ asset('agent/assets/img/profiles/avatar-13.jpg') }}" alt="avatar">
-                                </div>
-                                <div class="activity-content">
-                                    <label>Lorem ipsum dolor sit amet,</label>
-                                    <span>4 hours ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="leave-viewall activit">
-                            <a>View all <img src="{{ asset('agent/assets/img/right-arrow.png') }}" class="ml-2" alt="arrow"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-12 col-12 d-flex">
-                <div class="card card-list flex-fill">
-                    <div class="card-header ">
-                        <h4 class="card-title-dash">Your Upcoming Leave</h4>
-                        <div class="dropdown">
-                            <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="roomsBtn">
-                                <a class="dropdown-item" href="#">Action</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="leave-set">
-                            <span class="leave-inactive">
-                                <i class="fas fa-briefcase"></i>
-                            </span>
-                            <label>Mon, 16 Dec 2021</label>
-                        </div>
-                        <div class="leave-set">
-                            <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                            </span>
-                            <label>Fri, 20 Dec 2021</label>
-                        </div>
-                        <div class="leave-set">
-                            <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                            </span>
-                            <label>Wed, 25 Dec 2021</label>
-                        </div>
-                        <div class="leave-set">
-                            <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                            </span>
-                            <label>Fri, 27 Dec 2021</label>
-                        </div>
-                        <div class="leave-set">
-                            <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                            </span>
-                            <label>Tue, 31 Dec 2021</label>
-                        </div>
-                        <div class="leave-viewall">
-                            <a href="leave.html">View all <img src="assets/img/right-arrow.png" class="ml-2"
-                                    alt="arrow" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
 @endsection

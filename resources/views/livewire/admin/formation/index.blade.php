@@ -25,7 +25,7 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Formations</h3>
+                <h3 class="page-title">Liste des Formations</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Formations</li>
@@ -47,85 +47,78 @@
     </div>
     <!-- /Page Header -->
     @if ($formationsListes)
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Listes des Formations</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped custom-table mb-0 datatable">
-                                <thead>
-                                    <tr>
-                                        {{-- <th style="width: 30px;">#</th> --}}
-                                        <th>Titre</th>
-                                        <th>Type Formation</th>
-                                        <th>Formateur</th>
-                                        <th>Agents</th>
-                                        <th>Duree</th>
-                                        <th>Status </th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $key = 1;
-                                    @endphp
-                                    @foreach ($formations as $formation)
-                                        <tr>
-                                            {{-- <td>{{ $key++ }}</td> --}}
-                                            <td>{{ $formation->titre }}</td>
-                                            <td>{{ $formation->type_formation->titre }}</td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="" class="avatar"><img alt=""
-                                                            src="assets/img/profiles/avatar-02.jpg"></a>
-                                                    <a href="">{{ $formation->formateur->prenom . ' ' . $formation->formateur->nom }}
-                                                    </a>
-                                                </h2>
-                                            </td>
-                                            <td>
-                                                <ul class="team-members">
-                                                    <li class="dropdown avatar-dropdown">
-                                                        <a href="#" class="all-users dropdown-toggle"
-                                                            data-toggle="dropdown" aria-expanded="false">+
-                                                            {{ count($formation->agents) }}</a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($formation->date_debut)->isoFormat('LL') }} -
-                                                {{ \Carbon\Carbon::parse($formation->date_fin)->isoFormat('LL') }}</td>
-                                            <td>
-                                                @if ($formation->status == 1)
-                                                    <span class="badge badge-success">Active</span>
-                                                @else
-                                                    <span class="badge badge-danger">Inactive</span>
-                                                @endif
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="dropdown dropdown-action">
-                                                    <a href="#" class="action-icon dropdown-toggle"
-                                                        data-toggle="dropdown" aria-expanded="false"><i
-                                                            class="material-icons">more_vert</i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"
-                                                            wire:click="changeContent({{ $formation->id }})"><i
-                                                                class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        {{-- <a class="dropdown-item" href="#"
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                {{-- <th style="width: 30px;">#</th> --}}
+                                <th>Titre</th>
+                                <th>Type Formation</th>
+                                <th>Formateur</th>
+                                <th>Agents</th>
+                                <th>Duree</th>
+                                <th>Status </th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $key = 1;
+                            @endphp
+                            @foreach ($formations as $formation)
+                                <tr>
+                                    {{-- <td>{{ $key++ }}</td> --}}
+                                    <td>{{ $formation->titre }}</td>
+                                    <td>{{ $formation->type_formation->titre }}</td>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="" class="avatar"><img alt=""
+                                                    src="assets/img/profiles/avatar-02.jpg"></a>
+                                            <a href="">{{ $formation->formateur->prenom . ' ' . $formation->formateur->nom }}
+                                            </a>
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        <ul class="team-members">
+                                            <li class="dropdown avatar-dropdown">
+                                                <a href="#" class="all-users dropdown-toggle"
+                                                    data-toggle="dropdown" aria-expanded="false">+
+                                                    {{ count($formation->agents) }}</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($formation->date_debut)->isoFormat('LL') }} -
+                                        {{ \Carbon\Carbon::parse($formation->date_fin)->isoFormat('LL') }}
+                                    </td>
+                                    <td>
+                                        @if ($formation->status == 1)
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-danger">Inactive</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#"
+                                                    wire:click="changeContent({{ $formation->id }})"><i
+                                                        class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                {{-- <a class="dropdown-item" href="#"
                                                         wire:click="deleteContent({{ $formation->id }})"
                                                         data-toggle="modal" data-target="#delete_formation"><i
                                                             class="fa fa-trash-o m-r-5"></i>
                                                         Delete</a> --}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

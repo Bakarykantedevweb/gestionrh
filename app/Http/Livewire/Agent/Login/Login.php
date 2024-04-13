@@ -50,11 +50,12 @@ class Login extends Component
                     ]);
 
                     // Mettre à jour le mot de passe de l'agent avec le nouveau mot de passe
-                    $agent->password = bcrypt($this->newpassword);
+                    $agent->password = Hash::make($this->newpassword);
                     $agent->password_changed = true; // Marquer que le mot de passe a été changé
                     $agent->save();
 
                     // Rediriger l'agent vers le tableau de bord après la mise à jour du mot de passe
+                    toastr()->success('Bienvenue sur OptiRH');
                     return redirect()->route('agent-dashboard');
                 } else {
                     // Si le mot de passe a été changé mais le formulaire montre toujours le champ pour le nouveau mot de passe
@@ -64,6 +65,7 @@ class Login extends Component
                     } else {
                         // Réinitialiser les tentatives de connexion et rediriger vers le tableau de bord
                         $agent->resetLoginAttempts();
+                        toastr()->success('Bienvenue sur OptiRH');
                         return redirect()->route('agent-dashboard');
                     }
                 }

@@ -40,6 +40,8 @@
 
     <script src="{{ asset('agent/assets/js/feather.min.js') }}"></script>
 
+    <script src="{{ asset('agent/assets/plugins/select2/js/select2.min.js') }}"></script>
+
     <script src="{{ asset('agent/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <script src="{{ asset('agent/assets/plugins/apexchart/apexcharts.min.js') }}"></script>

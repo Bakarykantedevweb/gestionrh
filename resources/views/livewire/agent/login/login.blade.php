@@ -4,7 +4,7 @@
 
             <!-- Account Logo -->
             <div class="account-logo">
-                <a href="/"><img src="admin/assets/img/or.jpg" alt="Dreamguy's Technologies"></a>
+                <a href="/login-agent"><img src="admin/assets/img/or.jpg" alt="Dreamguy's Technologies"></a>
             </div>
             <!-- /Account Logo -->
             @include('layouts.partials.error')

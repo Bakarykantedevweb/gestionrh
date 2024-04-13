@@ -16,40 +16,12 @@ class LoginAgentController extends Controller
         return view('auth-agent.login');
     }
 
-    public function login(Request $request)
+    public function logout()
     {
-        // Validez les données du formulaire
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        Auth::guard('webagent')->logout(); // Assurez-vous que le nom du garde correspond à celui que vous avez défini dans votre configuration
 
-        try {
-            // Récupérez l'agent en fonction de l'adresse e-mail
-            $agent = Agent::where('email', $request->email)->firstOrFail();
+        toastr()->success('Merci pour votre visite');
 
-            if ($agent->blocked == 1) {
-                return back()->with(['error' => 'Votre compte est désactivé, veuillez contacter la GRH.']);
-            }
-
-            if (Auth::guard('webagent')->attempt($request->only('email', 'password'))) {
-                // Vérifier si le mot de passe a été changé
-                if (!$agent->password_changed) {
-                    dd('ok');
-                }
-                $agent->resetLoginAttempts();
-                return redirect()->route('agent-dashboard');
-            } else {
-                $agent->incrementLoginAttempts();
-                // Vérifie si l'agent doit être bloqué après un certain nombre de tentatives
-                if ($agent->login_attempts >= 3) {
-                    $agent->blockAccount();
-                    return back()->with(['error' => 'Votre compte a été bloqué en raison de trop de tentatives de connexion échouées.']);
-                }
-                return back()->with(['error' => 'L\'authentification a échoué']);
-            }
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-            return back()->with(['error' => 'Aucun agent trouvé avec cette adresse e-mail.']);
-        }
+        return redirect('login-agent');
     }
 }

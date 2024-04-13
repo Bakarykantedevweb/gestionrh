@@ -28,8 +28,4 @@ class Droit extends Model
         return $this->belongsTo(Type_droit::class);
     }
 
-    public function user()
-    {
-        return $this->belongsToMany(Administrateur::class);
-    }
 }

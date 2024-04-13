@@ -136,9 +136,9 @@
                         <span>{{ Auth::guard('webagent')->user()->prenom . ' - ' . Auth::guard('webagent')->user()->nom }}</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href=""><i data-feather="user" class="mr-1"></i>
+                        <a class="dropdown-item" href="{{ url('agent/profile') }}"><i data-feather="user" class="mr-1"></i>
                             Profile</a>
-                        <a class="dropdown-item" href="{{ route('agent-logout') }}"><i data-feather="log-out" class="mr-1"></i>
+                        <a class="dropdown-item" href="{{ route('agent.logout') }}"><i data-feather="log-out" class="mr-1"></i>
                             Deconnexion</a>
                     </div>
                 </li>
@@ -148,8 +148,8 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                         class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right ">
-                    <a class="dropdown-item" href="">Profile</a>
-                    <a class="dropdown-item" href="{{ route('agent-logout') }}">Deconnexion</a>
+                    <a class="dropdown-item" href="{{ url('agent/profile') }}">Profile</a>
+                    <a class="dropdown-item" href="{{ route('agent.logout') }}">Deconnexion</a>
                 </div>
             </div>
 

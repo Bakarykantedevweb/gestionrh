@@ -68,7 +68,6 @@
             </div>
         </div>
     </div>
-    {{-- <livewire:admin.role.role-show> --}}
 @endsection
 @section('script')
     <script>

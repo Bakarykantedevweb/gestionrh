@@ -195,6 +195,12 @@ return new class extends Migration
                 'route' => 'affectation.index',
                 'type_droit_id' => 2,
             ],
+            [
+                'nom' => 'Conge',
+                'acces' => 1,
+                'route' => 'conge.index',
+                'type_droit_id' => 2,
+            ],
         ]);
     }
 

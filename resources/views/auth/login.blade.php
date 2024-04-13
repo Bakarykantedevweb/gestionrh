@@ -6,7 +6,7 @@
 
             <!-- Account Logo -->
             <div class="account-logo">
-                <a href="/"><img src="admin/assets/img/or.jpg" alt="Dreamguy's Technologies"></a>
+                <a href="/login-agent"><img src="admin/assets/img/or.jpg" alt="Dreamguy's Technologies"></a>
             </div>
             <!-- /Account Logo -->
 
@@ -46,7 +46,7 @@
                             <button class="btn btn-primary account-btn" type="submit">Se Connecter</button>
                         </div>
                         <div class="account-footer">
-                            <p>Developpé par Bakary Kante <a href="{{ url('/') }}">Tout droit reservé</a></p>
+                            <p>Developpé par Bakary Kante <a href="{{ url('/login-agent') }}">Tout droit reservé</a></p>
                         </div>
                     </form>
                     <!-- /Account Form -->
