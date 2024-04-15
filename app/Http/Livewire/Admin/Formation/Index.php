@@ -10,11 +10,13 @@ use App\Models\Formation;
 use App\Models\TypeFormation;
 use Livewire\WithFileUploads;
 use App\Models\AgentFormation;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
 class Index extends Component
 {
     use WithFileUploads;
     public $formations;
+    public $formationsTerminees;
     public $formationsListes = true;
     public $formationsEdit = false;
     public $formation_id;
@@ -25,6 +27,23 @@ class Index extends Component
     public $date_debut, $date_fin;
     public $heure, $fichier, $description;
     public $agentListes = [];
+
+    public $FormationEnCour = true;
+    public $FormationTerminee = false;
+
+
+    public function activeContent(string $content)
+    {
+        $content = decrypt($content);
+        $this->disableContents();
+        $this->$content = true;
+    }
+
+    private function disableContents()
+    {
+        $this->FormationEnCour = false;
+        $this->FormationTerminee = false;
+    }
 
     protected function rules()
     {
@@ -130,7 +149,8 @@ class Index extends Component
                 $query->whereRaw('LOWER(code) like ?', ['%' . strtolower($this->search) . '%']);
             })
             ->orderBy('prenom', 'asc')->get();
-        $this->formations = Formation::get();
+        $this->formations = Formation::where('date_fin', '>=', now())->get();
+        $this->formationsTerminees = Formation::where('date_fin','<',now())->get();
         return view('livewire.admin.formation.index');
     }
 }

@@ -6,7 +6,7 @@
                     <span>Main</span>
                 </li>
                 <li class="submenu">
-                    <a href="{{ url('admin/dashboard') }}"><i class="la la-dashboard"></i>
+                    <a href="{{ route('dashboard') }}"><i class="la la-dashboard"></i>
                         <span> Tableau de Bord</span></a>
                 </li>
                 @forelse ($droits as $droit)

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class Index extends Component
 {
     public $formations;
+    public $formationsTerminees;
+
+    public $FormationEnCour = true;
+    public $FormationTerminee = false;
 
     public function mount()
     {
@@ -21,8 +25,22 @@ class Index extends Component
 
         if ($agent) {
             // Charger les formations associées à cet agent
-            $this->formations = $agent->formations()->get();
+            $this->formations = $agent->formations()->where('date_fin','>=',now())->get();
+            $this->formationsTerminees = $agent->formations()->where('date_fin', '<', now())->get();
         }
+    }
+
+    public function activeContent(string $content)
+    {
+        $content = decrypt($content);
+        $this->disableContents();
+        $this->$content = true;
+    }
+
+    private function disableContents()
+    {
+        $this->FormationEnCour = false;
+        $this->FormationTerminee = false;
     }
 
     public function render()
