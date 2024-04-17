@@ -43,9 +43,12 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agent\AgentFormationController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 use App\Http\Controllers\Frontend\AuthFrontendController;
+use App\Http\Controllers\frontend\FrontendOffreController;
 use App\Http\Controllers\Frontend\OffreFrontendController;
 use App\Http\Controllers\Frontend\RegisterFrontendController;
+use App\Http\Controllers\AuthCandidat\LoginCandidatController;
 use App\Http\Controllers\Candidat\CandidatDashboardController;
+use App\Http\Controllers\AuthCandidat\RegisterCandidatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,28 +61,6 @@ use App\Http\Controllers\Candidat\CandidatDashboardController;
 |
 */
 
-Route::controller(FrontendController::class)->group(function () {
-    Route::get('/', 'index');
-});
-
-Route::controller(RegisterFrontendController::class)->group(function () {
-    Route::get('register-candidat', 'index');
-});
-
-Route::controller(AuthFrontendController::class)->group(function () {
-    Route::get('login-candidat', 'index')->name('login-candidat');
-    Route::post('login-candidat', 'autenticate');
-});
-
-Route::controller(AuthFrontendController::class)->middleware(['middleware' => "candidat"])->group(function () {
-    Route::get('logout-candidat', 'logout');
-});
-
-// Offre Frontend Cnntroller
-Route::controller(OffreFrontendController::class)->group(function () {
-    Route::get('offres', 'index');
-    Route::get('offres/{titre}', 'detail');
-});
 // Routes de connexion et de déconnexion pour les agents
 Route::group(['middleware' => 'agent.guest'], function () {
     Route::get('login-agent', [LoginAgentController::class, 'index'])->name('agent-login');
@@ -260,9 +241,25 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     });
 });
 
-// Candidat Dashboard
-Route::prefix('candidat')->middleware(['middleware' => "candidat"])->group(function () {
-    Route::controller(CandidatDashboardController::class)->group(function () {
-        Route::get('dashboard', 'index');
-    });
+// Frontend Route
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/','index')->name('frontend.index');
+    Route::get('a-propos', 'about')->name('frontend.about');
+    Route::get('contact', 'contact')->name('frontend.contact');
 });
+
+// Register Candidat Route
+Route::controller(RegisterCandidatController::class)->group(function(){
+    Route::get('register-candidat', 'index')->name('register.index');
+});
+
+// Login Candidat Route
+Route::controller(LoginCandidatController::class)->group(function () {
+    Route::get('login-candidat', 'index')->name('login.index');
+});
+
+// Route Frontend Offre
+Route::controller(FrontendOffreController::class)->group(function () {
+    Route::get('offres','index');
+});
+

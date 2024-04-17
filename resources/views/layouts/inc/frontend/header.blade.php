@@ -1,55 +1,67 @@
-<header>
-    <!-- Header Start -->
-    <div class="header-area header-transparrent">
-        <div class="headder-top header-sticky">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-2">
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a href="/"><img src="{{ asset('frontend/assets/img/logo/or.png') }}"
-                                    alt=""></a>
-                        </div>
+ <header class="header header-default">
+            <nav
+                class="navbar navbar-static-top navbar-expand-lg navbar-light header-sticky">
+                <div class="container-fluid">
+                    <button id="nav-icon4" type="button" class="navbar-toggler"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ route('frontend.index') }}">
+                        <img class="img-fluid" src="{{ asset('frontend/images/1.png') }}" alt="logo">
+                    </a>
+                    <div class="navbar-collapse collapse justify-content-start">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item {{ request()->routeIs('frontend.index') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.index') }}">Acceuil</a>
+                            </li>
+                            <li class="nav-item {{ request()->routeIs('frontend.about') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('frontend.about') }}">A
+                                    Propos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="">Offres</a>
+                            </li>
+                            <li class="nav-item {{ request()->routeIs('frontend.contact') ? 'active' : '' }}">
+                                <a class="nav-link"
+                                    href="{{ route('frontend.contact') }}">Contectez-nous</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                    href="javascript:void(0)"
+                                    data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Bakary Kante <i
+                                        class="fas fa-chevron-down fa-xs"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-submenu">
+                                        <a class
+                                            href="">
+                                            Tableau de bord
+                                        </a>
+
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            href="">Curriculum
+                                            Vitae
+                                            <span
+                                                class="badge bg-danger ms-2">CV</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-lg-9 col-md-9">
-                        <div class="menu-wrapper">
-                            <!-- Main-menu -->
-                            <div class="main-menu">
-                                <nav class="d-none d-lg-block">
-                                    <ul id="navigation">
-                                        <li><a href="/">Acceuil</a></li>
-                                        <li><a href="{{ url('offres') }}">Offres</a></li>
-                                        <li><a href="">Contact</a></li>
-                                        @if (Auth::guard('candidat')->check())
-                                            <li><a href="#">{{ Auth::guard('candidat')->user()->prenom.' '.Auth::guard('candidat')->user()->nom }}</a>
-                                                <ul class="submenu">
-                                                    <li><a href="{{ url('candidat/dashboard') }}">Mon Compte</a></li>
-                                                </ul>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Header-btn -->
-                            @if (Auth::guard('candidat')->check())
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="{{ url('logout-candidat') }}" class="btn head-btn2">Deconnexion</a>
-                            </div>
-                            @else
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="{{ url('register-candidat') }}" class="btn head-btn1">S'incrire</a>
-                                <a href="{{ url('login-candidat') }}" class="btn head-btn2">Se Connecter</a>
-                            </div>
-                            @endif
+                    <div class="add-listing">
+                        <div class="login d-inline-block me-4">
+                            <a href="{{ route('login.index') }}">
+                                <i class="far fa-user pe-2"></i>Se connecter</a>
                         </div>
-                    </div>
-                    <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
+                        <a class="btn btn-primary btn-md"
+                            href="{{ route('register.index') }}">S'inscrire</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- Header End -->
-</header>
+            </nav>
+        </header>
