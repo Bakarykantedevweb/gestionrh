@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Offre;
+use App\Models\Diplome;
 use App\Models\Categorie;
+use App\Models\TypeContrat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\TypeContrat;
+use App\Models\Experience;
+use App\Models\Salaire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -32,7 +35,10 @@ class OffreController extends Controller
         }
         $categories = Categorie::get();
         $typesContrats = TypeContrat::get();
-        return view('admin.offre.create',compact('categories', 'typesContrats'));
+        $diplomes = Diplome::get();
+        $experiences = Experience::orderBy('id', 'ASC')->get();
+        $salaires = Salaire::orderBy('id', 'ASC')->get();
+        return view('admin.offre.create',compact('categories', 'typesContrats','diplomes','experiences','salaires'));
     }
 
     public function store(Request $request)
@@ -45,6 +51,9 @@ class OffreController extends Controller
             'categorie_id' => 'required|integer',
             'description' => 'required|string',
             'type_contrat_id' => 'required|integer',
+            'diplome_id' => 'required|integer',
+            'experience_id' => 'required|integer',
+            'salaire_id' => 'required|integer',
         ]);
 
         try {
@@ -55,6 +64,9 @@ class OffreController extends Controller
             $offre->nombre_place = $validatedData['nombre_place'];
             $offre->categorie_id = $validatedData['categorie_id'];
             $offre->type_contrat_id = $validatedData['type_contrat_id'];
+            $offre->diplome_id = $validatedData['diplome_id'];
+            $offre->experience_id = $validatedData['experience_id'];
+            $offre->salaire_id = $validatedData['salaire_id'];
             $offre->description = $validatedData['description'];
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
@@ -88,7 +100,10 @@ class OffreController extends Controller
                 if ($offre) {
                     $categories = Categorie::get();
                     $typesContrats = TypeContrat::get();
-                    return view('admin.offre.edit', compact('categories', 'offre', 'typesContrats'));
+                    $diplomes = Diplome::get();
+                    $experiences = Experience::orderBy('id', 'ASC')->get();
+                    $salaires = Salaire::orderBy('id', 'ASC')->get();
+                    return view('admin.offre.edit', compact('categories', 'typesContrats', 'diplomes', 'experiences', 'salaires','offre'));
                 }
             } else {
                 toastr()->error('Aucun element trouve', 'Tentative échoué');
@@ -110,7 +125,11 @@ class OffreController extends Controller
             'categorie_id' => 'required|integer',
             'description' => 'required|string',
             'type_contrat_id' => 'required|integer',
+            'diplome_id' => 'required|integer',
+            'experience_id' => 'required|integer',
+            'salaire_id' => 'required|integer',
         ]);
+
         $offre_id = decrypt($id);
         try {
             $offre = Offre::find($offre_id);
@@ -120,6 +139,9 @@ class OffreController extends Controller
             $offre->nombre_place = $validatedData['nombre_place'];
             $offre->categorie_id = $validatedData['categorie_id'];
             $offre->type_contrat_id = $validatedData['type_contrat_id'];
+            $offre->diplome_id = $validatedData['diplome_id'];
+            $offre->experience_id = $validatedData['experience_id'];
+            $offre->salaire_id = $validatedData['salaire_id'];
             $offre->description = $validatedData['description'];
 
             if ($request->hasFile('photo')) {

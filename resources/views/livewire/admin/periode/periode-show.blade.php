@@ -26,6 +26,7 @@
                         <tr>
                             <th style="width: 30px;">#</th>
                             <th>Periode</th>
+                            <th>Exercice</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -34,6 +35,7 @@
                             <tr>
                                 <td>{{ $items->id }}</td>
                                 <td>{{ ucfirst($items->mois) }}</td>
+                                <td>{{ $items->exercice->status != 0 ? 'Pas d\'exercice' : $items->exercice->nom }}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"

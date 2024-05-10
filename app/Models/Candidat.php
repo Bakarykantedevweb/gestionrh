@@ -9,4 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Candidat extends Authenticatable
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

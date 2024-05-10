@@ -46,7 +46,7 @@ return [
             'provider' => 'agents',
         ],
 
-        'candidat' => [
+        'webcandidat' => [
             'driver' => 'session',
             'provider' => 'candidats',
         ],

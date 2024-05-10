@@ -25,8 +25,9 @@
                         <tr>
                             <th>#</th>
                             <th>Nom & Prenom</th>
+                            <th>Nom d'utilisateur</th>
+                            <th>E-mail</th>
                             <th>Telephone</th>
-                            <th>Email</th>
                             {{-- <th class="text-center">Action</th> --}}
                         </tr>
                     </thead>
@@ -36,13 +37,14 @@
                             <td>{{ $candidat->id }}</td>
                             <td>
                                 <h2 class="table-avatar">
-                                    <a href="profile.html" class="avatar"><img alt=""
+                                    <a href="" class="avatar"><img alt=""
                                             src="assets/img/profiles/avatar-02.jpg"></a>
                                     <a href="">{{ $candidat->prenom.' '.$candidat->nom }}</a>
                                 </h2>
                             </td>
-                            <td>{{ $candidat->telephone }}</td>
+                            <td>{{ $candidat->username }}</td>
                             <td>{{ $candidat->email }}</td>
+                            <td>{{ $candidat->telephone }}</td>
                             {{-- <td class="text-center">
                                 <button type="button" class="btn btn-primary btn-sm">Supprimer</button>
                             </td> --}}

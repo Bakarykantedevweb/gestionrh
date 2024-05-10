@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Categorie;
+use App\Models\Diplome;
+use App\Models\Experience;
+use App\Models\Salaire;
 use App\Models\TypeContrat;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,6 +26,9 @@ return new class extends Migration
             $table->string('image');
             $table->foreignIdFor(Categorie::class)->constrained();
             $table->foreignIdFor(TypeContrat::class)->constrained();
+            $table->foreignIdFor(Salaire::class)->constrained();
+            $table->foreignIdFor(Experience::class)->constrained();
+            $table->foreignIdFor(Diplome::class)->constrained();
             $table->timestamps();
         });
     }

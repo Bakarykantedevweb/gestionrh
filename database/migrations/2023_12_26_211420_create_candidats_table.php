@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
+            $table->string('username');
             $table->string('email')->unique();
             $table->string('telephone')->unique();
             $table->string('password');
+            $table->date('date_naissance')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('sexe')->nullable();
             $table->string('photo')->nullable();
             $table->string('cv')->nullable();
             $table->string('lettre')->nullable();

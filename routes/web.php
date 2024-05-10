@@ -16,8 +16,10 @@ use App\Http\Controllers\Admin\ContratController;
 use App\Http\Controllers\Admin\DiplomeController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\admin\SalaireController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CandidatController;
+use App\Http\Controllers\admin\ExerciceController;
 use App\Http\Controllers\Admin\RubriqueController;
 use App\Http\Controllers\Admin\TypePretController;
 use App\Http\Controllers\Admin\CategorieController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\Admin\PostulantController;
 use App\Http\Controllers\Admin\StagiaireController;
 use App\Http\Controllers\Admin\TypeCongeController;
 use App\Http\Controllers\Auth\LoginAgentController;
+use App\Http\Controllers\admin\ExperienceController;
 use App\Http\Controllers\admin\GenerationController;
 use App\Http\Controllers\Admin\AffectationController;
 use App\Http\Controllers\Admin\CentreImpotController;
@@ -48,6 +51,7 @@ use App\Http\Controllers\Frontend\OffreFrontendController;
 use App\Http\Controllers\Frontend\RegisterFrontendController;
 use App\Http\Controllers\AuthCandidat\LoginCandidatController;
 use App\Http\Controllers\Candidat\CandidatDashboardController;
+use App\Http\Controllers\Candidat\DashboardCandidatController;
 use App\Http\Controllers\AuthCandidat\RegisterCandidatController;
 
 /*
@@ -163,6 +167,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('periodes', 'index')->name('periode.index');
     });
 
+    Route::controller(ExerciceController::class)->group(function () {
+        Route::get('exercices', 'index')->name('exercice.index');
+    });
+
     Route::controller(BulletinController::class)->group(function () {
         Route::get('bulletins', 'index')->name('bulletin.index');
     });
@@ -187,7 +195,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::controller(EnfantController::class)->group(function () {
         Route::get('enfants', 'index')->name('enfant.index');
     });
-
 
     Route::controller(GenerationController::class)->group(function () {
         Route::get('generations', 'index')->name('generation.index');
@@ -239,6 +246,16 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::controller(CongeController::class)->group(function () {
         Route::get('conges', 'index')->name('conge.index');
     });
+
+    Route::controller(ExperienceController::class)->group(function () {
+        Route::get('experiences', 'index')->name('experience.index');
+    });
+
+    Route::controller(SalaireController::class)->group(function () {
+        Route::get('salaires', 'index')->name('salaire.index');
+    });
+
+
 });
 
 // Frontend Route
@@ -249,17 +266,33 @@ Route::controller(FrontendController::class)->group(function () {
 });
 
 // Register Candidat Route
-Route::controller(RegisterCandidatController::class)->group(function(){
+Route::controller(RegisterCandidatController::class)->middleware(['candidat.guest'])->group(function(){
     Route::get('register-candidat', 'index')->name('register.index');
 });
 
 // Login Candidat Route
-Route::controller(LoginCandidatController::class)->group(function () {
+Route::controller(LoginCandidatController::class)->middleware(['candidat.guest'])->group(function () {
     Route::get('login-candidat', 'index')->name('login.index');
+    Route::post('login-candidat', 'store')->name('login.store');
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
+
+// Logout Candidat Route
+Route::controller(LoginCandidatController::class)->middleware(['auth.candidat'])->group(function () {
+    Route::post('logout-candidat', 'logout');
 });
 
 // Route Frontend Offre
 Route::controller(FrontendOffreController::class)->group(function () {
-    Route::get('offres','index');
+    Route::get('offres','index')->name('frontendOffre.index');
+    Route::get('offres/{titre}/detail', 'detail')->name('frontendOffre.detail');
+});
+
+// Route Candidat Dashboard
+Route::middleware(['auth.candidat'])->group(function(){
+    Route::controller(DashboardCandidatController::class)->group(function () {
+        Route::get('dashboard-candidat', 'index');
+    });
 });
 

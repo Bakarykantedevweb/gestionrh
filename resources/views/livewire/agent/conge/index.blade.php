@@ -69,7 +69,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td><label>Pas de conge</label></td>
+                                            <td colspan="6" class="text-center"><label>Pas de conge</label></td>
                                         </tr>
                                     @endforelse
                                 </tbody>

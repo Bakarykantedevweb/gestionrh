@@ -14,7 +14,7 @@
             </div>
             <div class="col-xl-12 col-sm-12 col-12 mt-4">
                 <div class="head-link-set">
-                    <a class="btn-add" href="{{ route('congeAgent.index') }}"><i data-feather="plus"></i> Retour</a>
+                    <a class="btn-add" href="{{ route('congeAgent.index') }}"><i data-feather="list"></i> Retour</a>
                 </div>
             </div>
             <div class="col-xl-12 col-sm-12 col-12 mt-4">

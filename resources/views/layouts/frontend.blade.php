@@ -33,7 +33,7 @@
 
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
+        @livewireStyles
     </head>
 
     <body>
@@ -150,7 +150,7 @@
                                 <div
                                     class="align-self-center footer-top-logo"><img
                                         class="img-fluid"
-                                        src="images/logo-light.svg" alt></div>
+                                        src="{{ asset('frontend/images/logo-light.svg') }}" alt></div>
                                 <div
                                     class="ps-sm-3 ms-sm-3 mt-3 mt-sm-0 border-sm-left text-white">Créez un compte gratuit pour trouver des milliers d'emplois, d'emplois et d'opportunités de carrière autour de vous !</div>
                             </div>
@@ -244,7 +244,7 @@
 
         <!-- Template Scripts (Do not remove)-->
         <script src="{{ asset('frontend/js/custom.js') }}"></script>
-
+        @livewireScripts
     </body>
 
 </html>

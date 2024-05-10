@@ -94,6 +94,12 @@ return new class extends Migration
                 'type_droit_id' => 3,
             ],
             [
+                'nom' => 'Exercice',
+                'acces' => 1,
+                'route' => 'exercice.index',
+                'type_droit_id' => 3,
+            ],
+            [
                 'nom' => 'Periode',
                 'acces' => 1,
                 'route' => 'periode.index',
@@ -145,6 +151,18 @@ return new class extends Migration
                 'nom' => 'Categorie',
                 'acces' => 1,
                 'route' => 'categorie.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Experience',
+                'acces' => 1,
+                'route' => 'experience.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Salaire',
+                'acces' => 1,
+                'route' => 'salaire.index',
                 'type_droit_id' => 4,
             ],
             [

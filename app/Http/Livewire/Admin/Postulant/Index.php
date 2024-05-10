@@ -106,9 +106,9 @@ class Index extends Component
 
     public function render()
     {
-        $this->postulersEnAttente = Postuler::where('status', '0')->get();
-        $this->postulersAccepte = Postuler::where('status', '1')->get();
-        $this->postulersRejete = Postuler::where('status', '2')->get();
+        $this->postulersEnAttente = Postuler::where('status', '0')->orderBy('id','DESC')->get();
+        $this->postulersAccepte = Postuler::where('status', '1')->orderBy('id','DESC')->get();
+        $this->postulersRejete = Postuler::where('status', '2')->orderBy('id','DESC')->get();
         return view('livewire.admin.postulant.index');
     }
 }

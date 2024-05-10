@@ -45,47 +45,45 @@
                         </fieldset>
                         <div class="tab-content">
                             <div class="tab-pane active" id="candidate" role="tabpanel">
-                                <form class="mt-4">
+                                <form class="mt-4" method="POST" action="{{ route('login.store') }}">
+                                    @csrf
                                     <div class="row">
                                         <div class="mb-3 col-12">
                                             <label class="form-label" for="Email2">E-mail: <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="Email22">
+                                            <input type="text" name="email" class="form-control" id="Email22">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3 col-12">
                                             <label class="form-label" for="password2">Mot de passe <span
                                                     class="text-danger">*</span></label>
-                                            <input type="password" class="form-control" id="password32">
+                                            <input type="password" name="password" class="form-control" id="password32">
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row g-2">
-                                        <div class="col-md-6">
-                                            <a class="btn btn-primary d-grid" href="#">Se Connecter</a>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-primary d-grid" type="submit">Se Connecter</button>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <a href="{{ route('auth.google') }}">
+                                                <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4">
+
                                             <div class="ms-md-3 mt-3 mt-md-0 forgot-pass">
                                                 <a href="#">Mot de passe oublié ?</a>
                                                 <p class="mt-1">Vous n'avez pas de compte? <a
-                                                        href="register.html">Inscrivez-vous ici</a></p>
+                                                        href="{{ url('register-candidat') }}">Inscrivez-vous ici</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="mt-4">
-                                <fieldset>
-                                    <legend class="px-2">Connectez-vous avec</legend>
-                                    <div class="social-login">
-                                        <ul class="list-unstyled d-flex mb-0">
-
-                                            <li class="google text-center">
-                                                <a href="#"> <i class="fab fa-google me-3 me-md-4"></i>Connexion
-                                                    avec Google</a>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </fieldset>
                             </div>
                         </div>
                     </div>

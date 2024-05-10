@@ -41,10 +41,10 @@
                                 <thead>
                                     <tr>
                                         <th>Select</th>
-                                        <th>#</th>
-                                        <th>Titre</th>
+                                        <th>Offre</th>
                                         <th>Categorie</th>
                                         <th>Prenom & Nom</th>
+                                        <th>E-mail</th>
                                         <th>CV</th>
                                         <th>Lettre</th>
                                         <th class="text-center">Status</th>
@@ -54,7 +54,6 @@
                                     @forelse ($postulersEnAttente as $postuler)
                                     <tr>
                                         <td><input wire:model="selectedItems.{{ $postuler->id }}" class="checkItem" type="checkbox"></td>
-                                        <td>{{ $postuler->id }}</td>
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="" class="avatar"><img alt=""
@@ -64,6 +63,7 @@
                                         </td>
                                         <td>{{ $postuler->offre->categorie->nom }}</td>
                                         <td>{{ $postuler->candidat->prenom.' '.$postuler->candidat->nom }}</td>
+                                        <td>{{ $postuler->candidat->email }}</td>
                                         <td><a href="{{ url('uploads/frontend/candidat/cv/'.$postuler->candidat->cv) }}" target="_blank" class="btn btn-info btn-sm">Voir CV</a></td>
                                         <td><a href="{{ url('uploads/frontend/candidat/lettre/'.$postuler->candidat->lettre) }}" target="_blank" class="btn btn-success btn-sm">Voir Lettre</a></td>
                                         <td class="text-center">
@@ -97,8 +97,8 @@
                             <table class="table table-nowrap custom-table mb-0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Titre</th>
+
+                                        <th>Offre</th>
                                         <th>Categorie</th>
                                         <th>Prenom & Nom</th>
                                         <th>CV</th>
@@ -109,7 +109,7 @@
                                 <tbody>
                                     @forelse ($postulersAccepte as $postuler)
                                     <tr>
-                                        <td>{{ $postuler->id }}</td>
+
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="" class="avatar"><img alt=""
@@ -154,8 +154,8 @@
                             <table class="table table-nowrap custom-table mb-0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Titre</th>
+
+                                        <th>Offre</th>
                                         <th>Categorie</th>
                                         <th>Prenom & Nom</th>
                                         <th>CV</th>
@@ -166,7 +166,7 @@
                                 <tbody>
                                     @forelse ($postulersRejete as $postuler)
                                     <tr>
-                                        <td>{{ $postuler->id }}</td>
+
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="" class="avatar"><img alt=""

@@ -62,19 +62,38 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6 text-center">
+                <div class="col-md-8 text-center">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Total Revenue</h3>
+                            <h3 class="card-title">Agents</h3>
                             <div id="bar-charts"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 text-center">
+                <div class="col-md-4 text-center">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Sales Overview</h3>
-                            <div id="line-charts"></div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <select class="form-control">
+                                        <option value="">Veuillez choissir une agence</option>
+                                        <option value="">Bolibana</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <select class="form-control">
+                                        <option value="">Veuillez choissir un departement</option>
+                                        <option value="">Bolibana</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <select class="form-control">
+                                        <option value="">Veuillez choissir le sexe</option>
+                                        <option value="M">Homme</option>
+                                        <option value="F">Femme</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
