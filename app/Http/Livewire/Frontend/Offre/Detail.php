@@ -24,7 +24,10 @@ class Detail extends Component
     public function mount()
     {
         $this->offreSimilaires = Offre::where('categorie_id',$this->offre->categorie_id)->where('id','!=',$this->offre->id)->get();
-        $this->checkPostuler = Postuler::where('offre_id',$this->offre->id)->where('candidat_id',Auth::guard('webcandidat')->user()->id)->exists();
+        if(Auth::guard('webcandidat')->check())
+        {
+            $this->checkPostuler = Postuler::where('offre_id',$this->offre->id)->where('candidat_id',Auth::guard('webcandidat')->user()->id)->exists();
+        }
     }
 
     protected function rules()

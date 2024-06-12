@@ -9,7 +9,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Gestion RH</title>
+    <title>OptiRH - Solution RH</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/assets/img/or.jpg') }}">
@@ -107,7 +107,6 @@
     <!-- Chart JS -->
     <script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/chart.js') }}"></script>
 
     <!-- Custom JS -->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>

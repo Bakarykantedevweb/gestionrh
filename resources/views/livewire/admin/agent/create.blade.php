@@ -196,10 +196,6 @@
                                     <ul class="nav nav-tabs nav-tabs-bottom">
                                         <li class="nav-item"><a href="#emp_contrat" data-toggle="tab"
                                                 class="nav-link active">Contrat</a></li>
-                                        {{-- <li class="nav-item"><a href="#emp_formation" data-toggle="tab"
-                                                class="nav-link">Formation</a></li> --}}
-                                        {{-- <li class="nav-item"><a href="#emp_experience" data-toggle="tab"
-                                                class="nav-link">Experience</a></li> --}}
                                     </ul>
                                 </div>
                             </div>

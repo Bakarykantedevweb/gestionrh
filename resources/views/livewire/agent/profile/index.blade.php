@@ -1,4 +1,5 @@
 <div>
+    @include('livewire.agent.profile.modal')
     <div class="content container-fluid">
         <div class="row">
             <div class="col-xl-12 col-sm-12 col-12">
@@ -152,7 +153,7 @@
                                                     $montant += $contratRubrique->montant;
                                                 @endphp
                                             @endforeach
-                                             <li>
+                                            <li>
                                                 <label>Salaire de Base </label>
                                                 <span>{{ number_format($this->contrat->salaire) }}</span>
                                             </li>
@@ -163,6 +164,36 @@
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-sm-12 col-12 mt-4">
+                    <div class="row">
+                        <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                            <div class="card card-lists flex-fill">
+                                <div class="card-header">
+                                    <h2 class="card-titles">Education</h2>
+                                    <a href="#" class="edit-icon"
+                                    data-toggle="modal" data-target="#education_info"><i
+                                        class="fa fa-plus"></i></a>
+                                </div>
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                            <div class="card card-lists flex-fill">
+                                <div class="card-header">
+                                    <h2 class="card-titles">Experience</h2>
+                                    <a href="#" class="edit-icon"
+                                    data-toggle="modal" data-target="#experience_info"><i
+                                        class="fa fa-plus"></i></a>
+                                </div>
+                                <div class="card-body">
+
                                 </div>
                             </div>
                         </div>
@@ -231,19 +262,22 @@
                                 <div class="card-body">
                                     <form wire:submit.prevent="UpdatePassword">
                                         <div class="form-group">
-                                            <input type="password" class="form-control" wire:model="old_password" placeholder="Mot de passe courant">
+                                            <input type="password" class="form-control" wire:model="old_password"
+                                                placeholder="Mot de passe courant">
                                             @error('old_password')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" wire:model="new_password" placeholder="Nouveau mot de passe">
+                                            <input type="password" class="form-control" wire:model="new_password"
+                                                placeholder="Nouveau mot de passe">
                                             @error('new_password')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" wire:model="confirm_password" placeholder="Confirmez le mot de passe">
+                                            <input type="password" class="form-control" wire:model="confirm_password"
+                                                placeholder="Confirmez le mot de passe">
                                         </div>
                                         <div class="btn-set pl-0">
                                             <button type="submit" class="btn btn-apply">Mettre a jour</button>

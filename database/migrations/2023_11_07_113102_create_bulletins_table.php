@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Contrat;
+use App\Models\Exercice;
 use App\Models\Periode;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Periode::class)->constrained();
             $table->foreignIdFor(Contrat::class)->constrained();
+            $table->foreignIdFor(Exercice::class)->constrained();
             $table->timestamps();
         });
     }

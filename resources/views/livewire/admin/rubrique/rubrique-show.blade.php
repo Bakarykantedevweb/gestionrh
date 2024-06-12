@@ -27,6 +27,7 @@
                             <th style="width: 30px;">#</th>
                             <th>Code</th>
                             <th>Libelle</th>
+                            <th>Status</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -36,6 +37,13 @@
                                 <td>{{ $items->id }}</td>
                                 <td>{{ $items->code }}</td>
                                 <td>{{ $items->libelle }}</td>
+                                <td>
+                                    @if ($items->status == 0)
+                                        <span class="btn btn-success btn-sm">Activer</span>
+                                    @else
+                                        <span class="btn btn-danger btn-sm">Desactiver</span>
+                                    @endif
+                                </td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"

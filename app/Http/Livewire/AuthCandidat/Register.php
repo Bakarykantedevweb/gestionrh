@@ -37,7 +37,7 @@ class Register extends Component
                 toastr()->error('Adresse Email deja utilisé');
                 $this->email = '';
             }
-            if($validatedData['password'] != '' && $this->password_confirm)
+            if($validatedData['password'] != $this->password_confirm)
             {
                 toastr()->error('Les deux mot de passe ne sont pas identiques');
                 $this->password = '';

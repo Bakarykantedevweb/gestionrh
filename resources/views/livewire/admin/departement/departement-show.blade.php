@@ -14,7 +14,8 @@
                         class="fa fa-plus"></i> Nouveau Departement</a>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn btn-succ" data-toggle="modal" data-target="#import_departement"><i class="fa fa-plus"></i>
+                <a href="#" class="btn btn-succ" data-toggle="modal" data-target="#import_departement"><i
+                        class="fa fa-plus"></i>
                     Importer</a>
             </div>
         </div>
@@ -22,48 +23,94 @@
     <!-- /Page Header -->
     @include('layouts.partials.message')
     @include('layouts.partials.error')
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                <table class="table table-striped custom-table mb-0 datatable">
-                    <thead>
-                        <tr>
-                            <th style="width: 30px;">#</th>
-                            <th>Departement Code</th>
-                            <th>Departement Nom</th>
-                            <th class="text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($departements as $items)
-                            <tr>
-                                <td>{{ $items->id }}</td>
-                                <td>{{ $items->code }}</td>
-                                <td>{{ $items->nom }}</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="editDepartement({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#edit_departement"><i class="fa fa-pencil m-r-5"></i>
-                                                Edit</a>
-                                            <a wire:click="deleteDepartement({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#delete_departement"><i class="fa fa-trash-o m-r-5"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center">Pas de Departements</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <!-- <h4 class="card-title">Solid justified</h4> -->
+            <ul class="nav nav-tabs nav-tabs-solid nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link{{ $liste ? ' active' : '' }}" href="#"
+                        wire:click="activeContent('{{ encrypt('liste') }}')">Listes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{ $statistique ? ' active' : '' }}" href="#"
+                        wire:click="activeContent('{{ encrypt('statistique') }}')">Statistique
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-
+    @if ($liste)
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Departement Code</th>
+                                <th>Departement Nom</th>
+                                <th>Poste</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($departements as $items)
+                                <tr>
+                                    <td>{{ $items->id }}</td>
+                                    <td>{{ $items->code }}</td>
+                                    <td>{{ $items->nom }}</td>
+                                    <td>{{ count($items->postes) }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a wire:click="editDepartement({{ $items->id }})"
+                                                    class="dropdown-item" href="#" data-toggle="modal"
+                                                    data-target="#edit_departement"><i class="fa fa-pencil m-r-5"></i>
+                                                    Edit</a>
+                                                <a wire:click="deleteDepartement({{ $items->id }})"
+                                                    class="dropdown-item" href="#" data-toggle="modal"
+                                                    data-target="#delete_departement"><i
+                                                        class="fa fa-trash-o m-r-5"></i>
+                                                    Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Pas de Departements</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($statistique)
+          <div class="card">
+            {{-- <div class="card-header">
+                <h4 class="card-title mb-0">Listes des agences</h4>
+            </div> --}}
+            <div class="card-body">
+                <div class="row">
+                    @forelse ($departements as $department)
+                        <div class="col-md-3 text-center">
+                            <div class="stats-box mb-4">
+                                <p>{{ $department->nom }} ({{ $department->code }})</p>
+                                <h3>{{ count($department->agents) }}</h3>
+                                <button class="btn btn-primary" wire:click="voirAgent({{ $department->id }})"
+                                    data-toggle="modal" data-target="#voir_agent"><i class="fa fa-eye"></i></button>
+                            </div>
+                        </div>
+                    @empty
+                        <h2>Pas de departements</h2>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

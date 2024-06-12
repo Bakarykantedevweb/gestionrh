@@ -8,7 +8,7 @@ use App\Models\NatureRubrique;
 
 class RubriqueShow extends Component
 {
-    public $rubriques,$code,$libelle,$rubrique_id;
+    public $rubriques,$code,$libelle,$status,$rubrique_id;
     protected function rules()
     {
         return [
@@ -48,6 +48,7 @@ class RubriqueShow extends Component
             $this->rubrique_id = $rubrique->id;
             $this->libelle = $rubrique->libelle;
             $this->code = $rubrique->code;
+            $this->status = $rubrique->status;
         }
     }
 
@@ -58,6 +59,7 @@ class RubriqueShow extends Component
             $rubrique = Rubrique::find($this->rubrique_id);
             $rubrique->libelle = $validatedData['libelle'];
             $rubrique->code = $validatedData['code'];
+            $rubrique->status = $this->status;
             $rubrique->save();
             session()->flash('message', 'Rubrique Modifié avec Success');
             $this->resetInput();

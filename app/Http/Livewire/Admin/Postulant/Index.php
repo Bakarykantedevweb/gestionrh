@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Postulant;
 
+use App\Models\Offre;
 use Livewire\Component;
 use App\Models\Postuler;
 use App\Mail\AccepteCandidatMail;
@@ -19,8 +20,10 @@ class Index extends Component
     public $OffreEnAttente = true;
     public $OffreAccepte = false;
     public $OffreRejete = false;
+    public $detail = false;
     public $showInputs;
     public $date , $heure;
+    public $offre;
 
     private function disableContents()
     {
@@ -91,6 +94,20 @@ class Index extends Component
             toastr()->error('Une erreur est survenue lors du traitement de la page',$th);
             return redirect('admin/postulants');
         }
+    }
+
+    public function detailOffre($id)
+    {
+        $this->offre = Offre::where('id',$id)->first();
+        // dd($this->offre);
+        $this->detail = true;
+        $this->OffreEnAttente = false;
+    }
+
+    public function annuler()
+    {
+        $this->OffreEnAttente = true;
+        $this->detail = false;
     }
 
 

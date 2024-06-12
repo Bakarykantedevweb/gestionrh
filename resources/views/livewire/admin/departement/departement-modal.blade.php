@@ -165,3 +165,53 @@
     </div>
 </div>
 <!-- /Delete Department Modal -->
+
+
+<div wire:ignore.self id="voir_agent" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Listes des agents</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    {{-- <div class="card-header">
+                        <h4 class="card-title mb-0">Basic Table</h4>
+                    </div> --}}
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Matricule</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Poste</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($agentDepartements as $dep)
+                                        <tr>
+                                            <td>{{ $dep->matricule }}</td>
+                                            <td>{{ $dep->prenom }}</td>
+                                            <td>{{ $dep->nom }}</td>
+
+                                            <td>{{ $dep->poste->nom }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">Pas d'agents</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

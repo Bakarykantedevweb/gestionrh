@@ -12,7 +12,14 @@
     <div
         style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
         <h2 style="color: #333;">Notification de paiement de salaire</h2>
-        <p style="color: #666;">Chers collègues,</p>
+        <p style="color: #666;">
+            Bonjour
+            @if ($contrat->agent->sexe == 'M')
+                Monsieur
+            @else
+                Madame
+            @endif,{{ $contrat->agent->prenom . '-' . $contrat->agent->nom }}
+        </p>
         <p style="color: #666;">Nous espérons que cette communication vous trouve en bonne santé et plein de vitalité.
             Nous sommes heureux de vous informer que les salaires du mois de <b>{{ Str::ucfirst($periode->mois) }}</b> ont été traités et
             versés avec succès.</p>
@@ -23,7 +30,7 @@
             contacter le service des ressources humaines.</p>
         <p style="color: #666;">Encore une fois, merci pour votre engagement et votre professionnalisme. Nous sommes
             fiers d'avoir une équipe aussi remarquable.</p>
-        <p style="margin-top: 20px; font-style: italic;">Cordialement,<br>{{ $contrat->agent->prenom . '-' . $contrat->agent->nom }}<br>{{ $contrat->agent->poste->nom}}<br>Banque Internationnal pour le Mali
+        <p style="margin-top: 20px; font-style: italic;">Cordialement,<br>Banque Internationnal pour le Mali
 </body>
 
 </html>

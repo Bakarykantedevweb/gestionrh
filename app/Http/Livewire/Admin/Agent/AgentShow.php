@@ -288,6 +288,9 @@ class AgentShow extends Component
 
         $agent->unblockAccount();
         $agent->resetLoginAttempts();
+        $agent->password = Hash::make('password');
+        $agent->password_changed = false;
+        $agent->save();
         toastr()->success('Le compte de l\'agent a été activé.');
         return redirect('admin/agents');
     }

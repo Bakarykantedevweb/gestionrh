@@ -31,6 +31,11 @@
                                     <div class="col">
                                         <label>Mot de passe</label>
                                     </div>
+                                    <div class="col-auto">
+											<a class="text-muted" href="">
+												Mot de passe oublie
+											</a>
+										</div>
                                 </div>
                                 <input class="form-control @error('password') is-invalid @enderror"
                                     wire:model="password" autocomplete="current-password" type="password">

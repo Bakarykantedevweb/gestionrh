@@ -21,9 +21,7 @@ return new class extends Migration
             ['nom' => 'Ressources Humaines'],
             ['nom' => 'Gestion Personnel'],
             ['nom' => 'Gestion Salaire'],
-            ['nom' => 'Gestion Recrutement'],
-            ['nom' => 'Gestion Formation'],
-            ['nom' => 'Utilisateurs'],
+            ['nom' => 'Administrateurs'],
         ]);
     }
 

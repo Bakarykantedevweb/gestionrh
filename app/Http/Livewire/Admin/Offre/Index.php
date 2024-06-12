@@ -67,7 +67,7 @@ class Index extends Component
 
     public function render()
     {
-        $this->offres = Offre::where('date_limite', '>', now())->get();
+        $this->offres = Offre::where('date_limite', '>', now())->orderBy('id', 'desc')->get();
         $this->OffrehistoriqueListe = Offre::where('date_limite', '<', now())->get();
         return view('livewire.admin.offre.index');
     }

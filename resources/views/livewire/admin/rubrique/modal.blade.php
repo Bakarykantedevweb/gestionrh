@@ -60,6 +60,16 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <select wire:model="status" class="form-control">
+                            <option value="">...</option>
+                            <option value="0">Activer</option>
+                            <option value="1">Descativer</option>
+                        </select>
+                        @error('status')
+                        <span class="text-danger">Le champs est obligatoire</span>
+                        @enderror
+                    </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Mettre a jour</button>
                     </div>

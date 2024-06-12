@@ -15,6 +15,6 @@ class ExerciceController extends Controller
             toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
-        return view('admin.experience.index');
+        return view('admin.exercice.index');
     }
 }

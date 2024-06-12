@@ -99,6 +99,7 @@ Route::middleware(['auth.agent'])->group(function () {
 Auth::routes();
 
 Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+Route::get('admin/inbox', [App\Http\Controllers\Admin\DashboardController::class, 'inbox']);
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
@@ -254,7 +255,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::controller(SalaireController::class)->group(function () {
         Route::get('salaires', 'index')->name('salaire.index');
     });
-
 
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Departement;
 
+use App\Models\Agent;
 use App\Models\Departement;
 use App\Models\Poste;
 use Livewire\Component;
@@ -15,6 +16,24 @@ class DepartementShow extends Component
     public $postes,$selectPoste = [];
     public $search = '';
     public $fichier;
+
+    public $liste = true;
+    public $statistique = false;
+
+    public $agentDepartements = [];
+
+    private function disableContents()
+    {
+        $this->liste = false;
+        $this->statistique = false;
+    }
+
+    public function activeContent(string $content)
+    {
+        $content = decrypt($content);
+        $this->disableContents();
+        $this->$content = true;
+    }
 
     protected function rules()
     {
@@ -146,6 +165,12 @@ class DepartementShow extends Component
         $this->selectPoste = '';
         $this->fichier = '';
         $this->search = '';
+    }
+
+    public function voirAgent($id)
+    {
+        $this->agentDepartements = Agent::where('departement_id', $id)->get();
+        // dd($this->agentDepartements);
     }
 
     public function render()

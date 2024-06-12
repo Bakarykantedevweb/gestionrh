@@ -3,10 +3,10 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Listes des affectations</h3>
+                <h3 class="page-title">Listes des Promotions</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Tableau de Bord</a></li>
-                    <li class="breadcrumb-item active">Listes des affectations</li>
+                    <li class="breadcrumb-item active">Listes des Promotions</li>
                 </ul>
             </div>
         </div>
@@ -72,7 +72,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Pas d'Agences</td>
+                                <td colspan="7" class="text-center">Pas de promotion</td>
                             </tr>
                         @endforelse
                     </tbody>

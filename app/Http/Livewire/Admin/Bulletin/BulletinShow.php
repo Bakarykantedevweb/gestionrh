@@ -11,6 +11,7 @@ use App\Models\Bulletin;
 use App\Models\Rubrique;
 use App\Models\FeuilleCalcule;
 use App\Models\BulletinRubrique;
+use App\Models\Exercice;
 use Illuminate\Support\Facades\Mail;
 
 class BulletinShow extends Component
@@ -54,7 +55,7 @@ class BulletinShow extends Component
         // Vérifier si la feuille de calcul existe
         if ($feuilleCalcule) {
             // Récupérer les rubriques liées à la feuille via la table de liaison feuille_rubrique
-            $this->rubriques = $feuilleCalcule->rubriques ?? [];
+            $this->rubriques = $feuilleCalcule->rubriques->where('status','0') ?? [];
 
             // Récupérer tous les contrats liés à la feuille
             $contrats = $feuilleCalcule->contrats ?? [];
@@ -107,9 +108,11 @@ class BulletinShow extends Component
                 if (Bulletin::where('contrat_id', $contrat->id)->where('periode_id', $periode->id)->exists()) {
                     $BulletinExiste = true;
                 } else {
+                    $exerciceActive = Exercice::where('status','0')->first();
                     $bulletin = Bulletin::updateOrCreate([
                         'periode_id' => $periode->id,
                         'contrat_id' => $contrat->id,
+                        'exercice_id' => $exerciceActive->id,
                     ]);
 
                     // Incrémentez le champ nombre_jour_conge de 2.5 pour les agents associés à la feuille

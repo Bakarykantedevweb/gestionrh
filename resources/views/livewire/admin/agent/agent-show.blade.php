@@ -6,7 +6,7 @@
             <div class="col">
                 <h3 class="page-title">Agents</h3>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Agent</li>
                 </ul>
             </div>
@@ -121,7 +121,7 @@
                                                         class="fa fa-pencil m-r-5"></i>
                                                     Modifier</button>
                                                 <a href="{{ url('admin/agents/'.$items->matricule.'/detail') }}" class="dropdown-item"><i class="fa fa-history m-r-5"></i>
-                                                    Historique</a>
+                                                    Profile</a>
                                                 @if ($items->blocked == 1)
                                                     <a class="dropdown-item" wire:click="activer({{ $items->id }})"
                                                         href="#" data-toggle="modal" data-target=""><i
