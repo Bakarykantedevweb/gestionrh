@@ -34,6 +34,7 @@ use App\Http\Controllers\admin\GenerationController;
 use App\Http\Controllers\Admin\AffectationController;
 use App\Http\Controllers\Admin\CentreImpotController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\admin\PerformanceController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Agent\LogoutAgentController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -256,6 +257,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('salaires', 'index')->name('salaire.index');
     });
 
+    Route::controller(PerformanceController::class)->group(function () {
+        Route::get('performances', 'index')->name('performance.index');
+    });
+
 });
 
 // Frontend Route
@@ -274,8 +279,8 @@ Route::controller(RegisterCandidatController::class)->middleware(['candidat.gues
 Route::controller(LoginCandidatController::class)->middleware(['candidat.guest'])->group(function () {
     Route::get('login-candidat', 'index')->name('login.index');
     Route::post('login-candidat', 'store')->name('login.store');
-    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
-    Route::get('auth/google/callback', 'handleGoogleCallback');
+    Route::get('/google/redirect', 'redirectToGoogle')->name('google.redirect');
+    Route::get('/google/callback', 'handleGoogleCallback')->name('google.callback');
 });
 
 // Logout Candidat Route

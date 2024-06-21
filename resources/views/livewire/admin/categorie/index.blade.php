@@ -33,7 +33,7 @@
                     <tbody>
                         @forelse ($categories as $categorie)
                         <tr>
-                            <td>1</td>
+                            <td>{{ $categorie->id }}</td>
                             <td>{{ $categorie->nom }}</td>
                             <td>
                                 @if ($categorie->status == '1')

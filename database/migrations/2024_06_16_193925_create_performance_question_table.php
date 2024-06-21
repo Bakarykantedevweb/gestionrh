@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Agent;
+use App\Models\Question;
+use App\Models\Performance;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('performances', function (Blueprint $table) {
+        Schema::create('performance_question', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Agent::class)->constrained();
-            $table->string('superieur_id');
-            $table->date('date');
+            $table->foreignIdFor(Performance::class)->constrained();
+            $table->foreignIdFor(Question::class)->constrained();
+            $table->integer('status')->default('0');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('performances');
+        Schema::dropIfExists('performance_question');
     }
 };

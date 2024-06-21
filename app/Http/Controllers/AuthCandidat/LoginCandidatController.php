@@ -66,6 +66,7 @@ class LoginCandidatController extends Controller
                 );
 
                 Auth::guard('webcandidat')->login($newCandidat);
+                return redirect('/');
             }
         } catch (\Throwable $th) {
             //throw $th;

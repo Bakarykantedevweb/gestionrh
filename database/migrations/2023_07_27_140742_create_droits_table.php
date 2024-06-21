@@ -225,6 +225,12 @@ return new class extends Migration
                 'route' => 'conge.index',
                 'type_droit_id' => 2,
             ],
+            [
+                'nom' => 'Performance',
+                'acces' => 1,
+                'route' => 'performance.index',
+                'type_droit_id' => 1,
+            ],
         ]);
     }
 

@@ -125,6 +125,7 @@
     <!-- Datatable JS -->
     <script src="{{ asset('admin/assets/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
     @yield('script')
     @livewireScripts
 </body>
