@@ -43,14 +43,14 @@
                          <a href="{{ route('formationAgent.index') }}"><img src="{{ asset('agent/assets/img/employee.svg') }}" alt="sidebar_img">
                              <span>Formations</span></a>
                      </li>
+                     <li class="{{ request()->routeIs('performanceAgent.index') ? 'active' : '' }}">
+                         <a href="{{ route('performanceAgent.index') }}"><img src="{{ asset('agent/assets/img/leave.svg') }}" alt="sidebar_img">
+                             <span>Performance</span></a>
+                     </li>
                      <li>
                          <a href=""><img src="{{ asset('agent/assets/img/company.svg') }}" alt="sidebar_img">
                              <span>
                                  Demande de prêt</span></a>
-                     </li>
-                     <li>
-                         <a href=""><img src="{{ asset('agent/assets/img/leave.svg') }}" alt="sidebar_img">
-                             <span>Les missions</span></a>
                      </li>
                  </ul>
              </div>

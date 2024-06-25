@@ -6,6 +6,7 @@ use App\Models\Agent;
 use Livewire\Component;
 use App\Models\Question;
 use App\Models\Performance;
+use App\Models\PerformanceQuestion;
 
 class Index extends Component
 {
@@ -20,11 +21,13 @@ class Index extends Component
 
     public $questions = [];
 
+    public $questionListes = [];
+
     protected function rules()
     {
         return [
-            'agent_id' => 'required|integer',
-            'superieur_id' => 'required|integer',
+            'agent_id' => 'required|',
+            'superieur_id' => 'required|',
             'date' => 'required|date',
         ];
     }
@@ -61,6 +64,7 @@ class Index extends Component
 
     public function savePerformance()
     {
+        // dd($this->agent_id);
         $validatedData = $this->validate();
 
         $performance = Performance::create([
@@ -80,6 +84,11 @@ class Index extends Component
 
         $this->createPerformance = false;
         $this->afficherListe = true;
+    }
+
+    public function voirQuestion($id)
+    {
+        $this->questionListes = PerformanceQuestion::where('performance_id',$id)->get();
     }
 
     public function render()

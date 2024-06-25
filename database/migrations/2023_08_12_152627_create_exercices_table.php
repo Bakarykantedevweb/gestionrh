@@ -23,8 +23,8 @@ return new class extends Migration
         DB::table('exercices')->insert([
             [
                 'nom' => 'Exercice 2024',
-                'date_debut' => '01/01/2024',
-                'date_fin' => '31/12/2024',
+                'date_debut' => '01-01-2024',
+                'date_fin' => '31-12-2024',
                 'status' => 0,
             ],
         ]);

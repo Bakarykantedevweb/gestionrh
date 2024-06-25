@@ -1,4 +1,5 @@
 <div>
+    @include('livewire.admin.performance.modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
@@ -34,7 +35,6 @@
                                 <th>Superviseur</th>
                                 <th>Agent</th>
                                 <th>Date</th>
-                                <th>Status</th>
                                 <th>Question</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -46,26 +46,21 @@
                                     <td>
                                         <h2 class="table-avatar">
                                             <a href="" class="avatar"><img alt=""
-                                                    src="{{ asset('uploads/admin/agent/'.$performance->superieur->photo) }}"></a>
-                                            <a href="">{{ $performance->superieur->prenom.' '.$performance->superieur->nom }} </a>
+                                                    src="{{ asset('uploads/admin/agent/' . $performance->superieur->photo) }}"></a>
+                                            <a href="">{{ $performance->superieur->prenom . ' ' . $performance->superieur->nom }}
+                                            </a>
                                         </h2>
                                     </td>
                                     <td>
                                         <h2 class="table-avatar">
                                             <a href="" class="avatar"><img alt=""
-                                                    src="{{ asset('uploads/admin/agent/'.$performance->agent->photo) }}"></a>
-                                            <a href="">{{ $performance->agent->prenom.' '.$performance->agent->nom }} </a>
+                                                    src="{{ asset('uploads/admin/agent/' . $performance->agent->photo) }}"></a>
+                                            <a href="">{{ $performance->agent->prenom . ' ' . $performance->agent->nom }}
+                                            </a>
                                         </h2>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($performance->date)->isoFormat('LL') }}</td>
-                                    <td>
-                                        @if ($performance->status == 0)
-                                            <span class="btn btn-success btn-sm">Activer</span>
-                                        @else
-                                            <span class="btn btn-danger btn-sm">Desactiver</span>
-                                        @endif
-                                    </td>
-                                    <td><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button></td>
+                                    <td><button class="btn btn-primary btn-sm" wire:click="voirQuestion({{ $performance->id }})" data-toggle="modal" data-target="#voir_stagiaire"><i class="fa fa-eye"></i></button></td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
@@ -100,12 +95,14 @@
                 <form wire:submit.prevent="savePerformance">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="">Agent</label>
-                            <select wire:model="agent_id" class="form-control">
-                                <option value="">---</option>
+                            <label for="agent_id">Agent</label>
+                            <input list="agent_list" class="form-control" wire:model="agent_id"
+                                id="agent_id">
+                            <datalist id="agent_list">
                                 @foreach ($agents as $agent)
                                     <option value="{{ $agent->id }}">
-                                        {{ $agent->prenom . ' ' . $agent->nom . '(' . $agent->poste->nom . ')' }}</option>
+                                        {{ $agent->prenom . ' ' . $agent->nom . '(' . $agent->poste->nom . ')' }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('agent_id')
@@ -113,14 +110,16 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Superviseur</label>
-                            <select wire:model="superieur_id" class="form-control">
-                                <option value="">---</option>
+                            <label for="superieur_id">Superviseur</label>
+                            <input list="superviseur_list" class="form-control" wire:model="superieur_id"
+                                id="superieur_id">
+                            <datalist id="superviseur_list">
                                 @foreach ($agents as $agent)
                                     <option value="{{ $agent->id }}">
-                                        {{ $agent->prenom . ' ' . $agent->nom . '(' . $agent->poste->nom . ')' }}</option>
+                                        {{ $agent->prenom . ' ' . $agent->nom . '(' . $agent->poste->nom . ')' }}
+                                    </option>
                                 @endforeach
-                            </select>
+                            </datalist>
                             @error('superieur_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

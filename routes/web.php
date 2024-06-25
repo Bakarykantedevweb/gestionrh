@@ -47,6 +47,7 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agent\AgentFormationController;
 use App\Http\Controllers\Agent\DashboardAgentController;
 use App\Http\Controllers\Frontend\AuthFrontendController;
+use App\Http\Controllers\Agent\PerformanceAgentController;
 use App\Http\Controllers\frontend\FrontendOffreController;
 use App\Http\Controllers\Frontend\OffreFrontendController;
 use App\Http\Controllers\Frontend\RegisterFrontendController;
@@ -93,6 +94,10 @@ Route::middleware(['auth.agent'])->group(function () {
 
         Route::controller(AgentFormationController::class)->group(function (){
             Route::get('formations','index')->name('formationAgent.index');
+        });
+
+        Route::controller(PerformanceAgentController::class)->group(function () {
+            Route::get('performance', 'index')->name('performanceAgent.index');
         });
     });
 });
