@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Agent::class)->constrained();
             $table->string('superieur_id');
             $table->date('date');
+            $table->integer('status')->default('0');
             $table->timestamps();
         });
     }

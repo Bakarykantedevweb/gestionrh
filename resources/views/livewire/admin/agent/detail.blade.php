@@ -54,7 +54,7 @@
                                             <div class="text"><a href="">{{ $this->agent->email }}</a></div>
                                         </li>
                                         <li>
-                                            <div class="title">Date de naissance:</div>
+                                            <div class="title">Date:</div>
                                             <div class="text">
                                                 {{ $this->agent->jour . ' ' . $this->agent->mois . ' ' . $this->agent->annee }}
                                             </div>

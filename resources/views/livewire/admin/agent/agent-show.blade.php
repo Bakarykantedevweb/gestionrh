@@ -14,17 +14,11 @@
                 <div class="col-auto float-right ml-auto">
                     <a href="{{ route('agent.create') }}" class="btn add-btn"><i class="fa fa-plus"></i> Ajouter un
                         Agent</a>
-                    <div class="view-icons">
-                        <a href="" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-                    </div>
                 </div>
             @endif
             @if ($agentEdit)
                 <div class="col-auto float-right ml-auto">
                     <a href="{{ route('agent.index') }}" class="btn add-btn"><i class="fa fa-list"></i> Retour</a>
-                    <div class="view-icons">
-                        <a href="" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-                    </div>
                 </div>
             @endif
         </div>
@@ -34,19 +28,7 @@
     @include('layouts.partials.error')
     @if ($agentListes)
         <!-- Search Filter -->
-        <div class="row filter-row">
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus">
-                    <input type="text" class="form-control floating">
-                    <label class="focus-label">Employee ID</label>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus">
-                    <input type="text" class="form-control floating">
-                    <label class="focus-label">Employee Name</label>
-                </div>
-            </div>
+        {{-- <div class="row filter-row">
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
                     <select class="form-control">
@@ -71,7 +53,7 @@
                     <label class="focus-label">Designation</label>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Search Filter -->
         <div class="row">
             <div class="col-md-12">
@@ -120,7 +102,8 @@
                                                     wire:click="editAgent({{ $items->id }})"><i
                                                         class="fa fa-pencil m-r-5"></i>
                                                     Modifier</button>
-                                                <a href="{{ url('admin/agents/'.$items->matricule.'/detail') }}" class="dropdown-item"><i class="fa fa-history m-r-5"></i>
+                                                <a href="{{ url('admin/agents/' . $items->matricule . '/detail') }}"
+                                                    class="dropdown-item"><i class="fa fa-history m-r-5"></i>
                                                     Profile</a>
                                                 @if ($items->blocked == 1)
                                                     <a class="dropdown-item" wire:click="activer({{ $items->id }})"
@@ -244,6 +227,20 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
+                                        <label>Agence <span class="text-danger">*</span></label>
+                                        <select wire:model="agence_id" class="form-control">
+                                            <option>---</option>
+                                            @foreach ($agences as $agence)
+                                                <option value="{{ $agence->id }}">{{ $agence->nom }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('agence_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
                                         <label class="col-form-label">Departement <span
                                                 class="text-danger">*</span></label>
                                         <select class="form-control" wire:model="departement_id">
@@ -265,7 +262,7 @@
                                         <select class="form-control" wire:model="poste_id">
                                             @foreach ($postes as $pos)
                                                 <option value="{{ $pos->id }}"
-                                                    {{ $this->departement_id ? 'selected' : '' }}>
+                                                    {{ $this->poste_id ? 'selected' : '' }}>
                                                     {{ $pos->nom }}
                                                 </option>
                                             @endforeach

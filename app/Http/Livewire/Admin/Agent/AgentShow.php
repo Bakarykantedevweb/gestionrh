@@ -71,6 +71,7 @@ class AgentShow extends Component
             'age' => 'required|integer',
             'email' => 'required|email',
             'telephone' => 'required|integer|min:8',
+            'agence_id' => 'required|integer',
             'departement_id' => 'required|integer',
             'poste_id' => 'required|integer',
             'sexe' => 'required|string',
@@ -121,9 +122,16 @@ class AgentShow extends Component
     }
 
 
+    public function updateMontant()
+    {
+        $diplome = Diplome::find($this->diplome_id);
+
+        $this->montantCategorie = $diplome->classification->montant;
+    }
+
     public function changeType()
     {
-        $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
+        $this->showInputs = $this->type_contrat_id == 2;
     }
 
     public function getRubriques()
@@ -139,11 +147,6 @@ class AgentShow extends Component
         }
     }
 
-    public function updateMontant()
-    {
-        $diplome = Diplome::find($this->diplome_id);
-        $this->montantCategorie = $diplome->classification->montant;
-    }
 
     public function editAgent($id)
     {
@@ -159,6 +162,7 @@ class AgentShow extends Component
             $this->annee = $agent->annee;
             $this->age = $agent->age;
             $this->telephone = $agent->telephone;
+            $this->agence_id = $agent->agence_id;
             $this->departement_id = $agent->departement_id;
 
             if ($this->departement_id) {
@@ -212,6 +216,7 @@ class AgentShow extends Component
             $agent->annee = $validatedData['annee'];
             $agent->age = $this->age;
             $agent->telephone = $validatedData['telephone'];
+            $agent->agence_id = $validatedData['agence_id'];
             $agent->departement_id = $validatedData['departement_id'];
             $agent->poste_id = $validatedData['poste_id'];
             $agent->sexe = $validatedData['sexe'];
@@ -245,7 +250,6 @@ class AgentShow extends Component
                     $contratRubrique->montant = $this->montant[$rubrique->id];
                     $contratRubrique->save();
                 }
-
             }
             session()->flash('success', 'Operation effectue avec Success');
             return redirect('admin/agents');

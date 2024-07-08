@@ -1,6 +1,6 @@
 @extends('layouts.agent')
 @section('content')
-    <div class="content container-fluid">
+    {{-- <div class="content container-fluid">
         <div class="page-name 	mb-4">
             <h4 class="m-0"><img src="{{ asset('uploads/admin/agent/' . Auth::guard('webagent')->user()->photo) }}" class="mr-1" alt="profile" />
                 Bienvenue {{ Auth::guard('webagent')->user()->prenom . ' - ' . Auth::guard('webagent')->user()->nom }}</h4>
@@ -134,5 +134,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    @livewire('agent.dashboard')
 @endsection

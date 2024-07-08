@@ -24,6 +24,9 @@ return new class extends Migration
             [
                 'nom' => 'CDD',
             ],
+            [
+                'nom' => 'CQ',
+            ],
         ]);
     }
 

@@ -41,12 +41,6 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap-datetimepicker.min.css') }}">
     <!-- Chart CSS -->
     <link rel="stylesheet" href="{{ asset('admin/ssets/plugins/morris/morris.css') }}">
-    <!-- Main CSS -->
-    {{--
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js">
-    <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json"> --}}
     <style>
         a {
             text-decoration: none;
@@ -125,7 +119,11 @@
     <!-- Datatable JS -->
     <script src="{{ asset('admin/assets/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Multiselect JS -->
+	<script src="{{ asset('admin/assets/js/multiselect.min.js') }}"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- Custom JS -->
+	<script src="{{ asset('admin/assets/js/app.js') }}"></script>
     @yield('script')
     @livewireScripts
 </body>

@@ -15,10 +15,9 @@ class DashboardAgentController extends Controller
 
     public function logout()
     {
-        Auth::guard('webagent')->logout(); // Assurez-vous que le nom du garde correspond à celui que vous avez défini dans votre configuration
-
+        dd('ok');
+        Auth::guard('webagent')->logout();
         toastr()->success('Merci pour votre visite');
-
         return redirect('login-agent');
     }
 

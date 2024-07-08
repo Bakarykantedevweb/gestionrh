@@ -119,7 +119,7 @@ return new class extends Migration
             ],
             [
                 'nom' => 'Type Pret',
-                'acces' => 1,
+                'acces' => 0,
                 'route' => 'Typepret.index',
                 'type_droit_id' => 2,
             ],
@@ -221,7 +221,7 @@ return new class extends Migration
             ],
             [
                 'nom' => 'Conge',
-                'acces' => 1,
+                'acces' => 0,
                 'route' => 'conge.index',
                 'type_droit_id' => 2,
             ],
@@ -229,7 +229,13 @@ return new class extends Migration
                 'nom' => 'Performance',
                 'acces' => 1,
                 'route' => 'performance.index',
-                'type_droit_id' => 1,
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Ordre Mission',
+                'acces' => 1,
+                'route' => 'ordreMission.index',
+                'type_droit_id' => 4,
             ],
         ]);
     }

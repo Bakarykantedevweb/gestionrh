@@ -84,6 +84,12 @@ class Index extends Component
         }
     }
 
+    public function retour()
+    {
+        $this->afficherListe = true;
+        $this->afficherEdit = false;
+    }
+
 
     public function updateConge()
     {

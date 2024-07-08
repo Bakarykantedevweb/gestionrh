@@ -43,6 +43,7 @@ class Edit extends Component
     public $montant = [];
     public $sexeAgent;
     public $showInputs = true;
+    public $showInputsCQ = false;
 
     // Formation
     public $schools = [
@@ -134,12 +135,25 @@ class Edit extends Component
     public function updateMontant()
     {
         $diplome = Diplome::find($this->diplome_id);
-        $this->montantCategorie = $diplome->classification->montant;
+        if ($this->showInputsCQ == TRUE) {
+            $this->montantCategorie = $diplome->classification->montant;
+        } else {
+            $this->montantCategorie = 0;
+        }
     }
 
     public function changeType()
     {
-        $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
+        if ($this->type_contrat_id == 2) {
+            $this->showInputs = True;
+            $this->showInputsCQ = False;
+        } else if ($this->type_contrat_id == 3) {
+            $this->showInputsCQ = True;
+            $this->showInputs = False;
+        } else {
+            $this->showInputs = False;
+            $this->showInputsCQ = False;
+        } // Vérifiez si l'ID est 2 pour le type CDD
     }
 
     // Formation

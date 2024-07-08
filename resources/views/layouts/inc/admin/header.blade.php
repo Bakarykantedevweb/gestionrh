@@ -20,8 +20,8 @@
 
                 <!-- Header Menu -->
                 <ul class="nav user-menu">
-                    @livewire('admin.entete.entete')
                     <!-- Message Notifications -->
+                    @livewire('admin.entete.entete')
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="fa fa-comment-o"></i> <span class="badge badge-danger">0</span>

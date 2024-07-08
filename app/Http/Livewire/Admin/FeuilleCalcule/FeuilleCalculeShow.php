@@ -14,7 +14,6 @@ class FeuilleCalculeShow extends Component
     protected function rules()
     {
         return [
-            'code' => 'required|string',
             'libelle' => 'required|string',
         ];
     }
@@ -29,8 +28,11 @@ class FeuilleCalculeShow extends Component
         $validatedData = $this->validate();
         try {
             $dep = new FeuilleCalcule();
-            $dep->code = $validatedData['code'];
+            $dep->code = '00';
             $dep->libelle = $validatedData['libelle'];
+            $dep->save();
+            $code = 'F-' . str_pad($dep->id, 2, '0', STR_PAD_LEFT);
+            $dep->code = $code;
             $dep->save();
             if($dep){
                 $dep->rubriques()->attach($this->selectRubrique);

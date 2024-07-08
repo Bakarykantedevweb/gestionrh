@@ -104,12 +104,12 @@ class Create extends Component
     public function updateMontant()
     {
         $diplome = Diplome::find($this->diplome_id);
-        $this->montantCategorie = $diplome->classification->montant;
+            $this->montantCategorie = $diplome->classification->montant;
     }
 
     public function changeType()
     {
-        $this->showInputs = $this->type_contrat_id == 2; // Vérifiez si l'ID est 2 pour le type CDD
+        $this->showInputs = $this->type_contrat_id == 2;
     }
 
 
@@ -133,34 +133,6 @@ class Create extends Component
         $this->postes = $departement ? $departement->postes : [];
     }
 
-    // public function updatedPrenom()
-    // {
-    //     $this->generateEmail();
-    // }
-
-    // public function updatedNom()
-    // {
-    //     $this->generateEmail();
-    // }
-
-    // private function generateEmail()
-    // {
-    //     $baseEmail = strtolower(substr($this->prenom, 0, 3) . '.' . $this->nom . '@bim.com.ml');
-
-    //     // Vérifier si l'email existe déjà
-    //     if (Agent::where('email', $baseEmail)->exists()) {
-    //         $count = 1;
-
-    //         // Ajouter un suffixe numérique avant le point jusqu'à ce que l'email soit unique
-    //         while (Agent::where('email', substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml')->exists()) {
-    //             $count++;
-    //         }
-
-    //         $this->email = strtolower(substr($this->prenom, 0, 3) . $count . '.' . $this->nom . '@bim.com.ml');
-    //     } else {
-    //         $this->email = $baseEmail;
-    //     }
-    // }
 
     public function saveEmploye()
     {
@@ -239,7 +211,7 @@ class Create extends Component
         $this->agents = Agent::get();
         $this->departements = Departement::get();
         $this->diplomes = Diplome::get();
-        $this->typeContrats = TypeContrat::limit(2)->get();
+        $this->typeContrats = TypeContrat::limit(3)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
         $this->agences = Agence::get();

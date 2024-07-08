@@ -1,54 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Meta tags  -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Smarthr - Bootstrap Admin Template">
-    <meta name="keywords"
-        content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
-    <meta name="robots" content="noindex, nofollow">
-    <title>@yield('title')</title>
+    <title>OptiRH - Solution RH</title>
+    <link rel="icon" type="image/png" href="{{ asset('agent/images/favicon.png') }}">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+    <!-- CSS Assets -->
+    <link rel="stylesheet" href="{{ asset('agent/css/app.css') }}">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
+    <!-- Javascript Assets -->
+    <script src="{{ asset('agent/js/app.js') }}" defer=""></script>
 
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="admin/assets/css/font-awesome.min.css">
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="admin/assets/css/style.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-   <script src="assets/js/html5shiv.min.js"></script>
-   <script src="assets/js/respond.min.js"></script>
-  <![endif]-->
-  @livewireStyles
-</head>
-
-<body class="account-page">
-
-    <!-- Main Wrapper -->
-    <div class="main-wrapper">
-        @yield('content')
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script>
+      /**
+       * THIS SCRIPT REQUIRED FOR PREVENT FLICKERING IN SOME BROWSERS
+       */
+      localStorage.getItem("_x_darkMode_on") === "true" &&
+        document.documentElement.classList.add("dark");
+    </script>
+    @livewireStyles
+  </head>
+  <body x-data="" class="is-header-blur" x-bind="$store.global.documentBody">
+    <!-- App preloader-->
+    <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+      <div class="app-preloader-inner relative inline-block size-48"></div>
     </div>
-    <!-- /Main Wrapper -->
 
-    <!-- jQuery -->
-    <script src="admin/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- Page Wrapper -->
+    @yield('content')
 
-    <!-- Bootstrap Core JS -->
-    <script src="admin/assets/js/popper.min.js"></script>
-    <script src="admin/assets/js/bootstrap.min.js"></script>
-
-    <!-- Custom JS -->
-    <script src="admin/assets/js/app.js"></script>
-     @livewireScripts
-</body>
-
+    <!--
+        This is a place for Alpine.js Teleport feature
+        @see https://alpinejs.dev/directives/teleport
+      -->
+    <div id="x-teleport-target"></div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => Alpine.start());
+    </script>
+    @livewireScripts
+  </body>
 </html>

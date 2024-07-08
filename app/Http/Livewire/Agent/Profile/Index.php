@@ -19,7 +19,7 @@ class Index extends Component
     public $parametre = false;
     public $affectation = false;
 
-    public $old_password,$new_password,$confirm_password;
+    public $old_password, $new_password, $confirm_password;
 
     public function mount()
     {
@@ -58,31 +58,28 @@ class Index extends Component
     public function UpdatePassword()
     {
         $validatedData = $this->validate();
-        $agent = Agent::where('id',Auth::guard('webagent')->user()->id)->first();
-        if(!password_verify($validatedData['old_password'],$agent->password))
-        {
-            toastr()->error("L'ancien mot de passe n'est pas bon");
+        $agent = Agent::where('id', Auth::guard('webagent')->user()->id)->first();
+        if (!password_verify($validatedData['old_password'], $agent->password)) {
+            toastr()->error("L'ancien mot de passe n'est pas correcte");
             $this->old_password = '';
+        }
+
+        if (!$validatedData['new_password'] != $this->confirm_password)
+        {
+            $agent->password = Hash::make($validatedData['new_password']);
+            $agent->save();
+            toastr()->success('Votre Mot de passe a ete modifié avec success');
+            $this->old_password = '';
+            $this->detail = true;
+            $this->parametre = false;
         }
         else
         {
-            if($validatedData['new_password'] != $this->confirm_password)
-            {
-                toastr()->error("Les deux mots de passe ne sont pas les memes");
-                $this->new_password = '';
-                $this->confirm_password = '';
-            }
-            else
-            {
-                $agent->password = Hash::make($validatedData['new_password']);
-                $agent->save();
-
-                $this->old_password = '';
-                $this->new_password = '';
-                $this->confirm_password = '';
-                toastr()->success('Votre Mot de passe a ete modifié avec success');
-            }
+            toastr()->error("Les deux mots de passe ne sont pas les memes");
+            $this->new_password = '';
+            $this->confirm_password = '';
         }
+
     }
 
     public function render()

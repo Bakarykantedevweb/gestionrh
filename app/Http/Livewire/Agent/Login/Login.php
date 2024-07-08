@@ -38,7 +38,7 @@ class Login extends Component
             $agent = Agent::where('email', $validatedData['email'])->firstOrFail();
             $this->agentID = $agent->id;
             if ($agent->blocked == 1) {
-                return back()->with(['error' => 'Votre compte est désactivé, veuillez contacter la GRH.']);
+                return toastr()->error('Votre compte est désactivé, veuillez contacter la GRH.');
             }
 
             // Si l'agent a réussi à s'authentifier avec son ancien mot de passe
@@ -74,32 +74,28 @@ class Login extends Component
 
                 if ($agent->login_attempts >= 3) {
                     $agent->blockAccount();
-                    return back()->with(['error' => 'Votre compte a été bloqué en raison de trop de tentatives de connexion échouées.']);
+                    return toastr()->error('Votre compte a été bloqué en raison de trop de tentatives de connexion échouées.');
                 }
-                return back()->with(['error' => 'L\'authentification a échoué']);
+                return toastr()->error('L\'authentification a échoué');
             }
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-            return back()->with(['error' => 'Aucun agent trouvé avec cette adresse e-mail.']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) 
+        {
+            toastr()->error('Aucun agent trouvé avec cette adresse e-mail.');
         }
     }
 
     public function updatePassword()
     {
-        // $validatedData = $this->validate([
-        //     'newpassword' => ['required', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/'],
-        // ],
-        // [
-        //     'newpassword.required' => 'Le mot de passe est obligatoire.',
-        //     'newpassword.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
-        //     'newpassword.regex' => 'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial et avoir une longueur minimale de 10 caractères.',
-        // ]);
-
-        // Logique pour la mise à jour du mot de passe
-        // ...
         $agent = Agent::find($this->agentID);
         // Mettre à jour le mot de passe de l'agent avec le nouveau mot de passe
+        if($this->newpassword != $this->confirmpassword)
+        {
+            toastr()->error('Les deux mots de passe ne sont pas les meme');
+            $this->confirmpassword = '';
+        }
+        
         $agent->password = Hash::make($this->newpassword);
-        $agent->password_changed = true; // Marquer que le mot de passe a été changé
+        $agent->password_changed = true;
         $agent->save();
 
         // Rediriger l'agent vers le tableau de bord après la mise à jour du mot de passe

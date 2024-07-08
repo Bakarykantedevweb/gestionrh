@@ -10,13 +10,13 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="saveFeuilledeCalcule">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Feuille de Calcule Code <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="code" type="text">
                         @error('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Feuille de Calcule libelle <span class="text-danger">*</span></label>
                         <input class="form-control" wire:model="libelle" type="text">
@@ -82,7 +82,7 @@
                 <form wire:submit.prevent="updateFeuilledeCalcule">
                     <div class="form-group">
                         <label>Feuille de Calcule Code <span class="text-danger">*</span></label>
-                        <input class="form-control" wire:model="code" type="text">
+                        <input class="form-control" readonly wire:model="code" type="text">
                         @error('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

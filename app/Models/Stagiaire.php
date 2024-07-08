@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Agence;
+use App\Models\Rubrique;
 use App\Models\Departement;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,4 +21,6 @@ class Stagiaire extends Model
     {
         return $this->belongsTo(Agence::class);
     }
+
+    
 }

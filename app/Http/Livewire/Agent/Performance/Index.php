@@ -15,14 +15,21 @@ class Index extends Component
 
     public $afficheListe = True;
     public $createNote = False;
+    public $performance_id;
 
-    public $note = [];
+    public $notes = [];
 
     public function voirQuestion($id)
     {
-        $this->questionListes = PerformanceQuestion::where('performance_id', $id)->get();
+        $this->performance_id = $id;
+        $this->questionListes = PerformanceQuestion::where('performance_id', $id)->orderBy('id', 'ASC')->get();
         $this->createNote = True;
         $this->afficheListe = False;
+    }
+
+    public function voirNote($id)
+    {
+        $this->questionListes = PerformanceQuestion::where('performance_id', $id)->orderBy('id', 'ASC')->get();
     }
 
     public function retour()
@@ -33,7 +40,18 @@ class Index extends Component
 
     public function saveQuestionNote()
     {
-        dd($this->note);
+        $cleTaleau = array_keys($this->notes);
+        $noteTableau = array_values($this->notes);
+        for($i = 0; $i < count($cleTaleau); $i++)
+        {
+            $performanceQuestion = PerformanceQuestion::where('performance_id', $this->performance_id)
+                                    ->where('question_id',$cleTaleau[$i])->first();
+            $performanceQuestion->note = $noteTableau[$i];
+            $performanceQuestion->save();
+        }
+        toastr()->success('Les notes ont été enregistrées avec succès.');
+        $this->afficheListe = True;
+        $this->createNote = False;
     }
 
     public function render()

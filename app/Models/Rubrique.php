@@ -27,4 +27,5 @@ class Rubrique extends Model
     {
         return $this->belongsToMany(Contrat::class);
     }
+
 }

@@ -24,7 +24,6 @@
                 <table class="table table-striped custom-table mb-0">
                     <thead>
                         <tr>
-                            <th style="width: 30px;">#</th>
                             <th>Code</th>
                             <th>Libelle</th>
                             <th>Status</th>
@@ -34,7 +33,6 @@
                     <tbody>
                         @forelse ($rubriques as $items)
                             <tr>
-                                <td>{{ $items->id }}</td>
                                 <td>{{ $items->code }}</td>
                                 <td>{{ $items->libelle }}</td>
                                 <td>
@@ -61,7 +59,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Pas de Rubriques</td>
+                                <td colspan="4" class="text-center">Pas de Rubriques</td>
                             </tr>
                         @endforelse
                     </tbody>

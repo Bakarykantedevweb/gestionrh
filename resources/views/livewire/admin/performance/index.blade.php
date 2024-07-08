@@ -24,6 +24,8 @@
             @endif
         </div>
     </div>
+    @include('layouts.partials.message')
+    @include('layouts.partials.error')
     @if ($afficherListe)
         <div class="row">
             <div class="col-md-12">
@@ -36,6 +38,7 @@
                                 <th>Agent</th>
                                 <th>Date</th>
                                 <th>Question</th>
+                                <th>Status</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -60,19 +63,23 @@
                                         </h2>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($performance->date)->isoFormat('LL') }}</td>
-                                    <td><button class="btn btn-primary btn-sm" wire:click="voirQuestion({{ $performance->id }})" data-toggle="modal" data-target="#voir_stagiaire"><i class="fa fa-eye"></i></button></td>
+                                    <td><button class="btn btn-primary btn-sm"
+                                            wire:click="voirQuestion({{ $performance->id }})" data-toggle="modal"
+                                            data-target="#voir_stagiaire"><i class="fa fa-eye"></i></button></td>
+                                    <td>
+                                        @if ($performance->status == 0)
+                                            <span class="btn btn-danger btn-sm">En attente</span>
+                                        @else
+                                            <span class="btn btn-success btn-sm">Valider</span>
+                                        @endif
+                                    </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                                aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i>
-                                                    Modifier</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i>
-                                                    Detail</a>
-                                            </div>
+                                            @if ($performance->status == 0)
+                                                <button wire:click="editPerformance({{ $performance->id }})" type="button" data-toggle="modal" data-target="#emargement" class="btn btn-primary btn-sm">Action</button>
+                                            @else
+                                                <span class="btn btn-success btn-sm">Approuver</span>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -96,18 +103,17 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="agent_id">Agent</label>
-                            <input list="agent_list" class="form-control" wire:model="agent_id"
-                                id="agent_id">
+                            <input list="agent_list" class="form-control" wire:model="agent_id" id="agent_id">
                             <datalist id="agent_list">
                                 @foreach ($agents as $agent)
                                     <option value="{{ $agent->id }}">
                                         {{ $agent->prenom . ' ' . $agent->nom . '(' . $agent->poste->nom . ')' }}
                                     </option>
                                 @endforeach
-                            </select>
-                            @error('agent_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                </select>
+                                @error('agent_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                         </div>
                         <div class="form-group col-md-6">
                             <label for="superieur_id">Superviseur</label>

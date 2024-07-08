@@ -8,46 +8,37 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <div class="card-body">
-                        <form wire:submit.prevent="saveQuestionNote">
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Question</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($questionListes) > 0)
+                                    @foreach ($questionListes as $item)
                                         <tr>
-                                            <th>#</th>
-                                            <th>Question</th>
-                                            <th>Note</th>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->question->libelle }}</td>
+                                            <td><input value="{{ $item->note }}" readonly class="form-control"></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (count($questionListes) > 0)
-                                            @foreach ($questionListes as $item)
-                                                <tr>
-                                                    <td>{{ $item->id }}</td>
-                                                    <td>{{ $item->question->libelle }}</td>
-                                                    <td><input type="number" class="form-control" wire:model="note.index{{ $item->id }}"></td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr>
-                                                <td></td>
-                                                <td>Pas de Question</td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12 col-sm-12 col-12 mt-4">
-                                    <div class="form-btn">
-                                        <button type="submit" class="btn btn-apply w-auto">Soumettre</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td></td>
+                                        <td>Pas de Question</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

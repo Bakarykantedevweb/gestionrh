@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Performance::class)->constrained();
             $table->foreignIdFor(Question::class)->constrained();
-            $table->integer('status')->default('0');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

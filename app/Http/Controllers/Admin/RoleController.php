@@ -18,14 +18,14 @@ class RoleController extends Controller
             toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('dashboard');
         }
-        $droits = Droit::all();
+        $droits = Droit::where('acces','1')->get();
         $roles = Role::all();
         return view('admin.role.index',compact('droits','roles'));
     }
 
     public function store(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         DB::beginTransaction();
         try {
             $role =  Role::create(
@@ -51,23 +51,32 @@ class RoleController extends Controller
     {
         $id = $request->post('id');
         $role = Role::find($id);
-        $droits = Droit::all();
+        $droits = $role->droits;
         foreach ($droits as $droit) {
-            $exist = '';
-            foreach ($role->droits as $roleDroit) {
-                if ($droit->id == $roleDroit->id) {
-                    $exist = 'checked';
-                }
-            }
-
             $html = "
-            <div class='col-md-4'>
-                <input id='id.$droit->id' $exist name='droits[]' value='$droit->id '
-                    type='checkbox' class='ml-1'>
-                    <label for='id.$droit->id '> $droit->nom</label>
-            </div>
+                <option value='$droit->id'>$droit->nom</option>
             ";
             echo $html;
+        }
+    }
+
+    public function exceptDroit(Request $request)
+    {
+        $id = $request->post('id');
+        $role = Role::find($id);
+        $role_droit = $role->droits;
+        $ids = [];
+        foreach ($role_droit as $rd) {
+            $ids[] = $rd->id;
+        }
+        $droits = Droit::all();
+        foreach ($droits as $droit) {
+            if (in_array($droit->id, $ids)) {
+                continue;
+            } else {
+                $html = "<option value='$droit->id'>$droit->nom</option>";
+                echo $html;
+            }
         }
     }
 

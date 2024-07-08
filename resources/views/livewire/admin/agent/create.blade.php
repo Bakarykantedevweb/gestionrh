@@ -90,7 +90,7 @@
                                     <div class="col-md-4">
                                         <select class="form-control" wire:model="annee">
                                             <option value="0">Annee</option>
-                                            <?php for ($i = 1964; $i <= 2002; $i++) : ?>
+                                            <?php for ($i = 1964; $i <= 2006; $i++) : ?>
                                             <option value="<?php echo $i; ?>">
                                                 <?php echo $i; ?>
                                             </option>

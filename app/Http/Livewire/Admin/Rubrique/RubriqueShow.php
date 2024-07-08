@@ -12,7 +12,6 @@ class RubriqueShow extends Component
     protected function rules()
     {
         return [
-            'code' => 'required|string',
             'libelle' => 'required|string',
         ];
     }
@@ -25,10 +24,14 @@ class RubriqueShow extends Component
     public function saveRubrique()
     {
         $validatedData = $this->validate();
-        try {
+        try
+        {
             $rubrique = new Rubrique();
+            $rubrique->code = '00';
             $rubrique->libelle = $validatedData['libelle'];
-            $rubrique->code = $validatedData['code'];
+            $rubrique->save();
+            $code = 'R-' . str_pad($rubrique->id, 2, '0', STR_PAD_LEFT);
+            $rubrique->code = $code;
             $rubrique->save();
             session()->flash('message', 'Rubrique ajouter avec Success');
             $this->resetInput();
@@ -58,7 +61,7 @@ class RubriqueShow extends Component
         try {
             $rubrique = Rubrique::find($this->rubrique_id);
             $rubrique->libelle = $validatedData['libelle'];
-            $rubrique->code = $validatedData['code'];
+            // $rubrique->code = $validatedData['code'];
             $rubrique->status = $this->status;
             $rubrique->save();
             session()->flash('message', 'Rubrique Modifié avec Success');
@@ -105,7 +108,7 @@ class RubriqueShow extends Component
 
     public function render()
     {
-        $this->rubriques = Rubrique::orderBy('libelle', 'asc')->get();
+        $this->rubriques = Rubrique::get();
         return view('livewire.admin.rubrique.rubrique-show');
     }
 }

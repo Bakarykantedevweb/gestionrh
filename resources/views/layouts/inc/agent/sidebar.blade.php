@@ -1,4 +1,4 @@
- <div class="sidebar" id="sidebar">
+ {{-- <div class="sidebar" id="sidebar">
      <div class="sidebar-inner slimscroll">
          <div class="sidebar-contents">
              <div id="sidebar-menu" class="sidebar-menu">
@@ -56,4 +56,5 @@
              </div>
          </div>
      </div>
- </div>
+ </div> --}}
+ @livewire('agent.sidebar.index')

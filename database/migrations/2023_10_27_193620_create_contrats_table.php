@@ -30,7 +30,7 @@ return new class extends Migration
             $table->date('date_divorce')->nullable();
             $table->date('date_voeuf')->nullable();
             $table->integer('nombre_enfant')->default(0);
-            $table->string('salaire');
+            $table->string('salaire')->nullable();
             $table->foreignIdFor(Diplome::class)->constrained();
             $table->foreignIdFor(Agent::class)->constrained();
             $table->foreignIdFor(TypeContrat::class)->constrained();

@@ -38,6 +38,7 @@ use App\Http\Controllers\admin\PerformanceController;
 use App\Http\Controllers\Admin\TypeContratController;
 use App\Http\Controllers\Agent\LogoutAgentController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Admin\OrdreMissionController;
 use App\Http\Controllers\Agent\profileAgentController;
 use App\Http\Controllers\admin\TypeFormationController;
 use App\Http\Controllers\Agent\AgentBulletinController;
@@ -55,7 +56,6 @@ use App\Http\Controllers\AuthCandidat\LoginCandidatController;
 use App\Http\Controllers\Candidat\CandidatDashboardController;
 use App\Http\Controllers\Candidat\DashboardCandidatController;
 use App\Http\Controllers\AuthCandidat\RegisterCandidatController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,10 +72,10 @@ Route::group(['middleware' => 'agent.guest'], function () {
     Route::get('login-agent', [LoginAgentController::class, 'index'])->name('agent-login');
 });
 
-Route::get('agent/logout', [LogoutAgentController::class, 'logout'])->name('agent.logout');
 // Routes pour les agents
 Route::middleware(['auth.agent'])->group(function () {
     Route::get('agent-dashboard', [DashboardAgentController::class, 'index'])->name('agent-dashboard');
+    Route::get('agent/logout', [DashboardAgentController::class, 'logout'])->name('agent-logout');
 
     Route::prefix('agent')->group(function () {
 
@@ -264,6 +264,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::controller(PerformanceController::class)->group(function () {
         Route::get('performances', 'index')->name('performance.index');
+    });
+
+    Route::controller(OrdreMissionController::class)->group(function () {
+        Route::get('ordre-missions', 'index')->name('ordreMission.index');
+        Route::get('ordre-missions/{matricule}', 'generation');
     });
 
 });
