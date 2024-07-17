@@ -75,7 +75,7 @@
                                             <td class="text-center">
                                                 <input type="number" readonly
                                                     wire:model="montant.{{ $contrat->id }}.{{ $rubrique->id }}"
-                                                    class="form-control">
+                                                    class="">
                                             </td>
                                         @endforeach
                                     </tr>

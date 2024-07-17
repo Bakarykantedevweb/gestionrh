@@ -39,7 +39,7 @@
                     <div class="mt-4">
                         <div class="flex items-center space-x-1">
                             <p class="text-2xl font-semibold text-slate-700 dark:text-navy-100">
-                                240 000 F
+                                {{ number_format(Auth::guard('webagent')->user()->contrat->salaire) }} F
                             </p>
                             <button
                                 class="btn size-6 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
@@ -52,7 +52,7 @@
                             </button>
                         </div>
                         <p class="text-xs text-slate-400 dark:text-navy-300">
-                            this month
+                            Salaire de base
                         </p>
                     </div>
                     <div class="mt-3 flex items-center space-x-2">
@@ -105,7 +105,7 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="mt-1 text-xs+">Salaire Brut</p>
+                    <p class="mt-1 text-xs+">Salaire de base</p>
                 </div>
                 <div class="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
                     <div class="flex justify-between">

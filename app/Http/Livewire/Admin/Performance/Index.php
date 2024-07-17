@@ -13,7 +13,7 @@ class Index extends Component
 {
     public $afficherListe = True;
     public $createPerformance = False;
-
+    public $detailPerformances = False;
     public $agents;
 
     public $performances;
@@ -125,7 +125,14 @@ class Index extends Component
 
         // Rediriger vers la page des performances
         return redirect('admin/performances');
+    }
 
+    public function afficherDetail($id)
+    {
+        $this->questionListes = PerformanceQuestion::where('performance_id', $id)->orderBy('id', 'ASC')->get();
+        $this->detailPerformances = True;
+        $this->afficherListe = False;
+        $this->createPerformance = False;
     }
 
     public function render()

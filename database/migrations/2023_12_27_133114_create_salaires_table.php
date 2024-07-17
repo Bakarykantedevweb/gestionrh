@@ -17,6 +17,28 @@ return new class extends Migration
             $table->integer('salaire_fin');
             $table->timestamps();
         });
+        DB::table('salaires')->insert([
+            [
+                'salaire_debut' => 100000,
+                'salaire_fin' => 200000,
+            ],
+            [
+                'salaire_debut' => 200000,
+                'salaire_fin' => 300000,
+            ],
+            [
+                'salaire_debut' => 300000,
+                'salaire_fin' => 400000,
+            ],
+            [
+                'salaire_debut' => 400000,
+                'salaire_fin' => 500000,
+            ],
+            [
+                'salaire_debut' => 500000,
+                'salaire_fin' => 600000,
+            ],
+        ]);
     }
 
     /**

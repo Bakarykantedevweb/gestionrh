@@ -30,6 +30,7 @@
                         <tr>
                             <th style="width: 30px;">#</th>
                             <th>Poste Nom</th>
+                            <th>Poste de responsabilite</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -38,6 +39,13 @@
                             <tr>
                                 <td>{{ $items->id }}</td>
                                 <td>{{ $items->nom }}</td>
+                                <td>
+                                    @if ($items->is_responsable)
+                                        <span class="btn btn-success btn-sm">Oui</span>
+                                    @else
+                                        <span class="btn btn-danger btn-sm">Non</span>
+                                    @endif
+                                </td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"

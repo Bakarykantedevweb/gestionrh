@@ -38,7 +38,7 @@
                                 <th>Agent</th>
                                 <th>Date</th>
                                 <th>Question</th>
-                                <th>Status</th>
+                                <th>Telecharger</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -70,13 +70,16 @@
                                         @if ($performance->status == 0)
                                             <span class="btn btn-danger btn-sm">En attente</span>
                                         @else
-                                            <span class="btn btn-success btn-sm">Valider</span>
+                                            <a href="#" wire:click="afficherDetail({{ $performance->id }})"
+                                                class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                         @endif
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             @if ($performance->status == 0)
-                                                <button wire:click="editPerformance({{ $performance->id }})" type="button" data-toggle="modal" data-target="#emargement" class="btn btn-primary btn-sm">Action</button>
+                                                <button wire:click="editPerformance({{ $performance->id }})"
+                                                    type="button" data-toggle="modal" data-target="#emargement"
+                                                    class="btn btn-primary btn-sm">Action</button>
                                             @else
                                                 <span class="btn btn-success btn-sm">Approuver</span>
                                             @endif
@@ -166,6 +169,38 @@
                         <button class="btn btn-primary submit-btn" type="submit">Enregistrer</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    @endif
+
+    @if ($detailPerformances)
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"> Detail Performance</h3>
+                <div class="row">
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Question</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($questionListes as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->question->libelle }}</td>
+                                    <td><input class="form-control" readonly value="{{ $item->note }}">
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     @endif

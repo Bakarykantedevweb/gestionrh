@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('postes', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->boolean('is_responsable')->default(false);
             $table->timestamps();
         });
         // DB::table('postes')->insert([

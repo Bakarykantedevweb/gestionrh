@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Agent;
 
 use Carbon\Carbon;
 use App\Models\Agent;
+use App\Models\Poste;
 use App\Models\Agence;
 use App\Models\Contrat;
 use App\Models\Diplome;
@@ -49,6 +50,7 @@ class Create extends Component
     public $montant = [];
     public $sexeAgent;
     public $showInputs = false;
+    public $showInputsCQ = false;
     public $agences;
     public $agence_id;
     public $date_debut;
@@ -104,12 +106,13 @@ class Create extends Component
     public function updateMontant()
     {
         $diplome = Diplome::find($this->diplome_id);
-            $this->montantCategorie = $diplome->classification->montant;
+        $this->montantCategorie = $diplome->classification->montant;
     }
 
     public function changeType()
     {
         $this->showInputs = $this->type_contrat_id == 2;
+        $this->showInputsCQ = $this->type_contrat_id == 3;
     }
 
 
@@ -138,6 +141,19 @@ class Create extends Component
     {
         $validatedData = $this->validate();
         try {
+            $poste = Poste::find($validatedData['poste_id']);
+             if ($poste->is_responsable)
+            {
+                // Vérifier s'il y a déjà un agent dans ce poste de responsable pour le même département
+                $existingAgent = Agent::where('departement_id', $validatedData['departement_id'])
+                                        ->where('poste_id', $validatedData['poste_id'])
+                                        ->first();
+                if ($existingAgent)
+                {
+                    toastr()->error('Il ne peut y avoir qu\'un seul agent pour ce poste de responsable dans ce département.');
+                }
+            }
+
             $agent = new Agent();
             $agent->matricule = '00000';
             $agent->prenom = $validatedData['prenom'];
@@ -175,8 +191,8 @@ class Create extends Component
                 $contrat->date_fin = $this->date_fin;
                 $contrat->situation_matrimoniale = $this->selectedOption;
                 $contrat->date_mariage = $this->date_mariage;
-                // $contrat->date_voeuf = $this->date_veuve;
-                // $contrat->date_divorce = $this->date_divorce;
+                $contrat->date_voeuf = $this->date_veuve;
+                $contrat->date_divorce = $this->date_divorce;
                 $contrat->nombre_enfant = $this->nombre_enfant;
                 $contrat->salaire = $this->montantCategorie;
                 $contrat->nombre_jour_conge = 0;

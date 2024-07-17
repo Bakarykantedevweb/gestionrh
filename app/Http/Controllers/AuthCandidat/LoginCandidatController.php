@@ -48,6 +48,7 @@ class LoginCandidatController extends Controller
             $findCandidat = Candidat::where('email', $candidat->email)->first();
             if ($findCandidat) {
                 Auth::guard('webcandidat')->login($findCandidat);
+                toastr()->success('Bienvenue sur la plateforme OptiRH');
                 return redirect('/');
 
             }
@@ -66,6 +67,7 @@ class LoginCandidatController extends Controller
                 );
 
                 Auth::guard('webcandidat')->login($newCandidat);
+                toastr()->success('Bienvenue sur la plateforme OptiRH');
                 return redirect('/');
             }
         } catch (\Throwable $th) {

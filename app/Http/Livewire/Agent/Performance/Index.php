@@ -42,10 +42,10 @@ class Index extends Component
     {
         $cleTaleau = array_keys($this->notes);
         $noteTableau = array_values($this->notes);
-        for($i = 0; $i < count($cleTaleau); $i++)
+        for ($i = 0; $i < count($cleTaleau); $i++)
         {
             $performanceQuestion = PerformanceQuestion::where('performance_id', $this->performance_id)
-                                    ->where('question_id',$cleTaleau[$i])->first();
+                ->where('question_id', $cleTaleau[$i])->first();
             $performanceQuestion->note = $noteTableau[$i];
             $performanceQuestion->save();
         }
@@ -56,7 +56,7 @@ class Index extends Component
 
     public function render()
     {
-        $this->performances = Performance::where('superieur_id',Auth::guard('webagent')->user()->id)->get();
+        $this->performances = Performance::where('superieur_id', Auth::guard('webagent')->user()->id)->get();
         return view('livewire.agent.performance.index');
     }
 }

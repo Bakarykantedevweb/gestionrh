@@ -22,7 +22,7 @@ class Index extends Component
     public $objetTitre, $date_debut, $date_fin, $duree, $heure_depart, $heure_retour;
 
     public $reponsableDCH;
-
+    public $ordreMissionID;
     public $optionsObjet = [
         'Formation' => 'hidden',
         'Semaire' => 'hidden',
@@ -61,8 +61,15 @@ class Index extends Component
         $this->ordreMissions = OrdreMission::get();
         $this->agents = Agent::get();
         $this->agences = Agence::get();
-        $agentDCH = Agent::where('poste_id',82)->first();
-        $this->grh = $agentDCH->prenom.''.$agentDCH->nom;
+        $agentDCH = Agent::where('poste_id', 82)->first();  
+        if($agentDCH)
+        {
+             $this->grh = $agentDCH->prenom.' '.$agentDCH->nom;
+        }
+        else
+        {
+            $this->grh = 'Pas de DRH enregistrer pour le moment';
+        }
 
     }
 
@@ -76,6 +83,12 @@ class Index extends Component
     {
         $this->afficherListe = true;
         $this->afficherForm = false;
+    }
+
+    public function retourEdit()
+    {
+        $this->afficherListe = true;
+        $this->editOrdreForm = false;
     }
 
     public function updatedDateDebut($value)
@@ -135,9 +148,53 @@ class Index extends Component
 
     public function editOrdreMission($id)
     {
+        $ordreMissionEdit = OrdreMission::find($id);
+        $this->ordreMissionID = $id;
+        $this->agent_id = $ordreMissionEdit->agent_id;
+        $this->superieur_id = $ordreMissionEdit->superieur_id;
+        $this->agence_id = $ordreMissionEdit->agence_id;
+        $this->objet = $ordreMissionEdit->objet;
+        $this->objetTitre = $ordreMissionEdit->objetTitre;
+        $this->date_debut = $ordreMissionEdit->date_debut;
+        $this->date_fin = $ordreMissionEdit->date_fin;
+        $this->duree = $ordreMissionEdit->duree;
+        $this->moyen_transport = $ordreMissionEdit->moyen_transport;
+        $this->heure_depart = $ordreMissionEdit->heure_depart;
+        $this->heure_retour = $ordreMissionEdit->heure_retour;
+        $this->grh = $ordreMissionEdit->grh;
         $this->editOrdreForm = true;
         $this->afficherListe = false;
         $this->afficherForm = false;
+    }
+
+    public function UpdateOrdreMission()
+    {
+        $validatedData = $this->validate();
+        try {
+            $ordreMission = OrdreMission::where('id',$this->ordreMissionID)->first();
+            $ordreMission->numero = '000';
+            $ordreMission->objet = $validatedData['objet'];
+            $ordreMission->objetTitre = $this->objetTitre;
+            $ordreMission->date_debut = $validatedData['date_debut'];
+            $ordreMission->date_fin = $validatedData['date_fin'];
+            $ordreMission->duree = $this->duree;
+            $ordreMission->moyen_transport = $validatedData['moyen_transport'];
+            $ordreMission->heure_depart = $this->heure_depart;
+            $ordreMission->heure_retour = $this->heure_retour;
+            $ordreMission->agent_id = $validatedData['agent_id'];
+            $ordreMission->agence_id = $validatedData['agence_id'];
+            $ordreMission->superieur_id = $validatedData['superieur_id'];
+            $ordreMission->grh = $this->grh;
+            $ordreMission->save();
+            $numero = 'ORM-' . str_pad($ordreMission->id, 3, '0', STR_PAD_LEFT);
+            $ordreMission->numero = $numero;
+            $ordreMission->save();
+            session()->flash('success', 'Operation effectue avec success');
+            return redirect('admin/ordre-missions');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Un probleme est survenue lors du traitement de la page' . $th);
+            // return redirect('admin/ordre-missions');
+        }
     }
 
     public function render()

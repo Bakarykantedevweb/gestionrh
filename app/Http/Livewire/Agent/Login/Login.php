@@ -37,13 +37,25 @@ class Login extends Component
         try {
             $agent = Agent::where('email', $validatedData['email'])->firstOrFail();
             $this->agentID = $agent->id;
+
+            // Vérifier si le compte est bloqué
             if ($agent->blocked == 1) {
                 return toastr()->error('Votre compte est désactivé, veuillez contacter la GRH.');
             }
 
-            // Si l'agent a réussi à s'authentifier avec son ancien mot de passe
+            // Vérifier si le contrat de l'agent est actif
+            $hasActiveContract = $agent->contrats()
+                ->where(function ($query) {
+                    $query->where('date_fin', '>=', now())
+                        ->orWhereNull('date_fin');
+                })->exists();
+
+            if (!$hasActiveContract) {
+                return toastr()->error('Votre contrat est terminé, vous ne pouvez plus vous connecter.');
+            }
+
+            // Authentification de l'agent
             if (Auth::guard('webagent')->attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']])) {
-                // Si le mot de passe a été changé mais le formulaire montre toujours le champ pour le nouveau mot de passe
                 if ($agent->password_changed == false && $this->showInput) {
                     $this->validate([
                         'newpassword' => 'required|min:8|confirmed',
@@ -58,7 +70,6 @@ class Login extends Component
                     toastr()->success('Bienvenue sur OptiRH');
                     return redirect()->route('agent-dashboard');
                 } else {
-                    // Si le mot de passe a été changé mais le formulaire montre toujours le champ pour le nouveau mot de passe
                     if ($agent->password_changed == false) {
                         $this->showInput = true;
                         return;
@@ -78,8 +89,7 @@ class Login extends Component
                 }
                 return toastr()->error('L\'authentification a échoué');
             }
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) 
-        {
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
             toastr()->error('Aucun agent trouvé avec cette adresse e-mail.');
         }
     }
@@ -93,7 +103,7 @@ class Login extends Component
             toastr()->error('Les deux mots de passe ne sont pas les meme');
             $this->confirmpassword = '';
         }
-        
+
         $agent->password = Hash::make($this->newpassword);
         $agent->password_changed = true;
         $agent->save();
@@ -101,6 +111,7 @@ class Login extends Component
         // Rediriger l'agent vers le tableau de bord après la mise à jour du mot de passe
         return redirect()->route('agent-dashboard');
     }
+
 
 
     public function render()

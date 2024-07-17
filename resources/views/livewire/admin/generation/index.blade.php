@@ -18,8 +18,21 @@
         <div class="row filter-row">
             <div class="col-sm-6 col-md-3">
                 <div class="form-group">
+                    <label class="focus-label">Choississez une Exercice</label>
+                    <select wire:model="ExerciceId" class="form-control">
+                        <option value="0">---</option>
+                        @forelse ($exercices as $exercice)
+                            <option value="{{ $exercice->id }}">{{ ucfirst($exercice->nom) }}</option>
+                        @empty
+                            <option value="0" disabled>Aucune feuille de calcul trouvée</option>
+                        @endforelse
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group">
                     <label class="focus-label">Choississez une Periode</label>
-                    <select wire:model="PeriodeId" wire:change="chargerContrats" class="form-control">
+                    <select wire:model="PeriodeId" class="form-control">
                         <option value="0">---</option>
                         @forelse ($periodes as $periode)
                             <option value="{{ $periode->id }}">{{ ucfirst($periode->mois) }}</option>
@@ -71,6 +84,7 @@
             </div>
         </div>
     @endif
+
     @if ($GenerationBulletin)
         @php
             $montant = 0;
@@ -135,7 +149,7 @@
                                         <h5 class="mb-0">
                                             <strong>{{ $detailContrat->agent->prenom .
                                                 '
-                                                                                        ' .
+                                                                                                                                    ' .
                                                 $detailContrat->agent->nom }}</strong>
                                         </h5>
                                     </li>

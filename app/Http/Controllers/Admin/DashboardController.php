@@ -36,4 +36,9 @@ class DashboardController extends Controller
             ->get();
         return view('admin.inbox', compact('contacts'));
     }
+
+    public function page404()
+    {
+        return view('admin.404');
+    }
 }

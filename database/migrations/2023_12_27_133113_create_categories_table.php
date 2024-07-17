@@ -17,6 +17,26 @@ return new class extends Migration
             $table->integer('status')->default('0');
             $table->timestamps();
         });
+        DB::table('categories')->insert([
+            [
+                'nom' => 'Informatique',
+            ],
+            [
+                'nom' => 'Marketing',
+            ],
+            [
+                'nom' => 'Finance & Comptabilité',
+            ],
+            [
+                'nom' => 'Journalisme & Communication',
+            ],
+            [
+                'nom' => 'Ressources Humaines',
+            ],
+            [
+                'nom' => 'Logitique',
+            ],
+        ]);
     }
 
     /**

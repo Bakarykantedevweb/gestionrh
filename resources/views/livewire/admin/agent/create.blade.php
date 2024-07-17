@@ -244,6 +244,18 @@
                                             </div>
                                         </div>
                                     @endif
+                                    @if ($showInputsCQ)
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Date Fin du CQ<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="date" wire:model="date_fin" class="form-control">
+                                                @error('date_fin')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-md-6">
                                         <label for="">Diplome</label>
                                         <select wire:model="diplome_id" wire:change="updateMontant"

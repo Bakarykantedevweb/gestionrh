@@ -1,5 +1,5 @@
 <div>
-    {{-- @include('livewire.admin.experience.modal') --}}
+    @include('livewire.admin.exercice.modal')
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
@@ -52,8 +52,8 @@
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
                                             aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a wire:click="editexperience({{ $items->id }})" class="dropdown-item"
-                                                href="#" data-toggle="modal" data-target="#add_experience"><i
+                                            <a class="dropdown-item"
+                                                href="#" wire:click="editExercice({{ $items->id }})" data-toggle="modal" data-target="#add_exercice"><i
                                                     class="fa fa-pencil m-r-5"></i>
                                                 Edit</a>
                                         </div>

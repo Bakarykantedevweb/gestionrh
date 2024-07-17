@@ -44,6 +44,7 @@ class AgentShow extends Component
     public $sexeAgent;
     public $showInputs = false;
     public $showInputsAgence = false;
+    public $showInputsCQ = false;
     public $selectedOption;
     public $agences;
     public $detailAgent;
@@ -132,6 +133,7 @@ class AgentShow extends Component
     public function changeType()
     {
         $this->showInputs = $this->type_contrat_id == 2;
+        $this->showInputsCQ = $this->type_contrat_id == 3;
     }
 
     public function getRubriques()
@@ -289,13 +291,12 @@ class AgentShow extends Component
     public function activer(int $agent_id)
     {
         $agent = Agent::findOrFail($agent_id); // Retrouver l'agent par ID
-
         $agent->unblockAccount();
         $agent->resetLoginAttempts();
         $agent->password = Hash::make('password');
         $agent->password_changed = false;
         $agent->save();
-        toastr()->success('Le compte de l\'agent a été activé.');
+        toastr()->success('Le compte de l\'agent a été activé. Son mot de passe par defaut c\'est password');
         return redirect('admin/agents');
     }
 
@@ -303,10 +304,12 @@ class AgentShow extends Component
 
     public function render()
     {
-        $this->agents = Agent::get();
+        $this->agents = Agent::with(['contrats' => function ($query) {
+            $query->where('date_fin', '<', now());
+        }])->orderBy('id', 'asc')->get();
         $this->departements = Departement::get();
         $this->diplomes = Diplome::get();
-        $this->typeContrats = TypeContrat::limit(2)->get();
+        $this->typeContrats = TypeContrat::limit(3)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
         $this->agences = Agence::get();

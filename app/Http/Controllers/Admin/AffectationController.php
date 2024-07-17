@@ -14,7 +14,7 @@ class AffectationController extends Controller
         $autorisation = $this->autorisation(Auth::user()->role, 'affectation.index');
         if ($autorisation == 'false') {
             toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
-            return redirect()->route('dashboard');
+            return redirect('admin/404');
         }
         $contacts = Contact::where('status', '0')
         ->whereDate('created_at', '<=', now())

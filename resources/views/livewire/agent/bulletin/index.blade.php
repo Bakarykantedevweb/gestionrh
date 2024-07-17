@@ -31,23 +31,33 @@
                             Bulletins
                         </h2>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="">
-                                <span>Choississez une periode</span>
-                                <select wire:model="PeriodeId" wire:change="chargerContrats"
-                                    class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                                    <option value="0">---</option>
-                                    @forelse ($periodes as $periode)
-                                        <option value="{{ $periode->id }}">{{ ucfirst($periode->mois) }}</option>
-                                    @empty
-                                        <option value="0" disabled>Aucune periode trouvé</option>
-                                    @endforelse
-                                </select>
-                            </label>
-                        </div>
-                        <div class="col-md-6"></div>
+                    <div class="flex space-x-4">
+                        <label class="flex-1">
+                            <span>Choississez une Exercice</span>
+                            <select wire:model="ExerciceId"
+                                class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                                <option value="0">---</option>
+                                @forelse ($exercices as $exercice)
+                                    <option value="{{ $exercice->id }}">{{ ucfirst($exercice->nom) }}</option>
+                                @empty
+                                    <option value="0" disabled>Aucune feuille de calcul trouvée</option>
+                                @endforelse
+                            </select>
+                        </label>
+                        <label class="flex-1">
+                            <span>Choississez une Période</span>
+                            <select wire:model="PeriodeId"
+                                class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                                <option value="0">---</option>
+                                @forelse ($periodes as $periode)
+                                    <option value="{{ $periode->id }}">{{ ucfirst($periode->mois) }}</option>
+                                @empty
+                                    <option value="0" disabled>Aucune période trouvée</option>
+                                @endforelse
+                            </select>
+                        </label>
                     </div>
+
                     <div>
                         <div class="mt-5">
                             <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
@@ -131,7 +141,7 @@
                                 d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
                             </path>
                         </svg>
-                    {{-- </button> --}}
+                        {{-- </button> --}}
                 </div>
             </div>
             <button wire:click="retour"
@@ -233,115 +243,115 @@
                     <div class="my-7 h-px bg-slate-200 dark:bg-navy-500"></div>
                     @php
                         // Calcul de l'INPS et du revenu imposable
-                        $salaireBrut = $montant + $detailContrat->salaire;
-                        $inps = ($salaireBrut * 3.6) / 100;
-                        $amo = ($salaireBrut * 3.06) / 100;
+$salaireBrut = $montant + $detailContrat->salaire;
+$inps = ($salaireBrut * 3.6) / 100;
+$amo = ($salaireBrut * 3.06) / 100;
 
-                        $revenu = $salaireBrut - $inps - $amo;
-                        $revenuArrondi = round($revenu, 0);
-                        $revenuAnnuelle = $revenuArrondi * 12;
-                        $salaireArrondi = floor($revenuAnnuelle / 1000) * 1000;
+$revenu = $salaireBrut - $inps - $amo;
+$revenuArrondi = round($revenu, 0);
+$revenuAnnuelle = $revenuArrondi * 12;
+$salaireArrondi = floor($revenuAnnuelle / 1000) * 1000;
 
-                        // echo "Revenu : $revenuArrondi FCFA <br>";
-                        // echo "Revenu Annulle : $revenuAnnuelle FCFA <br>";
-                        // echo "Revenu Arrondi : $salaireArrondi FCFA <br>";
+// echo "Revenu : $revenuArrondi FCFA <br>";
+// echo "Revenu Annulle : $revenuAnnuelle FCFA <br>";
+// echo "Revenu Arrondi : $salaireArrondi FCFA <br>";
 
-                        function calculerITS($revenuAnnuel)
-                        {
-                            // Tableau des tranches
-                            $tranches = [
-                                ['min' => 0, 'max' => 330000, 'taux' => 0],
-                                ['min' => 330001, 'max' => 578400, 'taux' => 5],
-                                ['min' => 578401, 'max' => 1176400, 'taux' => 12],
-                                ['min' => 1176401, 'max' => 1789733, 'taux' => 18],
-                                ['min' => 1789734, 'max' => 2384195, 'taux' => 26],
-                                ['min' => 2384196, 'max' => 3494130, 'taux' => 31],
-                                ['min' => 3494131, 'max' => PHP_INT_MAX, 'taux' => 37], // Ajout de la dernière tranche
-                            ];
+function calculerITS($revenuAnnuel)
+{
+    // Tableau des tranches
+    $tranches = [
+        ['min' => 0, 'max' => 330000, 'taux' => 0],
+        ['min' => 330001, 'max' => 578400, 'taux' => 5],
+        ['min' => 578401, 'max' => 1176400, 'taux' => 12],
+        ['min' => 1176401, 'max' => 1789733, 'taux' => 18],
+        ['min' => 1789734, 'max' => 2384195, 'taux' => 26],
+        ['min' => 2384196, 'max' => 3494130, 'taux' => 31],
+        ['min' => 3494131, 'max' => PHP_INT_MAX, 'taux' => 37], // Ajout de la dernière tranche
+    ];
 
-                            $cumulITS = 0;
+    $cumulITS = 0;
 
-                            // Parcourir les tranches
-                            foreach ($tranches as $tranche) {
-                                // Vérifier si le revenu annuel est dans la tranche
-                                if ($revenuAnnuel > $tranche['min'] && $revenuAnnuel <= $tranche['max']) {
-                                    // Ajuster la valeur maximale de la tranche au revenu annuel donné
-                                    $tranche['max'] = $revenuAnnuel;
+    // Parcourir les tranches
+    foreach ($tranches as $tranche) {
+        // Vérifier si le revenu annuel est dans la tranche
+        if ($revenuAnnuel > $tranche['min'] && $revenuAnnuel <= $tranche['max']) {
+            // Ajuster la valeur maximale de la tranche au revenu annuel donné
+            $tranche['max'] = $revenuAnnuel;
 
-                                    // Calculer l'ITS pour cette tranche
-                                                            $itsTranche = round($tranche['max'] - $tranche['min']); // Arrondir le résultat
-                                                            $cumulITS += round($itsTranche * ($tranche['taux'] / 100)); // Arrondir le résultat
-
-                                                            // Terminer la boucle dès que la tranche appropriée est trouvée
-                                                            break;
-                                                        } else {
-                                                            // Calculer l'ITS pour cette tranche
+            // Calculer l'ITS pour cette tranche
                                     $itsTranche = round($tranche['max'] - $tranche['min']); // Arrondir le résultat
                                     $cumulITS += round($itsTranche * ($tranche['taux'] / 100)); // Arrondir le résultat
-                                }
-                            }
 
-                            return $cumulITS;
-                        }
-
-                        $revenuAnnuel = $salaireArrondi;
-
-                        $resultatITS = calculerITS($revenuAnnuel);
-
-                        //echo "Pour un revenu annuel de $revenuAnnuel FCFA, l'ITS est de $resultatITS FCFA. <br>";
-
-                        function calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants)
-                        {
-                            // Appliquer la réduction en fonction de l'état civil
-                            switch ($etatCivil) {
-                                case 'Célibataire':
-                                case 'Divorce':
-                                case 'Veuf':
-                                    // Pas de réduction pour célibataire, divorcé ou veuf
-                                    $reductionEtatCivil = 0;
+                                    // Terminer la boucle dès que la tranche appropriée est trouvée
                                     break;
-                                case 'Marie':
-                                    // Réduction de 10% pour les travailleurs mariés
-                                    $reductionEtatCivil = 0.1;
-                                    break;
-                                default:
-                                    $reductionEtatCivil = 0;
-                                    break;
-                            }
+                                } else {
+                                    // Calculer l'ITS pour cette tranche
+            $itsTranche = round($tranche['max'] - $tranche['min']); // Arrondir le résultat
+            $cumulITS += round($itsTranche * ($tranche['taux'] / 100)); // Arrondir le résultat
+        }
+    }
 
-                            // Appliquer la réduction en fonction du nombre d'enfants à charge
-                            $reductionEnfants = min(0.025 * $nombreEnfants, 0.25); // Maximum de 25%
+    return $cumulITS;
+}
 
-                            // Calculer le total des réductions
-                            $totalReductions = $reductionEtatCivil + $reductionEnfants;
+$revenuAnnuel = $salaireArrondi;
 
-                            // Calculer l'ITS après les réductions
-                            $itsApresReduction = $itsAvantReduction * (1 - $totalReductions);
+$resultatITS = calculerITS($revenuAnnuel);
 
-                            // Calculer le pourcentage du taux de réduction
-                            $pourcentageReduction = $totalReductions * 100;
+//echo "Pour un revenu annuel de $revenuAnnuel FCFA, l'ITS est de $resultatITS FCFA. <br>";
 
-                            $itsApresReduction = round($itsApresReduction, 0, PHP_ROUND_HALF_DOWN);
+function calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants)
+{
+    // Appliquer la réduction en fonction de l'état civil
+    switch ($etatCivil) {
+        case 'Célibataire':
+        case 'Divorce':
+        case 'Veuf':
+            // Pas de réduction pour célibataire, divorcé ou veuf
+            $reductionEtatCivil = 0;
+            break;
+        case 'Marie':
+            // Réduction de 10% pour les travailleurs mariés
+            $reductionEtatCivil = 0.1;
+            break;
+        default:
+            $reductionEtatCivil = 0;
+            break;
+    }
 
-                            return [
-                                'itsApresReduction' => $itsApresReduction,
-                                'pourcentageReduction' => $pourcentageReduction,
-                            ];
-                        }
+    // Appliquer la réduction en fonction du nombre d'enfants à charge
+    $reductionEnfants = min(0.025 * $nombreEnfants, 0.25); // Maximum de 25%
 
-                        // Exemple d'utilisation
-                        $itsAvantReduction = $resultatITS; // Montant de l'ITS avant réduction
-                        $etatCivil = $detailContrat->situation_matrimoniale; // État civil du travailleur (celibataire, marie, divorce, veuf)
-                        $nombreEnfants = $detailContrat->nombre_enfant; // Nombre d'enfants à charge     // True si l'enfant est invalide, sinon false
+    // Calculer le total des réductions
+    $totalReductions = $reductionEtatCivil + $reductionEnfants;
 
-                        $resultats = calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants);
+    // Calculer l'ITS après les réductions
+    $itsApresReduction = $itsAvantReduction * (1 - $totalReductions);
 
-                        // echo "ITS avant réduction : $itsAvantReduction FCFA <br>";
-                        // echo "ITS après réduction : {$resultats['itsApresReduction']} FCFA <br>";
-                        // echo "Pourcentage du taux de réduction : {$resultats['pourcentageReduction']}% <br>";
-                        // echo "Revenu Annuel $revenuAnnuelle <br>";
-                        // echo "Situation matrimoniale $detailContrat->situation_matrimoniale <br>";
-                        // echo "Nombre enfant $detailContrat->nombre_enfant <br>";
+    // Calculer le pourcentage du taux de réduction
+    $pourcentageReduction = $totalReductions * 100;
+
+    $itsApresReduction = round($itsApresReduction, 0, PHP_ROUND_HALF_DOWN);
+
+    return [
+        'itsApresReduction' => $itsApresReduction,
+        'pourcentageReduction' => $pourcentageReduction,
+    ];
+}
+
+// Exemple d'utilisation
+$itsAvantReduction = $resultatITS; // Montant de l'ITS avant réduction
+$etatCivil = $detailContrat->situation_matrimoniale; // État civil du travailleur (celibataire, marie, divorce, veuf)
+$nombreEnfants = $detailContrat->nombre_enfant; // Nombre d'enfants à charge     // True si l'enfant est invalide, sinon false
+
+$resultats = calculerITSAvecReductions($itsAvantReduction, $etatCivil, $nombreEnfants);
+
+// echo "ITS avant réduction : $itsAvantReduction FCFA <br>";
+// echo "ITS après réduction : {$resultats['itsApresReduction']} FCFA <br>";
+// echo "Pourcentage du taux de réduction : {$resultats['pourcentageReduction']}% <br>";
+// echo "Revenu Annuel $revenuAnnuelle <br>";
+// echo "Situation matrimoniale $detailContrat->situation_matrimoniale <br>";
+// echo "Nombre enfant $detailContrat->nombre_enfant <br>";
                         $tauxITS = ($resultats['itsApresReduction'] / $revenuAnnuelle) * 100;
                         $tauxReduit = $tauxITS - 2;
                         $ITSAnnuelReduit = ($revenuAnnuelle * $tauxReduit) / 100;

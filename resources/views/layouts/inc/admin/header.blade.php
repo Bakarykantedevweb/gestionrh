@@ -3,7 +3,7 @@
                 <!-- Logo -->
                 <div class="header-left">
                     <h1 style="font-family:'CircularStd', sans-serif;color:#2C7BE5" class="mt-2">
-                        OptiRH
+                        OPTIRH
                     </h1>
                 </div>
                 <!-- /Logo -->

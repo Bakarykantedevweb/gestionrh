@@ -68,6 +68,9 @@ class BulletinShow extends Component
                     // Inclure les contrats de type CDD dont la date de fin est supérieure ou égale à aujourd'hui
                     return $contrat->date_fin >= now();
                 }
+                elseif($contrat->type_contrat_id == 3) {
+                    return $contrat->date_fin >= now();
+                }
                 return false;
             });
 

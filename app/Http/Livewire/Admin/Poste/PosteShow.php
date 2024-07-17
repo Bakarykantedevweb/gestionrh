@@ -115,9 +115,10 @@ class PosteShow extends Component
         for ($row = 2; $row <= $highestRow; $row++) {
             try {
                 $nom = $worksheet->getCell('A' . $row)->getValue();
-
+                $is_responsable = $worksheet->getCell('B' . $row)->getValue();
                 Poste::create([
                     'nom' => $nom,
+                    'is_responsable' =>$is_responsable
                 ]);
             } catch (\Exception $e) {
                 session()->flash('error', $e->getMessage());

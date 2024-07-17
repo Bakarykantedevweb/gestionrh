@@ -7,6 +7,7 @@ use App\Models\Periode;
 use Livewire\Component;
 use App\Models\Bulletin;
 use App\Models\BulletinRubrique;
+use App\Models\Exercice;
 use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
@@ -17,7 +18,9 @@ class Index extends Component
 
     public $bulletins = [];
     public $periodes;
+    public $exercices;
     public $PeriodeId;
+    public $ExerciceId;
     public $rubriquesDuBulletin = null;
     public $detailContrat;
     public $detailBulletin;
@@ -26,16 +29,31 @@ class Index extends Component
     public function mount()
     {
         $this->periodes = Periode::get();
+        $this->exercices = Exercice::get();
+    }
+
+    public function updatedExerciceId()
+    {
+        // Charger les contrats lorsqu'un exercice est sélectionné
+        $this->chargerContrats();
+    }
+
+    public function updatedPeriodeId()
+    {
+        // Charger les contrats lorsqu'une période est sélectionnée
+        $this->chargerContrats();
     }
 
     public function chargerContrats()
     {
-        // Vérifiez si la période est sélectionnée
-        if ($this->PeriodeId) {
-            // Récupérez les contrats associés à la période sélectionnée
-            $this->bulletins = Bulletin::where('periode_id', $this->PeriodeId)->get();
+        // Vérifiez si l'exercice et la période sont sélectionnés
+        if ($this->ExerciceId && $this->PeriodeId) {
+            // Récupérez les bulletins associés à l'exercice et la période sélectionnés
+            $this->bulletins = Bulletin::where('periode_id', $this->PeriodeId)
+                ->where('exercice_id', $this->ExerciceId)
+                ->get();
         } else {
-            // Réinitialisez la liste des contrats si aucune période n'est sélectionnée
+            // Réinitialisez la liste des bulletins si l'exercice ou la période ne sont pas sélectionnés
             $this->bulletins = [];
         }
     }

@@ -1,6 +1,5 @@
 <div>
-    <section class="banner bg-holder bg-overlay-black-30 text-white"
-        style="background-image: url({{ asset('frontend/images/bg/banner-01.jpg') }});">
+    <section class="banner bg-holder bg-overlay-black-30 text-white">
         <div class="container">
             <div class="row">
                 <div class="col-12 position-relative">
@@ -11,7 +10,14 @@
                 </div>
             </div>
         </div>
+        <div class="slideshow">
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/2.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/3.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/4.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/5.jpg') }}');"></div>
+        </div>
     </section>
+
     <section class="space-pb j-mt-sm-n6">
         <div class="container">
             <div class="row">
@@ -81,13 +87,13 @@
 
         </div>
     </section>
-    
+
     <section class="space-ptb bg-light">
         <div class="container">
             <div class="row">
                 <div class="section-title">
-                        <h2 class="title"><span>Annonce des offres d'emploi en vedette</span></h2>
-                    </div>
+                    <h2 class="title"><span>Annonce des offres d'emploi en vedette</span></h2>
+                </div>
                 <div class="col-lg-3">
                     <div class="sidebar">
                         <div class="widget">
@@ -101,7 +107,8 @@
                                 <div class="widget-content">
                                     @forelse ($categories as $categorie)
                                         <div class="custom-control custom-checkbox form-check">
-                                            <input type="checkbox" wire:model="selectedCategories" value="{{ $categorie->id }}" class="form-check-input">
+                                            <input type="checkbox" wire:model="selectedCategories"
+                                                value="{{ $categorie->id }}" class="form-check-input">
                                             <label class="custom-control-label">{{ $categorie->nom }}</label>
                                         </div>
                                     @empty
@@ -119,9 +126,10 @@
                             </div>
                             <div class="collapse show" id="experience">
                                 <div class="widget-content">
-                                   @forelse ($diplomes as $diplome)
+                                    @forelse ($diplomes as $diplome)
                                         <div class="custom-control custom-checkbox form-check">
-                                            <input type="checkbox" wire:model="selectedDiplomes" value="{{ $diplome->id }}" class="form-check-input">
+                                            <input type="checkbox" wire:model="selectedDiplomes"
+                                                value="{{ $diplome->id }}" class="form-check-input">
                                             <label class="custom-control-label">{{ $diplome->nom }}</label>
                                         </div>
                                     @empty
@@ -141,7 +149,8 @@
                                 <div class="widget-content">
                                     @forelse ($experiences as $experience)
                                         <div class="custom-control custom-checkbox form-check">
-                                            <input type="checkbox" wire:model="selectedExperiences" value="{{ $experience->id }}" class="form-check-input">
+                                            <input type="checkbox" wire:model="selectedExperiences"
+                                                value="{{ $experience->id }}" class="form-check-input">
                                             <label class="custom-control-label">{{ $experience->nom }}</label>
                                         </div>
                                     @empty
@@ -161,8 +170,10 @@
                                 <div class="widget-content">
                                     @forelse ($salaires as $salaire)
                                         <div class="custom-control custom-checkbox form-check">
-                                            <input type="checkbox" wire:model="selectedSalaires" value="{{ $salaire->id }}" class="form-check-input">
-                                            <label class="custom-control-label">{{ $salaire->salaire_debut.'-'.$salaire->salaire_fin }}</label>
+                                            <input type="checkbox" wire:model="selectedSalaires"
+                                                value="{{ $salaire->id }}" class="form-check-input">
+                                            <label
+                                                class="custom-control-label">{{ $salaire->salaire_debut . '-' . $salaire->salaire_fin }}</label>
                                         </div>
                                     @empty
                                         <span>Pas d'experience'</span>
@@ -176,7 +187,8 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="section-title mb-3 mb-lg-4">
-                                <h6 class="mb-0"><span class="badge badge-lg bg-primary">{{ count($offres) }}</span>
+                                <h6 class="mb-0"><span
+                                        class="badge badge-lg bg-primary">{{ count($offres) }}</span>
                                     Emplois trouvés </h6>
                             </div>
                         </div>
@@ -216,7 +228,8 @@
                                     <div class="job-list-details">
                                         <div class="job-list-info">
                                             <div class="job-list-title">
-                                                <h5 class="mb-0"><a href="{{ url('offres/'.$offre->titre.'/detail') }}">{{ $offre->titre }}</a>
+                                                <h5 class="mb-0"><a
+                                                        href="{{ url('offres/' . $offre->titre . '/detail') }}">{{ $offre->titre }}</a>
                                                 </h5>
                                                 <span class="full-time">Nouveau</span>
                                             </div>

@@ -16,6 +16,23 @@ return new class extends Migration
             $table->string('nom');
             $table->timestamps();
         });
+        DB::table('categories')->insert([
+            [
+                'nom' => 'Moins 1 an',
+            ],
+            [
+                'nom' => '2 ans',
+            ],
+            [
+                'nom' => '3 ans',
+            ],
+            [
+                'nom' => '4 ans',
+            ],
+            [
+                'nom' => 'Plus de 5 ans',
+            ],
+        ]);
     }
 
     /**
