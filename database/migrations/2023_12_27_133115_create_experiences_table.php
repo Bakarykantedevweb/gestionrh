@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->timestamps();
         });
-        DB::table('categories')->insert([
+        DB::table('experiences')->insert([
             [
                 'nom' => 'Moins 1 an',
             ],
