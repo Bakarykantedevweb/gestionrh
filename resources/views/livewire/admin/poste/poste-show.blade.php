@@ -41,9 +41,7 @@
                                 <td>{{ $items->nom }}</td>
                                 <td>
                                     @if ($items->is_responsable)
-                                        <span class="btn btn-success btn-sm">Oui</span>
-                                    @else
-                                        <span class="btn btn-danger btn-sm">Non</span>
+                                        <span>Poste de reponsabilite</span>
                                     @endif
                                 </td>
                                 <td class="text-right">

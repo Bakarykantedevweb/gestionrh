@@ -1,6 +1,5 @@
 <div>
-    <section class="header-inner header-inner-big bg-holder text-white"
-        style="background-image: url({{ asset('frontend/images/bg/banner-01.jpg') }});">
+    <section class="banner bg-holder bg-overlay-black-30 text-white">
         <div class="container">
             <div class="row">
                 <div class="col-12 position-relative">
@@ -10,6 +9,13 @@
                         un moyen de faire mieux... trouve-le.</p>
                 </div>
             </div>
+        </div>
+        <div class="slideshow">
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/1.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/2.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/3.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/4.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/5.jpg') }}');"></div>
         </div>
     </section>
     <section class="space-ptb">

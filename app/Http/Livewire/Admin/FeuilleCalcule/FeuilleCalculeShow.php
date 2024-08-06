@@ -68,7 +68,6 @@ class FeuilleCalculeShow extends Component
         $validatedData = $this->validate();
         try {
             $dep = FeuilleCalcule::find($this->feuille_id);
-            $dep->code = $validatedData['code'];
             $dep->libelle = $validatedData['libelle'];
             $dep->save();
             $dep->rubriques()->detach();

@@ -90,8 +90,12 @@
                         <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a
                                 href="">{{ $items->departement->code }}</a></h5>
                         <div class="small text-muted">{{ $items->matricule }}</div>
+                        <a href="{{ url('admin/agents/' . $items->matricule . '/contrat') }}" target="_blank"
+                            class="btn btn-white btn-sm m-t-10">Contrat
+                        </a>
                         <a href="{{ url('admin/agents/' . $items->matricule . '/detail') }}"
-                            class="btn btn-white btn-sm m-t-10">Voir Profile</a>
+                            class="btn btn-white btn-sm m-t-10">Voir Profile
+                        </a>
                     </div>
                 </div>
             @endforeach

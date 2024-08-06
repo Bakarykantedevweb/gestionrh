@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Agent;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_ecole');
-            $table->string('cycle');
-            $table->string('diplome');
-            $table->string('annee');
-            $table->string('piece_jointe');
+            $table->string('nom_diplome');
+            $table->string('nom_universite');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->string('fichier');
+            $table->foreignIdFor(Agent::class)->constrained();
             $table->timestamps();
         });
     }

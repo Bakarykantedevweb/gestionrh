@@ -139,6 +139,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('agents', 'index')->name('agent.index');
         Route::get('agents/create', 'create')->name('agent.create');
         Route::get('agents/{matricule}/detail', 'detail')->name('agent.detail');
+        Route::get('agents/{matricule}/contrat', 'contrat')->name('agent.contrat');
     });
 
     Route::controller(TypeContratController::class)->group(function () {

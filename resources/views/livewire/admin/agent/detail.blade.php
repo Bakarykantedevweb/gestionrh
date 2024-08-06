@@ -189,42 +189,36 @@
                     <div class="card profile-box flex-fill">
                         <div class="card-body">
                             <h3 class="card-title">Education Informations <a href="#" class="edit-icon"
-                                    data-toggle="modal" data-target="#education_info"><i
-                                        class="fa fa-plus"></i></a></h3>
+                                    data-toggle="modal" data-target="#education_info"><i class="fa fa-plus"></i></a>
+                            </h3>
                             <div class="experience-box">
-                                <ul class="experience-list">
-                                    <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">International College of Arts and
-                                                    Science (UG)</a>
-                                                <div>Bsc Computer Science</div>
-                                                <span class="time">2000 - 2003</span>
+                                @forelse ($educations as $education)
+                                    <ul class="experience-list">
+                                        <li>
+                                            <div class="experience-user">
+                                                <div class="before-circle"></div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    {{-- <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">International College of Arts and
-                                                    Science (PG)</a>
-                                                <div>Msc Computer Science</div>
-                                                <span class="time">2000 - 2003</span>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <a href="#"
+                                                        class="name">{{ $education->nom_diplome }} </a>
+                                                    <div>{{ $education->nom_universite }}</div>
+                                                    <span
+                                                        class="time">{{ \Carbon\Carbon::parse($education->date_debut)->isoFormat('LL') }}
+                                                        -
+                                                        {{ \Carbon\Carbon::parse($education->date_fin)->isoFormat('LL') }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li> --}}
-                                </ul>
+                                        </li>
+                                    </ul>
+                                @empty
+                                    <span class="text-center">Pas de diplome</span>
+                                @endforelse
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex">
+                {{-- <div class="col-md-6 d-flex">
                     <div class="card profile-box flex-fill">
                         <div class="card-body">
                             <h3 class="card-title">Experience <a href="#" class="edit-icon"
@@ -247,7 +241,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- /Profile Info Tab -->

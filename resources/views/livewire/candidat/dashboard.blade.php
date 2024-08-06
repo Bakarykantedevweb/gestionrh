@@ -13,7 +13,12 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </div>
                                 <div class="profile-avatar-info">
-                                    <h3>{{ Auth::guard('webcandidat')->user()->prenom . ' ' . Auth::guard('webcandidat')->user()->nom }}
+                                    <h3>
+                                        @if (Auth::guard('webcandidat')->user()->prenom === 'Non defini')
+                                            {{ Auth::guard('webcandidat')->user()->nom }}
+                                        @else
+                                            {{ Auth::guard('webcandidat')->user()->prenom . ' ' . Auth::guard('webcandidat')->user()->nom }}
+                                        @endif
                                     </h3>
                                 </div>
                             </div>
@@ -214,7 +219,8 @@
                                             </div>
                                             <div class="mb-3 col-sm-6">
                                                 <label class="form-label">Date de naissance</label>
-                                                <input type="date" wire:model="date_naissance" class="form-control">
+                                                <input type="date" wire:model="date_naissance"
+                                                    class="form-control">
                                             </div>
                                             <div class="mb-3 col-sm-6">
                                                 <label class="form-label">Adresse</label>

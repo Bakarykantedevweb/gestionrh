@@ -80,11 +80,6 @@ class LoginCandidatController extends Controller
     {
         Auth::guard('webcandidat')->logout();
 
-        // Supprimer tous les cookies en définissant leur expiration dans le passé
-        foreach ($request->cookies as $key => $value) {
-            Cookie::queue(Cookie::forget($key));
-        }
-
         toastr()->success('Merci pour votre visite');
         return redirect('/');
     }

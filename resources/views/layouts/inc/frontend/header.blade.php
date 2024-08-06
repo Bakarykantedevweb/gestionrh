@@ -29,8 +29,12 @@
                          <li class="nav-item dropdown">
                              <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                                  aria-haspopup="true" aria-expanded="false">
-                                 {{ Auth::guard('webcandidat')->user()->username }} <i
-                                     class="fas fa-chevron-down fa-xs"></i>
+                                 @if (Auth::guard('webcandidat')->user()->prenom === 'Non defini')
+                                    {{ Auth::guard('webcandidat')->user()->nom }}
+                                 @else
+                                    {{ Auth::guard('webcandidat')->user()->username }}
+                                 @endif
+                                 <i class="fas fa-chevron-down fa-xs"></i>
                              </a>
                              <ul class="dropdown-menu">
                                  <li class="dropdown-submenu">

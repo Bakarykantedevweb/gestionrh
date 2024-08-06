@@ -49,7 +49,7 @@
                                 </label>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong class="text-danger">{{ $message }}</strong>
+                                        <strong class="text-danger">Entrez une adresse E-mail valide</strong>
                                     </span>
                                 @enderror
                                 <label class="relative mt-4 flex">

@@ -571,10 +571,11 @@ a.text-dark:hover {
 
 /* img holder */
 .bg-holder {
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  width: 100%; }
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+}
 
 .slideshow {
     position: absolute;
@@ -596,7 +597,7 @@ a.text-dark:hover {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
-    animation: slideShow 20s infinite;
+    animation: slideShow 25s infinite;
 }
 
 .slideshow-item:nth-child(1) {
@@ -615,15 +616,18 @@ a.text-dark:hover {
     animation-delay: 15s;
 }
 
-
+.slideshow-item:nth-child(5) {
+    animation-delay: 20s;
+}
 
 @keyframes slideShow {
     0% { opacity: 0; }
-    25% { opacity: 1; }
-    50% { opacity: 0; }
-    75% { opacity: 0; }
+    4% { opacity: 1; }
+    20% { opacity: 1; }
+    24% { opacity: 0; }
     100% { opacity: 0; }
 }
+
 
 /* bg-holder-pattern */
 .bg-holder-pattern {

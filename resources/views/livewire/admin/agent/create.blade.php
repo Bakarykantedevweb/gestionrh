@@ -401,7 +401,7 @@
                                             <tr>
                                                 @foreach ($rubriques as $rubrique)
                                                     <td>
-                                                        <input type="number" class="form-control"
+                                                        <input type="number" class=""
                                                             wire:model="montant.{{ $rubrique->id }}" />
                                                     </td>
                                                 @endforeach
