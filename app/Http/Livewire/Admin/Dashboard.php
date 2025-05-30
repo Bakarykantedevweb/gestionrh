@@ -33,16 +33,6 @@ class Dashboard extends Component
         $this->stagiaires = Stagiaire::count();
         $this->agents = Agent::count();
 
-        // Récupérer les statistiques par agence
-        // $agentsByAgence = Agent::select('agence_id', DB::raw('COUNT(*) as count'))
-        // ->groupBy('agence_id')
-        // ->get();
-
-        // Récupérer les statistiques par département
-        // $agentsByDepartement = Agent::select('departement_id', DB::raw('COUNT(*) as count'))
-        // ->groupBy('departement_id')
-        // ->get();
-
         // Récupérer les statistiques par sexe (homme/femme)
         $agentsBySexe = Agent::select('sexe', DB::raw('COUNT(*) as count'))
         ->groupBy('sexe')
@@ -50,22 +40,6 @@ class Dashboard extends Component
 
         // Préparer les données pour le graphique Morris.js
         $graphData = [];
-
-        // Ajouter les données par agence
-        // foreach ($agentsByAgence as $item) {
-        //     $agence = Agence::find($item->agence_id);
-        //     if ($agence) {
-        //         $graphData[] = ['y' => 'Agences', 'a' => $item->count, 'type' => 'Agence'];
-        //     }
-        // }
-
-        // Ajouter les données par département
-        // foreach ($agentsByDepartement as $item) {
-        //     $departement = Departement::find($item->departement_id);
-        //     if ($departement) {
-        //         $graphData[] = ['y' => 'Departements', 'a' => $item->count, 'type' => 'Departement'];
-        //     }
-        // }
 
         // Ajouter les données par sexe (homme/femme)
         foreach ($agentsBySexe as $item) {

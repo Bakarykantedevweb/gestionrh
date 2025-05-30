@@ -11,6 +11,8 @@ use App\Models\Affectation;
 use Livewire\WithFileUploads;
 use App\Models\ContratRubrique;
 use App\Models\BulletinRubrique;
+use App\Mail\GenererPasswordMail;
+use Illuminate\Support\Facades\Hash;
 
 class Detail extends Component
 {
@@ -20,6 +22,7 @@ class Detail extends Component
     public $contratRubriques;
     public $affectations;
     public $educations;
+    
 
 
     public $nom_diplome, $nom_universite, $date_debut,$date_fin,$fichier;
@@ -68,6 +71,40 @@ class Detail extends Component
             toastr()->error('Une erreur est survenue lors traitement de la page',$th);
         }
     }
+
+    function genererMotDePasse($longueur = 12)
+    {
+        $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        $motDePasse = '';
+
+        for ($i = 0; $i < $longueur; $i++) {
+            $motDePasse .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+
+        return $motDePasse;
+    }
+
+    public function genererPassword()
+    {
+        $agent = \App\Models\Agent::where('id',$this->agent->id)->first();
+        $agent->unblockAccount();
+        $agent->resetLoginAttempts();
+        $password = $this->genererMotDePasse();
+        $agent->password = Hash::make($password);
+        $agent->password_changed = false;
+        $agent->save();
+        $data = [
+            'nom' => $agent->nom,
+            'prenom' => $agent->prenom,
+            'email' => $agent->email,
+            'password' => $password,  // Envoyer le mot de passe en clair par email (attention à la sécurité)
+        ];
+
+        \Illuminate\Support\Facades\Mail::to($agent->email)->queue(new GenererPasswordMail($data));
+
+        toastr()->success('Le Mot de passe a ete genere avec success');
+    }
+
     public function render()
     {
         return view('livewire.admin.agent.detail');

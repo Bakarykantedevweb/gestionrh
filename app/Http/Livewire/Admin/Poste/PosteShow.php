@@ -4,13 +4,16 @@ namespace App\Http\Livewire\Admin\Poste;
 
 use App\Models\Poste;
 use Livewire\Component;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PosteShow extends Component
 {
     use WithFileUploads;
-    public $postes,$nom, $poste_id;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $nom, $poste_id;
     public $fichier;
 
     protected function rules()
@@ -130,7 +133,7 @@ class PosteShow extends Component
 
     public function render()
     {
-        $this->postes = Poste::OrderBy('nom','asc')->get();
-        return view('livewire.admin.poste.poste-show');
+        $postes = Poste::OrderBy('nom','asc')->paginate(5);
+        return view('livewire.admin.poste.poste-show',compact('postes'));
     }
 }

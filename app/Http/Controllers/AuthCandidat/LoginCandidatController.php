@@ -46,11 +46,12 @@ class LoginCandidatController extends Controller
         try {
             $candidat = Socialite::driver('google')->user();
             $findCandidat = Candidat::where('email', $candidat->email)->first();
-            if ($findCandidat) {
+            dd($findCandidat);
+            if ($findCandidat) 
+            {
                 Auth::guard('webcandidat')->login($findCandidat);
                 toastr()->success('Bienvenue sur la plateforme OptiRH');
                 return redirect('/');
-
             }
             else
             {

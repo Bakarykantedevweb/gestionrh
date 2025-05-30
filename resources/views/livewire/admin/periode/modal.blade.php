@@ -32,6 +32,19 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Exercice<span class="text-danger">*</span></label>
+                        <select wire:model="exercice_id" class="form-control">
+                            <option value="">...</option>
+                            @foreach ($exercices as $exercice)
+                                <option value="{{ $exercice->id }}">{{ $exercice->nom }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="month" class="form-control" wire:model="mois"> --}}
+                        @error('exercice_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Enregistrer</button>
                     </div>
@@ -73,6 +86,19 @@
                         </select>
                         {{-- <input type="month" class="form-control" wire:model="mois"> --}}
                         @error('mois')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Exercice<span class="text-danger">*</span></label>
+                        <select wire:model="exercice_id" class="form-control">
+                            <option value="">...</option>
+                            @foreach ($exercices as $exercice)
+                                <option value="{{ $exercice->id }}">{{ $exercice->nom }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="month" class="form-control" wire:model="mois"> --}}
+                        @error('exercice_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

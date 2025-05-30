@@ -17,7 +17,7 @@ class Register extends Component
             'prenom' => 'required|string',
             'username' => 'required|string',
             'email' => 'required|email',
-            'telephone' => 'required|regex:/^[0-9]{8}$/',
+            'telephone' => 'required|integer|regex:/^[0-9]{8}$/',
             'password' => 'required|min:8',
         ];
     }

@@ -8,11 +8,13 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use PragmaRX\Google2FALaravel\Google2FA;
 
 class Profile extends Component
 {
     public $telephone, $adresse,$photo,$password, $password_confirmation;
     public $name,$email;
+    public $otp;
     use WithFileUploads;
 
     public function mount()
@@ -30,7 +32,7 @@ class Profile extends Component
         'name' => 'string|string',
         'email' => 'string|email',
         'photo' => 'image|max:1024',
-        'password' => ['confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/'],
+        'password' => ['confirmed', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/'],
     ];
 
     public function updated($propertyName)
@@ -47,6 +49,21 @@ class Profile extends Component
             A une longueur minimale de 10 caractères.
         ',
     ];
+
+    public function otp()
+    {
+        $user = User::find(Auth::user()->id);
+        $google2fa = app('pragmarx.google2fa');
+        $otp = $google2fa->generateSecretKey();
+        $QR_image = $google2fa->getQRCodeInline(
+            "OptiRH",
+            Auth::user()->email,
+            $otp
+        );
+        $user->google2fa_secret = null;
+        $user->save();
+        $this->otp = $QR_image;
+    }
 
 
 
@@ -65,8 +82,32 @@ class Profile extends Component
         $user->update();
         return redirect('admin/profiles')->with('message','Profile Mise a jour avec success');
     }
+
+    public function saveAuthentificator()
+    {
+        $user = User::find(Auth::user()->id);
+        $user->google2fa_secret = $this->otp;
+        $user->save();
+        $this->dispatchBrowserEvent("close-modal");
+    }
+
     public function render()
     {
+        $google2fa = app(Google2FA::class);
+        if(! $google2fa->isActivated(Auth::user()))
+        {
+            $google2fa = app('pragmarx.google2fa');
+            $otp = $google2fa->generateSecretKey();  
+            $QR_Image = $google2fa->getQRCodeInline(
+                "OptiRH",
+                Auth::user()->email,
+                $otp
+            );
+            if(!Auth::user()->google2fa_secret)
+            {
+                $this->otp = $QR_Image;
+            }
+        }
         return view('livewire.admin.profile.profile');
     }
 }

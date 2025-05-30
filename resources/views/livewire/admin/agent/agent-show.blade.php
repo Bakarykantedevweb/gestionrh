@@ -28,32 +28,28 @@
     @include('layouts.partials.error')
     @if ($agentListes)
         <!-- Search Filter -->
-        {{-- <div class="row filter-row">
+        <div class="row filter-row">
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
-                    <select class="form-control">
-                        <option>Select Designation</option>
-                        <option>Web Developer</option>
-                        <option>Web Designer</option>
-                        <option>Android Developer</option>
-                        <option>Ios Developer</option>
-                    </select>
-                    <label class="focus-label">Designation</label>
+                    <input type="text" class="form-control" wire:model="searchMatricule"
+                        placeholder="Rechercher par matricule">
+                    <label class="focus-label">Matricule</label>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
                 <div class="form-group form-focus select-focus">
-                    <select class="form-control">
-                        <option>Select Designation</option>
-                        <option>Web Developer</option>
-                        <option>Web Designer</option>
-                        <option>Android Developer</option>
-                        <option>Ios Developer</option>
-                    </select>
-                    <label class="focus-label">Designation</label>
+                    <input type="text" class="form-control" wire:model="searchNom" placeholder="Rechercher par nom">
+                    <label class="focus-label">Nom</label>
                 </div>
             </div>
-        </div> --}}
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus select-focus">
+                    <input type="text" class="form-control" wire:model="searchPrenom"
+                        placeholder="Rechercher par prenom">
+                    <label class="focus-label">Prenom</label>
+                </div>
+            </div>
+        </div>
         <!-- Search Filter -->
         <div class="row staff-grid-row">
             @foreach ($agents as $items)
@@ -93,14 +89,16 @@
                         <a href="{{ url('admin/agents/' . $items->matricule . '/contrat') }}" target="_blank"
                             class="btn btn-white btn-sm m-t-10">Contrat
                         </a>
-                        <a href="{{ url('admin/agents/' . $items->matricule . '/detail') }}"
+                        <a href="{{ url('admin/agents/' . encrypt($items->matricule) . '/detail') }}"
                             class="btn btn-white btn-sm m-t-10">Voir Profile
                         </a>
                     </div>
                 </div>
             @endforeach
         </div>
-
+        <div class="mt-4">
+            {{ $agents->links() }} <!-- Afficher les liens de pagination -->
+        </div>
     @endif
     @if ($agentEdit)
         <div class="row">

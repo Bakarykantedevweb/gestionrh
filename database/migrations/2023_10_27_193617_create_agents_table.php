@@ -3,6 +3,7 @@
 use App\Models\Agence;
 use App\Models\Departement;
 use App\Models\Diplome;
+use App\Models\Exercice;
 use App\Models\Poste;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->foreignIdFor(Agence::class)->constrained();
             $table->foreignIdFor(Departement::class)->constrained();
             $table->foreignIdFor(Poste::class)->constrained();
+            $table->foreignIdFor(Exercice::class)->constrained();
             $table->string('login_attempts')->nullable();
             $table->string('last_login_attempt')->nullable();
             $table->integer('blocked')->default('0');

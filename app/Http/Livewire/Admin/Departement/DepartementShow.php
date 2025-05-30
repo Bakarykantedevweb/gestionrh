@@ -3,16 +3,19 @@
 namespace App\Http\Livewire\Admin\Departement;
 
 use App\Models\Agent;
-use App\Models\Departement;
 use App\Models\Poste;
 use Livewire\Component;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Models\Departement;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class DepartementShow extends Component
 {
     use WithFileUploads;
-    public $departements , $code, $nom , $dep_id;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $code, $nom , $dep_id;
     public $postes,$selectPoste = [];
     public $search = '';
     public $fichier;
@@ -146,10 +149,10 @@ class DepartementShow extends Component
                     'nom' => $nom,
                 ]);
             } catch (\Exception $e) {
-                session()->flash('success', $e->getMessage());
+                session()->flash('success', 'Importation Reussie avec success');
             }
         }
-        toastr()->success('Importation Reussie avec success');
+        // toastr()->success('Importation Reussie avec success');
         return redirect('admin/departements');
     }
 
@@ -175,9 +178,9 @@ class DepartementShow extends Component
 
     public function render()
     {
-        $this->departements = Departement::get();
+        $departements = Departement::paginate(5);
         $this->postes = Poste::orWhereRaw('LOWER(nom) like ?', ['%' . strtolower($this->search) . '%'])
                             ->get();
-        return view('livewire.admin.departement.departement-show');
+        return view('livewire.admin.departement.departement-show',compact('departements'));
     }
 }

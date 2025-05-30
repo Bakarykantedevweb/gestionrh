@@ -12,7 +12,7 @@ class DroitShow extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    public $type_droits, $droits , $type_droit_id, $nom,$acces,$route, $droit_id;
+    public $type_droits , $type_droit_id, $nom,$acces,$route, $droit_id;
     protected function rules()
     {
         return [
@@ -99,7 +99,7 @@ class DroitShow extends Component
     public function render()
     {
         $this->type_droits = Type_droit::get();
-        $this->droits = Droit::get();
-        return view('livewire.admin.droit.droit-show');
+        $droits = Droit::paginate(5);
+        return view('livewire.admin.droit.droit-show',compact('droits'));
     }
 }

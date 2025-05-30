@@ -78,7 +78,7 @@
                                         <div class="mb-2 col-12">
                                             <label class="form-label" for="phone">Telephone <span
                                                     class="text-danger">*</span></label>
-                                            <input type="number" wire:model="telephone" class="form-control">
+                                            <input type="text" wire:model="telephone" class="form-control">
                                             @error('telephone')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -123,7 +123,7 @@
                                     <div class="social-login">
                                         <ul class="list-unstyled d-flex mb-0">
                                             <li class="google text-center">
-                                                <a href="#"> <i class="fab fa-google me-3 me-md-4"></i>Connexion
+                                                <a href="{{ route('google.redirect') }}"> <i class="fab fa-google me-3 me-md-4"></i>Connexion
                                                     avec Google</a>
                                             </li>
                                         </ul>

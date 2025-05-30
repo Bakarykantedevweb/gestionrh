@@ -111,7 +111,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Telephone <span class="text-danger">*</span></label>
-                                    <input class="form-control" wire:model="telephone" type="number">
+                                    <input class="form-control" wire:model="telephone" type="text">
                                     @error('telephone')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -393,7 +393,7 @@
                                         <thead>
                                             <tr>
                                                 @foreach ($rubriques as $rubrique)
-                                                    <th class="text-center">{{ $rubrique->libelle }}</th>
+                                                    <th class="">{{ $rubrique->libelle }}</th>
                                                 @endforeach
                                             </tr>
                                         </thead>

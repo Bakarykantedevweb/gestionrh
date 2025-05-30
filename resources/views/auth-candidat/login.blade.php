@@ -65,17 +65,15 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6"> {!! htmlFormSnippet() !!} </div>
+                                    </div>
+                                    <br>
                                     <div class="row g-2">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <button class="btn btn-primary d-grid" type="submit">Se Connecter</button>
                                         </div>
-                                        <div class="col-md-4">
-                                            <a href="{{ route('google.redirect') }}">
-                                                <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-
+                                        <div class="col-md-6">
                                             <div class="ms-md-3 mt-3 mt-md-0 forgot-pass">
                                                 <a href="#">Mot de passe oublié ?</a>
                                                 <p class="mt-1">Vous n'avez pas de compte? <a
@@ -84,6 +82,20 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="mt-4">
+                                <fieldset>
+                                    <legend class="px-2">Connectez-vous avec</legend>
+                                    <div class="social-login">
+                                        <ul class="list-unstyled d-flex mb-0">
+                                            <li class="google text-center">
+                                                <a href="{{ route('google.redirect') }}"> <i
+                                                        class="fab fa-google me-3 me-md-4"></i>Connexion
+                                                    avec Google</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
                     </div>

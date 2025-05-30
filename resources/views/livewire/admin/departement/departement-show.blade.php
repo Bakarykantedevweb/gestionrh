@@ -86,6 +86,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="mt-4">
+                        {{ $departements->links() }} <!-- Afficher les liens de pagination -->
+                    </div>
                 </div>
             </div>
         </div>

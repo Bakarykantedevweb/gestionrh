@@ -88,20 +88,20 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>Heure de la formation</label>
                                 <input type="time" class="form-control" wire:model="heure">
                                 @error('heure')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label>Ficher de formation</label>
                                 <input type="file" class="form-control" wire:model="fichier">
                                  @error('fichier')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group col-md-12">
                                 <label>Decription</label>
                                 <textarea rows="4" wire:model="description" class="form-control @error('name') is-invalid @enderror" placeholder="Enter your message here"></textarea>

@@ -129,26 +129,29 @@
                                 <table class="w-full text-left mb-2">
                                     <thead>
                                         <tr class="border border-transparent border-b-slate-200 dark:border-b-navy-500">
-                                            @foreach ($questionListes as $item)
-                                                <th
-                                                    class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
-                                                    {{ $item->question->libelle }}
-                                                </th>
-                                            @endforeach
+                                            <th class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
+                                                Question
+                                            </th>
+                                            <th class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
+                                                Note
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($questionListes as $item)
                                         <tr class="border border-transparent border-b-slate-200 dark:border-b-navy-500">
-                                            @foreach ($questionListes as $item)
-                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                                    <label class="block">
-                                                        <input wire:model="notes.{{ $item->id }}"
-                                                            class="form-input w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                                            type="number" />
-                                                    </label>
-                                                </td>
-                                            @endforeach
+                                            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                                {{ $item->question->libelle }}
+                                            </td>
+                                            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                                <label class="block">
+                                                    <input wire:model="notes.{{ $item->id }}"
+                                                        class="form-input w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                                        type="number" />
+                                                </label>
+                                            </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 &nbsp;
@@ -157,7 +160,7 @@
                                     Envoyer
                                 </button>
                             </div>
-                        </form>
+                        </form>                        
                     </div>
                 </div>
             </div>

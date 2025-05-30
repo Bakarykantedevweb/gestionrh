@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'agent.guest' => \App\Http\Middleware\RedirectIfAuthenticatedAgent::class,
         'auth.candidat' => \App\Http\Middleware\AuthenticateCandidat::class,
         'candidat.guest' => \App\Http\Middleware\RedirectIfAuthenticatedCandidat::class,
+        '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
     ];
 }

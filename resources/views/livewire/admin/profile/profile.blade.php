@@ -38,8 +38,7 @@
                                         <small class="text-muted">{{ Auth::user()->role->nom }}</small>
                                         <div class="staff-id">Employee ID : MA-000{{ Auth::user()->id }}</div>
                                         <div class="small doj text-muted">Date de creation : {{ date('d-m-Y') }}</div>
-                                        {{-- <div class="staff-msg"><a class="btn btn-custom" href="">Send
-                                                Message</a></div> --}}
+                                        <div class="staff-msg"><a class="btn btn-custom" wire:click="otp" data-toggle="modal" data-target="#emargement" type="button" href="#">OTP</a></div>
                                     </div>
                                 </div>
                                 <div class="col-md-7">

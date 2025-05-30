@@ -45,6 +45,7 @@
     <script>
       window.addEventListener("DOMContentLoaded", () => Alpine.start());
     </script>
+    {!! ReCaptcha::htmlScriptTagJsApi() !!}
     @livewireScripts
   </body>
 </html>

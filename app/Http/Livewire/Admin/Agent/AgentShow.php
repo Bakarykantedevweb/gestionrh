@@ -14,9 +14,11 @@ use App\Models\Affectation;
 use App\Models\CentreImpot;
 use App\Models\Departement;
 use App\Models\TypeContrat;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\FeuilleCalcule;
 use App\Models\ContratRubrique;
+use App\Mail\GenererPasswordMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -24,7 +26,9 @@ use Illuminate\Support\Facades\Mail;
 class AgentShow extends Component
 {
     use WithFileUploads;
-    public $agents, $departements, $postes = [], $diplomes;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $departements, $postes = [], $diplomes;
     public $prenom, $nom, $age, $email, $sexe, $telephone, $departement_id, $poste_id;
     public $search = '';
     public $jour, $mois, $annee, $nombre;
@@ -53,6 +57,10 @@ class AgentShow extends Component
     public $agentEdit = false;
     public $agence_id;
     public $date_debut;
+
+    public $searchMatricule = '';
+    public $searchNom = '';
+    public $searchPrenom = '';
 
     public $options = [
         'Marie' => 'text',
@@ -207,114 +215,53 @@ class AgentShow extends Component
     {
         $validatedData = $this->validate();
         try {
-            $poste = Poste::find($validatedData['poste_id']);
-            if ($poste->is_responsable) {
-                // Vérifier s'il y a déjà un agent dans ce poste de responsable pour le même département
-                $existingAgent = Agent::where('departement_id', $validatedData['departement_id'])
-                ->where('poste_id', $validatedData['poste_id'])
-                    ->first();
-                if ($existingAgent) {
-                    toastr()->error('Il ne peut y avoir qu\'un seul agent pour ce poste de responsable dans ce département.');
-                }
-                else
-                {
-                    $agent = Agent::find($this->agent_id);
-                    $agent->prenom = $validatedData['prenom'];
-                    $agent->nom = $validatedData['nom'];
-                    $agent->email = $validatedData['email'];
-                    $agent->jour = $validatedData['jour'];
-                    $agent->mois = $validatedData['mois'];
-                    $agent->annee = $validatedData['annee'];
-                    $agent->age = $this->age;
-                    $agent->telephone = $validatedData['telephone'];
-                    $agent->agence_id = $validatedData['agence_id'];
-                    $agent->departement_id = $validatedData['departement_id'];
-                    $agent->poste_id = $validatedData['poste_id'];
-                    $agent->sexe = $validatedData['sexe'];
-                    $agent->password = Hash::make('password');
-                    $agent->save();
-                    if ($agent) {
-                        $contrat = $agent->contrat;
-                        $contrat->date_creation = $validatedData['date_entre'];
-                        if ($validatedData['type_contrat_id'] == 1) {
-                            $contrat->date_fin = NULL;
-                        } else {
-                            $contrat->date_fin = $this->date_fin;
-                        }
-                        $contrat->situation_matrimoniale = $this->selectedOption;
-                        $contrat->date_mariage = $this->date_mariage;
-                        $contrat->nombre_enfant = $this->nombre_enfant;
-                        $contrat->salaire = $this->montantCategorie;
-                        $contrat->nombre_jour_conge = 0;
-                        $contrat->agent_id = $agent->id;
-                        $contrat->type_contrat_id = $validatedData['type_contrat_id'];
-                        $contrat->centre_impot_id = $validatedData['centre_impot_id'];
-                        $contrat->feuille_calcule_id = $validatedData['feuille_calcule_id'];
-                        $contrat->diplome_id = $validatedData['diplome_id'];
-                        $contrat->save();
-                        foreach ($this->rubriques as $rubrique) {
-                            $contratRubrique = ContratRubrique::firstOrNew([
-                                'contrat_id' => $contrat->id,
-                                'rubrique_id' => $rubrique->id,
-                            ]);
 
-                            $contratRubrique->montant = $this->montant[$rubrique->id];
-                            $contratRubrique->save();
-                        }
-                    }
-                    session()->flash('success', 'Operation effectue avec Success');
-                    return redirect('admin/agents');
+            $agent = Agent::find($this->agent_id);
+            $agent->prenom = $validatedData['prenom'];
+            $agent->nom = $validatedData['nom'];
+            $agent->email = $validatedData['email'];
+            $agent->jour = $validatedData['jour'];
+            $agent->mois = $validatedData['mois'];
+            $agent->annee = $validatedData['annee'];
+            $agent->age = $this->age;
+            $agent->telephone = $validatedData['telephone'];
+            $agent->agence_id = $validatedData['agence_id'];
+            $agent->departement_id = $validatedData['departement_id'];
+            $agent->poste_id = $validatedData['poste_id'];
+            $agent->sexe = $validatedData['sexe'];
+            $agent->password = Hash::make('password');
+            $agent->save();
+            if ($agent) {
+                $contrat = $agent->contrat;
+                $contrat->date_creation = $validatedData['date_entre'];
+                if ($validatedData['type_contrat_id'] == 1) {
+                    $contrat->date_fin = NULL;
+                } else {
+                    $contrat->date_fin = $this->date_fin;
+                }
+                $contrat->situation_matrimoniale = $this->selectedOption;
+                $contrat->date_mariage = $this->date_mariage;
+                $contrat->nombre_enfant = $this->nombre_enfant;
+                $contrat->salaire = $this->montantCategorie;
+                $contrat->nombre_jour_conge = 0;
+                $contrat->agent_id = $agent->id;
+                $contrat->type_contrat_id = $validatedData['type_contrat_id'];
+                $contrat->centre_impot_id = $validatedData['centre_impot_id'];
+                $contrat->feuille_calcule_id = $validatedData['feuille_calcule_id'];
+                $contrat->diplome_id = $validatedData['diplome_id'];
+                $contrat->save();
+                foreach ($this->rubriques as $rubrique) {
+                    $contratRubrique = ContratRubrique::firstOrNew([
+                        'contrat_id' => $contrat->id,
+                        'rubrique_id' => $rubrique->id,
+                    ]);
+
+                    $contratRubrique->montant = $this->montant[$rubrique->id];
+                    $contratRubrique->save();
                 }
             }
-            else
-            {
-                $agent = Agent::find($this->agent_id);
-                $agent->prenom = $validatedData['prenom'];
-                $agent->nom = $validatedData['nom'];
-                $agent->email = $validatedData['email'];
-                $agent->jour = $validatedData['jour'];
-                $agent->mois = $validatedData['mois'];
-                $agent->annee = $validatedData['annee'];
-                $agent->age = $this->age;
-                $agent->telephone = $validatedData['telephone'];
-                $agent->agence_id = $validatedData['agence_id'];
-                $agent->departement_id = $validatedData['departement_id'];
-                $agent->poste_id = $validatedData['poste_id'];
-                $agent->sexe = $validatedData['sexe'];
-                $agent->password = Hash::make('password');
-                $agent->save();
-                if ($agent) {
-                    $contrat = $agent->contrat;
-                    $contrat->date_creation = $validatedData['date_entre'];
-                    if ($validatedData['type_contrat_id'] == 1) {
-                        $contrat->date_fin = NULL;
-                    } else {
-                        $contrat->date_fin = $this->date_fin;
-                    }
-                    $contrat->situation_matrimoniale = $this->selectedOption;
-                    $contrat->date_mariage = $this->date_mariage;
-                    $contrat->nombre_enfant = $this->nombre_enfant;
-                    $contrat->salaire = $this->montantCategorie;
-                    $contrat->nombre_jour_conge = 0;
-                    $contrat->agent_id = $agent->id;
-                    $contrat->type_contrat_id = $validatedData['type_contrat_id'];
-                    $contrat->centre_impot_id = $validatedData['centre_impot_id'];
-                    $contrat->feuille_calcule_id = $validatedData['feuille_calcule_id'];
-                    $contrat->diplome_id = $validatedData['diplome_id'];
-                    $contrat->save();
-                    foreach ($this->rubriques as $rubrique) {
-                        $contratRubrique = ContratRubrique::firstOrNew([
-                            'contrat_id' => $contrat->id,
-                            'rubrique_id' => $rubrique->id,
-                        ]);
-
-                        $contratRubrique->montant = $this->montant[$rubrique->id];
-                        $contratRubrique->save();
-                    }
-                }
-                session()->flash('success', 'Operation effectue avec Success');
-                return redirect('admin/agents');
-            }
+            session()->flash('success', 'Operation effectue avec Success');
+            return redirect('admin/agents');
         } catch (\Throwable $th) {
             //throw $th;
             toastr()->error('error', $th);
@@ -346,31 +293,61 @@ class AgentShow extends Component
         $this->photo = '';
     }
 
+    function genererMotDePasse($longueur = 12)
+    {
+        $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        $motDePasse = '';
+
+        for ($i = 0; $i < $longueur; $i++) {
+            $motDePasse .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+
+        return $motDePasse;
+    }
+
     public function activer(int $agent_id)
     {
         $agent = Agent::findOrFail($agent_id); // Retrouver l'agent par ID
         $agent->unblockAccount();
         $agent->resetLoginAttempts();
-        $agent->password = Hash::make('password');
+        $password = $this->genererMotDePasse();
+        $agent->password = Hash::make($password);
         $agent->password_changed = false;
         $agent->save();
+        $data = [
+            'nom' => $agent->nom,
+            'prenom' => $agent->prenom,
+            'email' => $agent->email,
+            'password' => $password,  // Envoyer le mot de passe en clair par email (attention à la sécurité)
+        ];
+
+        \Illuminate\Support\Facades\Mail::to($agent->email)->queue(new GenererPasswordMail($data));
         toastr()->success('Le compte de l\'agent a été activé. Son mot de passe par defaut c\'est password');
         return redirect('admin/agents');
     }
-
-
-
+    
     public function render()
     {
-        $this->agents = Agent::with(['contrats' => function ($query) {
+        $agents = Agent::with(['contrats' => function ($query) {
             $query->where('date_fin', '<', now());
-        }])->orderBy('id', 'asc')->get();
+        }])
+        ->when($this->searchMatricule, function ($query) {
+            $query->whereRaw('LOWER(matricule) like ?', ['%' . strtolower($this->searchMatricule) . '%']);
+        })
+        ->when($this->searchNom, function ($query) {
+            $query->whereRaw('LOWER(nom) like ?', ['%' . strtolower($this->searchNom) . '%']);
+        })
+        ->when($this->searchPrenom, function ($query) {
+            $query->whereRaw('LOWER(prenom) like ?', ['%' . strtolower($this->searchPrenom) . '%']);
+        })
+        ->orderBy('prenom', 'asc')
+        ->paginate(10);
         $this->departements = Departement::get();
         $this->diplomes = Diplome::get();
         $this->typeContrats = TypeContrat::limit(3)->get();
         $this->centreImpots = CentreImpot::get();
         $this->feuilles = FeuilleCalcule::get();
         $this->agences = Agence::get();
-        return view('livewire.admin.agent.agent-show');
+        return view('livewire.admin.agent.agent-show',compact('agents'));
     }
 }

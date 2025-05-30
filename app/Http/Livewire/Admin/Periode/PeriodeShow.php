@@ -2,17 +2,19 @@
 
 namespace App\Http\Livewire\Admin\Periode;
 
+use App\Models\Exercice;
 use App\Models\Periode;
 use Livewire\Component;
 
 class PeriodeShow extends Component
 {
     public $Periodes,$mois,$periode_id;
-
+    public $exercices, $exercice_id;
     protected function rules()
     {
         return [
             'mois' => 'required|string',
+            'exercice_id' => 'required|integer'
         ];
     }
 
@@ -28,6 +30,7 @@ class PeriodeShow extends Component
             $Periode = new Periode();
 
             $Periode->mois = $validatedData['mois'];
+            $Periode->exercice_id = $validatedData['exercice_id'];
             $Periode->save();
             session()->flash('message', 'Periode ajouter avec Success');
             $this->resetInput();
@@ -46,6 +49,7 @@ class PeriodeShow extends Component
         if ($Periode) {
             $this->periode_id = $periode_id;
             $this->mois = $Periode->mois;
+            $this->exercice_id = $Periode->exercice_id;
         }
     }
 
@@ -55,6 +59,7 @@ class PeriodeShow extends Component
         try {
             $Periode = Periode::find($this->periode_id);
             $Periode->mois = $validatedData['mois'];
+            $Periode->exercice_id = $validatedData['exercice_id'];
             $Periode->save();
             session()->flash('message', 'Periode Modifié avec Success');
             $this->resetInput();
@@ -101,6 +106,7 @@ class PeriodeShow extends Component
     public function render()
     {
         $this->Periodes = Periode::get();
+        $this->exercices = Exercice::get();
         return view('livewire.admin.periode.periode-show');
     }
 }

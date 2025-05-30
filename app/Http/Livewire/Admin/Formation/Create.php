@@ -46,9 +46,10 @@ class Create extends Component
 
     public function SaveFormation()
     {
+        
         $validatedData = $this->validate();
 
-        // try {
+        try {
             $formation = new Formation();
             $formation->titre = $validatedData['titre'];
             $formation->description = $validatedData['description'];
@@ -56,9 +57,7 @@ class Create extends Component
             $formation->date_fin = $validatedData['date_fin'];
             $formation->status = $validatedData['status'];
             $formation->heure = $validatedData['heure'];
-            $fichierName = Carbon::now()->timestamp . '.' . $this->fichier->extension();
-            $this->fichier->storeAs('admin/formation/fichier/', $fichierName);
-            $formation->fichier = $fichierName;
+            $formation->fichier = 'soutenance.pptx';
             $formation->type_formation_id = $validatedData['type_formation_id'];
             $formation->formateur_id = $validatedData['formateur_id'];
             $formation->save();
@@ -80,10 +79,10 @@ class Create extends Component
             }
             toastr()->success('Formation ajoutée avec success');
             return redirect('admin/formations');
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        //     toastr()->error($th);
-        // }
+        } catch (\Throwable $th) {
+            //throw $th;
+            toastr()->error($th);
+        }
     }
 
     public function render()

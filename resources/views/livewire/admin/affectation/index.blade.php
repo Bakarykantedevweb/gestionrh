@@ -30,54 +30,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($affectations as $items)
-                            <tr>
-                                <td>{{ $items->agent->prenom . ' ' . $items->agent->nom }}</td>
-                                <td>{{ $items->agence->nom }}</td>
-                                <td>{{ $items->departement->code }}</td>
-                                <td>{{ $items->poste->nom }}</td>
-                                <td>{{ \Carbon\Carbon::parse($items->date_debut)->isoFormat('LL') }}</td>
-                                <td>
-                                    @if ($items->date_fin == '')
-                                        <span class="badge bg-inverse-success">En cour</span>
-                                    @else
-                                        <span
-                                            class="badge bg-inverse-danger">{{ \Carbon\Carbon::parse($items->date_fin)->isoFormat('LL') }}</span>
-                                    @endif
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            @if ($items->date_fin == '')
-                                                <a wire:click="MettreFin({{ $items->id }})" class="dropdown-item"
-                                                    href="#" data-toggle="modal" data-target="#mettre_fin"><i
-                                                        class="fa fa-close m-r-5"></i>
-                                                    Mettre fin</a>
-                                            @elseif($items->date_fin != '' and $items->status == 1)
-                                                <a wire:click="AddAffectation({{ $items->agent_id }},{{ $items->id }})"
-                                                    class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#add_affectation"><i class="fa fa-plus m-r-5"></i>
-                                                    Nouveau</a>
-                                            @elseif(!$items->date_fin != '' and $items->status == 2)
-                                                {{-- <a wire:click="AddAffectation({{ $items->agent_id }},{{ $items->id }})"
-                                                    class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#add_affectation"><i class="fa fa-plus m-r-5"></i>
-                                                    Nouveau</a> --}}
-                                            @endif
+                        @if($affectations && $affectations->count() > 0)
+                            @foreach ($affectations as $items)
+                                <tr>
+                                    <td>{{ $items->agent->prenom . ' ' . $items->agent->nom }}</td>
+                                    <td>{{ $items->agence->nom }}</td>
+                                    <td>{{ $items->departement->code }}</td>
+                                    <td>{{ $items->poste->nom }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($items->date_debut)->isoFormat('LL') }}</td>
+                                    <td>
+                                        @if ($items->date_fin == '')
+                                            <span class="badge bg-inverse-success">En cour</span>
+                                        @else
+                                            <span class="badge bg-inverse-danger">{{ \Carbon\Carbon::parse($items->date_fin)->isoFormat('LL') }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                @if ($items->date_fin == '')
+                                                    <a wire:click="MettreFin({{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal" data-target="#mettre_fin"><i class="fa fa-close m-r-5"></i> Mettre fin</a>
+                                                @elseif($items->date_fin != '' and $items->status == 1)
+                                                    <a wire:click="AddAffectation({{ $items->agent_id }},{{ $items->id }})" class="dropdown-item" href="#" data-toggle="modal" data-target="#add_affectation"><i class="fa fa-plus m-r-5"></i> Nouveau</a>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
                                 <td colspan="7" class="text-center">Pas de promotion</td>
                             </tr>
-                        @endforelse
+                        @endif
                     </tbody>
                 </table>
+        
+                <!-- Pagination Links -->
+                <div class="mt-4">
+                    {{ $affectations->links() }} <!-- Afficher les liens de pagination -->
+                </div>
             </div>
         </div>
+        
     </div>
 </div>

@@ -24,14 +24,15 @@ return new class extends Migration
             $table->string('telephone')->nullable();
             $table->foreignId('role_id')->constrained();
             $table->foreignId('role_type_user_id')->constrained('role_type_users')->onDelete('cascade');
+            $table->longText('google2fa_secret')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
         DB::table('users')->insert([
             [
                 'name' => 'Bakary Kante',
-                'email' => 'informaticien@gmail.com',
-                'password' => Hash::make('password'),
+                'email' => 'kantebakary742@gmail.com',
+                'password' => Hash::make('B@k@ryk@nte3148**'),
                 'role_id' => 1,
                 'role_type_user_id' => 2,
                 'photo' => '1700865517.jpg'

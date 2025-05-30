@@ -56,6 +56,8 @@ use App\Http\Controllers\AuthCandidat\LoginCandidatController;
 use App\Http\Controllers\Candidat\CandidatDashboardController;
 use App\Http\Controllers\Candidat\DashboardCandidatController;
 use App\Http\Controllers\AuthCandidat\RegisterCandidatController;
+use Illuminate\Http\Request;
+use PragmaRX\Google2FA\Google2FA;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,7 +104,7 @@ Route::middleware(['auth.agent'])->group(function () {
     });
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 Route::get('admin/404', [App\Http\Controllers\Admin\DashboardController::class, 'page404']);
@@ -313,3 +315,7 @@ Route::middleware(['auth.candidat'])->group(function(){
     });
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

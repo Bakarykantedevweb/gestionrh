@@ -11,11 +11,11 @@
             </div>
         </div>
         <div class="slideshow">
-            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/1.jpg') }}');"></div>
-            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/2.jpg') }}');"></div>
-            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/3.jpg') }}');"></div>
-            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/4.jpg') }}');"></div>
-            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/5.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/bann1.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/bann1.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/bann1.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/bann1.jpg') }}');"></div>
+            <div class="slideshow-item" style="background-image: url('{{ asset('frontend/images/bg/bann1.jpg') }}');"></div>
         </div>
     </section>
     <section class="space-ptb">

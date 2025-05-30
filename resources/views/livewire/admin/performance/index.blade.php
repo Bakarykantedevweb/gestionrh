@@ -153,11 +153,6 @@
                                 <input type="text" wire:model="questions.{{ $index }}.question"
                                     class="form-control">
                             </div>
-                            {{-- <div class="form-group col-md-4">
-                                <label for="">Note (/10)</label>
-                                <input type="numbre"
-                                    wire:model="questions.{{ $index }}.note" readonly class="form-control">
-                            </div> --}}
                             <div class="col-md-4 mt-2">
                                 <br>
                                 <button type="button" class="btn btn-danger"
@@ -177,9 +172,6 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title"> Detail Performance</h3>
-                <div class="row">
-
-                </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead>
@@ -190,6 +182,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $resultat = 0;
+                            @endphp
                             @foreach ($questionListes as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
@@ -197,8 +192,17 @@
                                     <td><input class="form-control" readonly value="{{ $item->note }}">
                                     </td>
                                 </tr>
+                                @php 
+                                    $resultat += $item->note
+                                @endphp
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Resulat</td>
+                                <td>{{ $resultat }}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

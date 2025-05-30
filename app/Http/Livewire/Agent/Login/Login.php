@@ -96,21 +96,28 @@ class Login extends Component
 
     public function updatePassword()
     {
+        $validatedData = $this->validate([
+            'newpassword' => ['regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/'],
+        ]);
         $agent = Agent::find($this->agentID);
         // Mettre à jour le mot de passe de l'agent avec le nouveau mot de passe
-        if($this->newpassword != $this->confirmpassword)
-        {
-            toastr()->error('Les deux mots de passe ne sont pas les meme');
-            $this->confirmpassword = '';
-        }
-
-        $agent->password = Hash::make($this->newpassword);
+        $agent->password = Hash::make($validatedData['newpassword']);
         $agent->password_changed = true;
         $agent->save();
 
         // Rediriger l'agent vers le tableau de bord après la mise à jour du mot de passe
         return redirect()->route('agent-dashboard');
     }
+
+    protected $messages = [
+        'newpassword' => '
+            Contient au moins une lettre majuscule.
+            Contient au moins une lettre minuscule.
+            Contient au moins un chiffre.
+            Contient au moins un caractère spécial parmi @, $, !, %, *, ?, &.
+            A une longueur minimale de 10 caractères.
+        ',
+    ];
 
 
 

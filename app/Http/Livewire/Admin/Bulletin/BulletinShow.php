@@ -147,7 +147,7 @@ class BulletinShow extends Component
                 }
             }
 
-            // Envoyer un email aux contrats
+            //Envoyer un email aux contrats
             if (!$BulletinExiste) {
                 foreach ($this->contrats as $contrat) {
                     $data = [

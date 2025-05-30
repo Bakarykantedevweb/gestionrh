@@ -8,10 +8,13 @@ use App\Models\Agence;
 use Livewire\Component;
 use App\Models\Affectation;
 use App\Models\Departement;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $affectations;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    // public $affectations;
     public $date_fin;
     public $date_debut;
     public $affectation_id;
@@ -19,6 +22,8 @@ class Index extends Component
     public $status;
     public $agences, $departements, $postes = [];
     public $agence_id, $departement_id, $poste_id;
+    
+
 
     protected function rules()
     {
@@ -94,26 +99,26 @@ class Index extends Component
         ]);
         try {
 
-                $affectation = new Affectation();
-                $affectation->agent_id = $this->agent_id;
-                $affectation->agence_id  = $validatedData['agence_id'];
-                $affectation->departement_id = $validatedData['departement_id'];
-                $affectation->poste_id = $validatedData['poste_id'];
-                $affectation->date_debut = $validatedData['date_debut'];
-                $affectation->save();
-                if ($affectation) {
+            $affectation = new Affectation();
+            $affectation->agent_id = $this->agent_id;
+            $affectation->agence_id  = $validatedData['agence_id'];
+            $affectation->departement_id = $validatedData['departement_id'];
+            $affectation->poste_id = $validatedData['poste_id'];
+            $affectation->date_debut = $validatedData['date_debut'];
+            $affectation->save();
+            if ($affectation) {
 
-                    $aff = Affectation::where('id', $this->affectation_id)->where('agent_id', $this->agent_id)->first();
-                    $aff->status = 2;
-                    $aff->save();
+                $aff = Affectation::where('id', $this->affectation_id)->where('agent_id', $this->agent_id)->first();
+                $aff->status = 2;
+                $aff->save();
 
-                    if ($aff) {
-                        $agent = Agent::where('id', $this->agence_id)->first();
-                        $agent->agence_id  = $validatedData['agence_id'];
-                        $agent->departement_id = $validatedData['departement_id'];
-                        $agent->poste_id = $validatedData['poste_id'];
-                        $agent->save();
-                    }
+                if ($aff) {
+                    $agent = Agent::where('id', $this->agence_id)->first();
+                    $agent->agence_id  = $validatedData['agence_id'];
+                    $agent->departement_id = $validatedData['departement_id'];
+                    $agent->poste_id = $validatedData['poste_id'];
+                    $agent->save();
+                }
             }
             toastr()->success('Operation effectue avec success');
             return redirect('admin/affectations');
@@ -133,15 +138,23 @@ class Index extends Component
     {
         $this->date_fin = '';
     }
+
     public function render()
     {
-        $this->affectations = Affectation::whereIn('id', function ($query) {
+        // Récupérer les affectations avec pagination
+        $affectations = Affectation::whereIn('id', function ($query) {
             $query->selectRaw('MAX(id)')
                 ->from('affectations')
                 ->groupBy('agent_id');
-        })->get();
-        $this->departements = Departement::get();
-        $this->agences = Agence::get();
-        return view('livewire.admin.affectation.index');
+        })
+        ->orderBY('id','desc')
+        ->paginate(5);
+
+        // Récupérer les départements et agences
+        $this->departements = Departement::all();
+        $this->agences = Agence::all();
+
+        // Retourner la vue avec les affectations paginées
+        return view('livewire.admin.affectation.index', compact('affectations'));
     }
 }

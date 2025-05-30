@@ -38,7 +38,8 @@
                                             {{ $this->agent->departement->nom }}</h6>
                                         <small class="text-muted">{{ $this->agent->poste->nom }}</small>
                                         <div class="staff-id">Matricule : {{ $this->agent->matricule }}</div>
-                                        {{-- <div class="small doj text-muted">Date of Join : 1st Jan 2013</div> --}}
+                                        <div class="staff-id">Solde de Conge : {{ $this->contrat->nombre_jour_conge }}</div>
+                                        <div class="staff-msg"><a class="btn btn-custom" wire:click="genererPassword" type="button" href="#">Generer un mot de passe</a></div>
                                     </div>
                                 </div>
                                 <div class="col-md-7">

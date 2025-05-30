@@ -68,6 +68,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $droits->links() }} <!-- Afficher les liens de pagination -->
+                </div>
             </div>
         </div>
     </div>

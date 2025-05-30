@@ -42,7 +42,8 @@ class AgentController extends Controller
             return redirect('admin/404');
         }
         try {
-            $agent = Agent::where('matricule',$matricule)->first();
+            $decryptMatricule = decrypt($matricule);
+            $agent = Agent::where('matricule',$decryptMatricule)->first();
             if(!$agent){
                 toastr()->error('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
                 return redirect()->route('agent.index');

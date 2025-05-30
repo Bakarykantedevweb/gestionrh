@@ -124,7 +124,7 @@
                 <div class="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
                     <div class="flex justify-between">
                         <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                            143
+                            000
                         </p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-warning" fill="none"
                             viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -133,12 +133,12 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="mt-1 text-xs+">Pending</p>
+                    <p class="mt-1 text-xs+">???</p>
                 </div>
                 <div class="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
                     <div class="flex justify-between">
                         <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                            651
+                            000
                         </p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-info" fill="none"
                             viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -148,12 +148,12 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="mt-1 text-xs+">Dispatch</p>
+                    <p class="mt-1 text-xs+">???</p>
                 </div>
                 <div class="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
                     <div class="flex justify-between space-x-1">
                         <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                            46k
+                            000
                         </p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-secondary" fill="none"
                             viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -161,12 +161,12 @@
                                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
-                    <p class="mt-1 text-xs+">Products</p>
+                    <p class="mt-1 text-xs+">???</p>
                 </div>
                 <div class="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
                     <div class="flex justify-between">
                         <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                            8.8k
+                            000
                         </p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-error" fill="none"
                             viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -175,11 +175,11 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="mt-1 text-xs+">Customers</p>
+                    <p class="mt-1 text-xs+">???</p>
                 </div>
             </div>
         </div>
-        <div class="card col-span-12 lg:col-span-8">
+        {{-- <div class="card col-span-12 lg:col-span-8">
             <div class="flex items-center justify-between py-3 px-4">
                 <h2 class="font-medium tracking-wide text-slate-700 dark:text-navy-100">
                     Projects Status
@@ -387,8 +387,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-span-12 lg:col-span-4">
+        </div> --}}
+        {{-- <div class="col-span-12 lg:col-span-4">
             <div class="flex items-center justify-between">
                 <h2 class="font-medium tracking-wide text-slate-700 dark:text-navy-100">
                     Customer Satisfaction
@@ -537,6 +537,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

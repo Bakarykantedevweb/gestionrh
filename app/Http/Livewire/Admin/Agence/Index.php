@@ -6,11 +6,14 @@ use App\Models\Agence;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
     use WithFileUploads;
-    public $agences;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    // public $agences;
     public $agence_id,$nom;
     public $fichier;
     protected function rules()
@@ -85,7 +88,7 @@ class Index extends Component
     }
     public function render()
     {
-        $this->agences = Agence::where('status', '0')->get();
-        return view('livewire.admin.agence.index');
+        $agences = Agence::where('status', '0')->paginate(5);
+        return view('livewire.admin.agence.index',compact('agences'));
     }
 }
